@@ -1,0 +1,542 @@
+{
+	"$schema": "http://json-schema.org/draft-06/schema",
+	"$id": "WITS-IoT.schema.json",
+	"name": "WITS-IoT Configuration and Operation Schema",
+
+	"definitions": {
+	
+		"translatableString": {
+			"description": "i18n Support",
+			"oneOf": [
+				{
+					"type": "string"
+				},
+				{
+					"type": "object",
+					"patternProperties": {
+						"^\\w+": {
+							"type": "string"
+						}
+					}
+				}
+			]
+		},
+		
+		"messageLWT": {
+			"title": "LWT",
+			"description": "Schema for a Last Will and Testament. Topic: [UUID]/UP/lwt",
+
+			"type": "object",
+			"properties": {
+				"state": {
+					"enum": ["Disconnected"]
+				}
+			},
+			"required": ["state"]
+		},
+		
+    "coreBlock": {
+      "description": "Used in Birth Certificate", 
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "ver": {
+          "type": "string"
+        },
+        "req": {
+          "type": "boolean"
+        }
+      },
+      "required": [ "name", "ver" ]
+    },
+
+		"messageBirthCertificate": {
+			"title": "BirthCertificate",
+			"description": "schema for a Birth Certificate. Topic: [UUID]/UP/status",
+
+			"type": "object",
+			"properties": {
+				"pVer": {
+					"description":  "Profile Version, Number with decimal place",
+					"type": "number"
+				},
+				"core": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/coreBlock" }
+				},
+				"cVer": { 
+					"description": "Config Version",
+					"type": "integer"
+				},
+				"confReq": {
+					"type": "boolean"
+				},
+				"confState": {
+					"type": "string"
+				},
+				"inactiveState": {
+					"type": "boolean"
+				},
+				"nid": {
+					"type": "string"
+				},
+				"time": {
+					"description": "Add a separate definition for this with string regexp?",
+					"type": "string"
+				}
+			},
+			"required": ["pVer", "cVer", "time"]
+		},
+
+		"messageCoreBlock": {
+			"title": "Core Block",
+			"description": "schema for a Core Block download. Topic: [UUID]/DOWN/core/block/<name>/<version-text> . Or /UP/",
+
+			"type": "object",
+				"properties": {
+					"blockPart": {
+						"type": "string"
+					},
+					"totalParts": {
+						"type": "integer"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": ["blockPart", "totalParts", "data"]
+			
+		},
+
+		"coreBlockList": {
+			"description": "Used in Birth Certificate.",
+			"type": "array",
+				"items": { "type": "string"
+				}
+			},
+			"required": [ ]
+		},
+
+		"messageCoreBlockRequest": {
+			"title": "Core Block Request",
+			"description": "schema for a Core Block Request - enable or disable a block. Topic: [UUID]/UP/core/request",
+
+			"type": "object",
+				"properties": {
+					"oneOf": [
+						{"activate": 
+							{ "$ref": "#/definitions/coreBlockList"
+							}
+						},
+						{"deactivate":
+							{ "$ref": "#/definitions/coreBlockList"
+							}
+						},
+						{"upload": 
+							{ "$ref": "#/definitions/coreBlockList" 
+							}
+						}
+				]
+			}
+		},
+				
+
+		"messageConfiguration": {
+			"title": "Configuration",
+			"description": "Schema for a Configuration message. a generic schema to validate configuration, with no check of object property names, because that is a function of the Device Profile. [UUID]/DOWN/Configuration. Or /UP/.",
+
+			"type": "object",
+			"properties": {
+				"XXX": {
+					"type": "string"
+				}
+			},
+			"required": [ "XXX" ],
+      "comment": "Each object type is within an array of objects - even the Device."
+		},
+
+		"messageData": {
+			"title": "Data Message",
+			"description": "schema for a Data message. Topic: [UUID]/UP/data",
+
+			"type": "object",
+			"properties": {
+			"comment": "XXX  'p': { 'n': 'ai:1', etc..."
+			},
+			"required": [ "XXX" ]
+		},
+		
+		"timeStamp": {
+			"title": "Time Stamp",
+			"description": "Either a time string or number",
+			
+			"anyOf": [
+				{ "type": "string" },
+				{ "type": "number" }
+			]
+		},
+		   
+		"messageClock": {
+			"title": "Clock message",
+			"description": "Schema to set or get clock. Topic: [UUID]/DOWN/setclock  or: [UUID]/UP/getclock",
+
+			"type": "object",
+			"properties": {
+				"master": { "#ref": "timeStamp"},
+				"device": { "#ref": "timeStamp"}
+			}
+		},
+
+		"messageGetData": {
+			"title": "Get Data Message",
+			"description": "Schema for a data request. Topic: [UUID]/DOWN/getdata",
+
+			"type": "object",
+			"properties": {
+				"XXX": "ZZZ",
+				"data": "Buffer",
+				"or": "?",
+				"dataXX": "All",
+				"or2": "add start/end ..."
+			},
+			"required": ["XXX" ]
+		},
+
+
+		"messageGetDeviceInfo": {
+			"title": "Get Device Information command",
+			"description": "Schema for a command to get selected device information. Topic: [UUID]/DOWN/getdeviceinfo",
+
+			"type": "object",
+			"properties": {
+				"config": [ "status", "profile", "configuration" ]
+			},
+			"required": [ "config" ]
+		},
+
+
+		"messageControl": {
+			"title": "Control Message",
+			"description": "Schema for controls. Topic: [UUID]/DOWN/control",
+
+			"type": "object",
+			"properties": {
+				"control": {
+					"properties": "ZZZ",
+						"oneOf": {
+							"n":"XXX",
+							"name":"XXX"
+						}
+				},
+				"OneOf": {
+					"value": "number",
+					"value2": "?? string"
+				},
+				"comment":  "Do we need 'control' object name? require either n or name"
+			},
+			"required": ["XXX", "value"]
+		},
+
+		"messageOverride": {
+			"title": "Override Message",
+			"description": "Schema for overrides. Topic: [UUID]/DOWN/override",
+
+			"type": "object",
+			"properties": {
+				"override":  "XXX  Do we need 'override' object name?"
+			},
+			"required": ["XXX"]
+		},
+
+					
+		"profileContent" :
+		{
+			"title": "Profile Content",
+			"description": "schema for Device Profile Content - either used standalone via url or within the Profile",
+			"comment": "Object collections leading to definition of the Device Profile. Defines the profile content, object types, their field types and the form representation information.",
+			"type": "object",
+			"properties": {
+				"capability": {
+					"type": "object",
+					"properties": {
+						"points": {
+							"type": "object",
+							"properties": {
+								"addresses": {
+								}
+							}
+						}
+					},
+					"pointSupport": {
+					},
+					"channels": {
+					},
+					"commands": {
+					}
+				},
+				"objectTypes": { 
+					"$ref": "definitions/#ObjectTypes"
+				}
+			}
+		},
+	
+	
+		"comment":  "Entity definition types. Are they needed?",
+		"enumEntryType": {
+		  "type": "array",
+		  "minItems": 1,
+		  "uniqueItems": true
+		},
+
+		"comment2": "Field formatting and visibility information.  Note that these are hints that can be used to display",
+		"comment3": "a form.  All properties are optional, the position allowing some control over where a field",
+		"comment4": "is shown on in the row, although it should not be used to try and change the order of fields, instead",
+		"comment5": "the field array order should take precedent.",
+		"comment6": "Width can be used to override the default width derived from the field data type, numeric limits or length",
+		"fieldType": {
+			"type": "object",
+			"properties": {
+				"fieldName": { "type": "string" },
+
+				"comment": "If this field is specific to a device type, then specify this as True.",
+				"comment2": "If true then the field type is not equivalent to that on any other device type.",
+				"deviceSpecific": {"type": "boolean"},
+			
+				"label": { "$ref": "#/definitions/translatableString" },
+				"description": { "$ref": "#/definitions/translatableString" },
+				"comment3": "A simple expression that allows comparisons to be made against other fields to determine whether this",
+				"comment4": "field should allow entry or not. The grammar is described below under 'expression grammar'.  ",
+				"comment5": "For syntax hint see expression-eval js library.",
+				"enabled": { "type": "string" },
+				"position": { "type": "integer" },
+				"width": { "type": "integer" },
+				"comment6": "How many rows this field should take up.  Used for string fields to allow multi-line editing.",
+				"height": { "type": "integer" }
+			},
+			"additionalProperties": false
+		},
+
+		"comment7": "An array of fields/labels.  The ordering is used for form positioning",
+		"rowType": {
+		  "type": "object",
+		  "properties": {
+			"label": { "$ref": "#/definitions/translatableString" },
+			"fields": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/definitions/fieldType"
+			  }
+			}
+		  }
+		},
+
+		"headerType": {
+		  "type": "array",
+		  "items": {
+			"$ref": "#/definitions/translatableString"
+		  }
+		},
+
+		"comment8": "A field grid is used when a grid layout is needed, with fields aligned to column widths.  Each column will be as wide as the",
+		"comment9": "widest field or label in that column.  The ordering of fields is as in the JSON.",
+		"fieldGridType": {
+		  "type": "object",
+		  "properties": {
+			"headerLabels": {
+			  "type": "array",
+			  "items": { "$ref": "#/definitions/translatableString" }
+			},
+			"rows": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/definitions/rowType"
+			  }
+			}
+		  },
+		  "required": [ "rows" ],
+		  "additionalProperties": false
+		},
+
+		"groupType": {
+		  "type": "object",
+		  "properties": {
+			"groupLabel": { "$ref": "#/definitions/translatableString" },
+			"layout": {
+			  "type": "array",
+			  "items": {
+				"anyOf": [
+				  {
+					"comment": "Individual fields, one per row with label",
+					"$ref": "#/definitions/fieldType"
+				  },
+				  {
+					"comment": "A grid, with column headers and row labels",
+					"$ref": "#/definitions/fieldGridType"
+				  }
+				]
+			  }
+			}
+		  }
+		},
+
+		"objectFormPageType": {
+		  "type": "object",
+		  "properties": {
+			"comment": "Name shown at the top of the form/page/tab.  References a string table entry.  Required",
+			"title": { "$ref": "#/definitions/translatableString" },
+
+			"comment2": "A form can consist of a combination of grids and rows.",
+			"comment3": "Interleaving rows and grids implies that the column sizing can vary between the two, and",
+			"comment4": "the column sizing can vary between individual rows that are not part of a grid.",
+			"layout": {
+			  "type": "array",
+			  "items": {
+				"anyOf": [
+				  {
+					"comment": "Individual fields, one per row with label",
+					"$ref": "#/definitions/fieldType"
+				  },
+				  {
+					"comment": "A grid, with column headers and row labels",
+					"$ref": "#/definitions/fieldGridType"
+				  },
+				  {
+					"comment": "A group of fields/grids",
+					"$ref": "#/definitions/groupType"
+				  }
+				]
+			  }
+			}
+		  },
+		  "required": [ "title", "layout" ],
+		  "additionalProperties": false
+		},
+
+
+		"objectType": {
+		  "type": "object",
+      "properties": {
+        "comment": "The friendly name of the table.  References a string table entry.  Optional",
+        "displayName": { "type": "string" },
+
+        "comment2": "Icon. Optional. This is a BASE64 encoded string of a PNG file, size 32*32.",
+        "comment3": "Icon content is provided by the Device supplier and can be overridden by the Master supplier",
+        "icon": { "type": "string" },
+
+        "comment4": "Parent object type names. Omit if no parent ('device')",
+        "parentTypes": { 
+			"type": "array",
+			"items": { "type": "string" }
+		},
+
+        "comment9": "Minimum and maximum quantities of this object",
+        "minObjects": { "type": "integer" }, 
+		"comment10": "0 to indicate if optional or a number for a mandatory minimum.",
+        "maxObjects": { "type": "integer" }, 
+		"comment11": "1 of this is a 1-to-1 relationship, or an integer as the maximum capability of the device per parent object.",
+        "totalObjects": { "type": "integer" },
+		"comment12": "The maximum capability of the device as a whole, (applicable if this object does not have the device as a parent).",
+
+        "comment13": "If this object is specific to a device type, then specify this as True.",
+        "comment14": "If true then the object type is not equivalent to any other device type.",
+        "deviceSpecific": { "type": "boolean" },
+
+        "comment15": "Configuration fields.  This is a JSON schema embedded in the metadata.",
+        "comment16": "Expecting a schema that represents an array of properties.",
+        "comment17": "These objects include information about the data type of the field, but",
+        "comment18": "not any information specific to presentation in a form.  This is in the separate",
+        "comment19": "'formLayout' object below.",
+        "comment20": "This schema describes the JSON format of the configuration saved back to it.",
+        "configFields": {
+          "type": "object",
+          "patternProperties": {
+            "^\\w+": {
+              "$ref": "#/definitions/fieldType"
+            }
+          }
+        }
+      }
+		},
+
+		"type": "object",
+		"properties": {
+		"objectTypes": {
+		  "type": "object",
+		  "patternProperties": {
+			"^\\w+": {
+			  "$ref": "#/definitions/objectType"
+			}
+		  }
+		}
+	  },
+	  "additionalProperties": false,
+	  
+
+		"messageProfile" :
+		{
+			"title": "Profile",
+			"description": "Schema for a Device Profile. Topic: [UUID]/UP/profile",
+			
+			"type": "object",
+			"properties": {
+			
+				"wits": {
+						"type": "number",
+						"description": "WITS Version (only a Major version number)"
+					},
+				"prdt": {
+						"type": "string",
+						"description": "Device Manufacturer’s product name and model (text) – must not be empty"
+					},
+				"mnfr": {
+						"type": "string",
+						"description": "Device Manufacturer (text) – must be a WITS registered predefined value"
+					},
+				"pVer": {
+						"type": "string",
+						"description": "Device Profile Version   (text) – must not be empty. This is written into the string sent in the Birth Certificate."
+					},
+				"canCoreUp": {
+						"type": "boolean",
+						"description": "Capability for file data transfers in either direction, denotes whether each block can be uploaded or downloaded by the Master. Note that there is no canConfigUp as this feature is mandatory for the device in the MS to be configured automatically from upload."
+					},
+				"canCoreDown": {
+						"type": "boolean"
+					},
+				"canConfigDown": {
+						"type": "boolean"
+					},
+				"supportCompression": {
+						"type": "string",
+						"oneOf": [ "", "GZIP" ],
+						"description": "Compression: (if GZIP compression is supported, or other types in future.)"
+					}, 
+				
+				"profile": {
+						"type": "object",
+						"description": "This is the main body of the profile.",
+						"$ref": "#definitions/profileContent"
+					}
+				}
+			},
+			"required": ["wits", "prdt", "mnfr", "pVer"]
+		},
+	
+	"oneOf": [
+		{ "$ref": "#/definitions/messageLWT" },
+		{ "$ref": "#/definitions/messageBirthCertificate" },
+		{ "$ref": "#/definitions/messageCoreBlock" },
+		{ "$ref": "#/definitions/messageCoreBlockRequest" },
+		{ "$ref": "#/definitions/messageConfiguration" },
+		{ "$ref": "#/definitions/messageData" },
+		{ "$ref": "#/definitions/messageClock" },
+		{ "$ref": "#/definitions/messageGetData" },
+		{ "$ref": "#/definitions/messageGetDeviceInfo" },
+		{ "$ref": "#/definitions/messageControl" },
+		{ "$ref": "#/definitions/messageOverride" },
+		{ "$ref": "#/definitions/messageProfile" }
+	]
+}
+	
