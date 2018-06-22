@@ -1,6 +1,5 @@
 {
-  "configVersion": 124,
-  "configSource": "bd45ccfe-7e4c-45ab-8a38-29d6eae9ac84",
+  "cVer": 123,
 
   "device": [
     {
@@ -74,7 +73,7 @@
     }
   ],
 
-  "analogue": [
+  "ai": [
     {
       "parent": 1,
       "type": 0,
@@ -120,7 +119,7 @@
     }
   ],
 
-  "binary": [
+  "bi": [
     {
       "parent": 1,
       "parentType": "bi",
@@ -131,7 +130,7 @@
     }
   ],
 
-  "counter": [
+  "ct": [
     {
       "parent": 1,
       "resetPeriod": 86400,

@@ -1,9 +1,10 @@
 {
   "comment":  "Comments are added to this to aid understanding and are not necessary",
   "wits": 1,
-  "prdt": "RTU-One",
-  "mnfr": "ACME ",
-  "pVer": "123",
+  "name": "ACME.RTUOne.1.23",
+  "mnfr": "ACME Ltd",
+  "prdt": "RTU One DeLuxe",
+  "pVer": "1.23",
   "canCoreUp": false,
   "canCoreDown": true,
   "canConfigDown": true,
@@ -279,7 +280,7 @@
         "displayName": {
           "en-US": "WITS Point"
         },
-        "parentTypes": [ "device" ],
+        "parentTypes": [ "deviceLink" ],
         "minObjects": 0,
         "maxObjects": 100,
         "totalObjects": 100,
@@ -302,7 +303,7 @@
 
           "type": {
             "displayName": "Point Type",
-            "description": "Type of the point. Must be a valid WITS-IoT point type (ai, bi{2/3}, ao, bo{2/3}, c, mi).",
+            "description": "Type of the point. Must be a valid WITS-IoT point type (ai, bi{2/3}, ao, bo{2/3}, ct, mi, mo).",
             "type": "string",
             "enum": [
               "ai",
@@ -313,7 +314,7 @@
               "bo",
               "bo2",
               "bo3",
-              "c",
+              "ct",
               "mi",
               "mo"
             ],
@@ -414,7 +415,7 @@
         }
       },
 
-      "analogue": {
+      "ai": {
         "displayName": {
           "en-US": "WITS Analogue Point"
         },
@@ -659,7 +660,7 @@
         }
       },
 
-      "counter": {
+      "ct": {
         "displayName": {
           "en-US": "WITS Counter"
         },
@@ -703,9 +704,9 @@
         }
       },
 
-      "binary": {
+      "bi": {
         "displayName": {
-          "en-US": "WITS Binary Point"
+          "en-US": "WITS Single Bit Binary Input Point"
         },
         "parentTypes": [ "point" ],
         "minObjects": 0,
@@ -718,25 +719,13 @@
             "description": "Binary features belong to binary parent points only.",
             "type": "integer"
           },
-          "parentType": {
-            "displayName": "Point Type",
-            "description": "Type of the point. Must be a valid WITS-IoT point type suitable for extensions (bi{n}, bo{n}).",
-            "type": "string",
-            "enum": [
-              "bi",
-              "bi2",
-              "bi3",
-              "bo",
-              "bo2",
-              "bo3"
-            ]
-          },
-          
+		           
           "state0Action": {
             "displayName": "",
             "description": "0=do nothing, 1=log data, 2=log data and connect to master.",
             "type": "integer",
-            "comment": "enum"
+            "comment": "enum",
+			"group": "Actions.State 0"
           },
           "state0Pers": {
             "displayName": "",

@@ -29,7 +29,7 @@
 			"type": "object",
 			"properties": {
 				"state": {
-					"enum": ["Disconnected"]
+					"type": "string"
 				}
 			},
 			"required": ["state"]
@@ -58,9 +58,9 @@
 
 			"type": "object",
 			"properties": {
-				"pVer": {
-					"description":  "Profile Version, Number with decimal place",
-					"type": "number"
+				"pRef": {
+					"description":  "Reference name of the Profile Version",
+					"type": "string"
 				},
 				"core": {
 					"type": "array",
@@ -254,7 +254,7 @@
 		"profileContent" :
 		{
 			"title": "Profile Content",
-			"description": "schema for Device Profile Content - either used standalone via url or within the Profile",
+			"description": "schema for Device Profile Content within the Profile",
 			"comment": "Object collections leading to definition of the Device Profile. Defines the profile content, object types, their field types and the form representation information.",
 			"type": "object",
 			"properties": {
