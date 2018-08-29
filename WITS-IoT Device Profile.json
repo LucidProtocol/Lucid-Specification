@@ -1,29 +1,24 @@
 {
-  "comment":  "Comments are added to this to aid understanding and are not necessary",
   "wits": 1,
-  "name": "ACME.RTUOne.1.23",
-  "mnfr": "ACME Ltd",
-  "prdt": "RTU One DeLuxe",
-  "pVer": "1.23",
+  "name": "ACME.Dev1.12",
+  "prdt": "Dev1",
+  "mnfr": "ACME",
+  "pVer": "12",
   "canCoreUp": false,
-  "canCoreDown": true,
+  "canCoreDown": false,
   "canConfigDown": true,
-  "supportCompression": [ "GZIP" ],
   "profile": {
-    "comment": "The profile contains the device capability section. While the Object Types have fields which determine the quantities of those objects, it is common practice for devices to have ranges of object numbers. This section gives the ranges of numbers available, subject to the limits defined in the Object Types.",
     "capability": {
       "points": {
-        "comment": "By point type",
         "ai": [
           {
-            "comment": "A range is an inclusive set of integers. There can be more than one range. Multiple ranges may be used, e.g. for Physical, Virtual or External points.",
             "from": 1,
             "to": 2
           },
           {
-            "from": 100,
-            "to": 110
-          }
+            "from": 6,
+            "to": 8
+          },
         ],
         "bi": [
           {
@@ -66,23 +61,26 @@
         ]
       },
       "pointSupport": {
-        "comment": "Multi bit binary input and output support is optionally described. Include di2, di3, do2, do3 if supported, and state whether bit numbers need to be consecutively used in the Incremental Configuration. If a type is absent from this list, they are unsupported.",
-        "multiBit": [
-          { "di2": "consecutive" },
-          { "do2": "nonConsecutive" },
-          { "di3": "nonConsecutive" }
-        ],
-        "comment2":  "Counters use input numbers exclusively.",
+        "multiBit": {
+          "di2": "Consecutive",
+          "di3": "Consecutive"
+        },
         "counterExclusive": true
       },
-      "channels": [
+      "channels": {
+        "from": 1,
+        "to": 2
+      },
+      "deviceLinks": [
         {
-          "comment": "This section lists the channel numbers available . These are index numbers of the individual communications paths back to the broker.",
-          "from": 1,
-          "to": 2
+          "name": "Onboard",
+          "num": 1
+        },
+        {
+          "name": "PLC1",
+          "num": 2
         }
       ],
-      "comment2": "Only those commands supported by this device.",
       "commands": [
         "getdata",
         "setclock",
@@ -142,7 +140,7 @@
             "type": "boolean"
           },
           "latitude": {
-            "comment":  "There is a json schema type for this, so consider replacing.",
+            "comment": "There is a json schema type for this, so consider replacing.",
             "displayName": "Latitude",
             "description": "In degrees (WGS84).",
             "type": "number",
@@ -154,8 +152,8 @@
             "displayName": "Longitude",
             "description": "In degrees (WGS84).",
             "type": "number",
-            "max": "180",
-            "min": "-180",
+            "max": 180,
+            "min": -180,
             "enable": "location=true"
           },
           "scan": {
@@ -163,22 +161,16 @@
             "description": "Device on/off scan (started/stopped).",
             "type": "boolean"
           }
-
-        },
-
-        "pages": [
-          {
-            "title": "Device",
-            "comment": "NO PROGRESS MADE HERE - OR FOR OTHER TYPES"
-          }
-        ]
+        }
       },
 
       "channel": {
         "comment": "One or more connection objects.  Note that the channels are listed in priority order, if applicable, from highest first. Typically a device could have multiple channels with different capabilities, in which case each channel adds the fields needed as appropriate.",
+
         "displayName": {
           "en-US": "WITS Channel"
         },
+
         "parentTypes": [ "device" ],
         "minObjects": 1,
         "maxObjects": 1,
@@ -189,9 +181,10 @@
             "displayName": "Channel Number",
             "description": "Channel index number.",
             "type": "integer",
-            "minimum": 1,
-            "maximum": 65535
+            "min": 1,
+            "max": 65535
           },
+
           "name": {
             "displayName": "Channel Name",
             "description": "Channel name.",
@@ -201,15 +194,15 @@
           "mode": {
             "displayName": "Connection Mode",
             "description": "Unused, Permanent or On-Demand.",
-            "type": "number",
+            "type": "integer",
             "enum": [ "Unused", "Permanent", "On Demand" ],
-            "comment":  "If enum values are not 0,1,2 etc, then we add: 'enumValues': [2,4,6]"
+            "comment": "If enum values are not 0,1,2 etc, then we add: 'enumValues': [2,4,6]"
           },
           "prot": {
             "displayName": "Network Protocol",
             "description": "Defines the type of networking supported",
-            "type": "enum",
-            "values": [
+            "type": "integer",
+            "enum": [
               "none",
               "IPv4(TCP)",
               "IPv4(UDP)",
@@ -220,11 +213,11 @@
           "type": {
             "displayName": "Network type",
             "description": "Network endpoint type",
-            "type": "enum",
-            "values": [ "listening", "initiating", "both" ]
+            "type": "integer",
+            "enum": [ "listening", "initiating", "both" ]
           },
           "net": {
-            "comment":  "Is there a json schema for an address?",
+            "comment": "Is there a json schema for an address?",
             "displayName": "Network Address",
             "description": "Network information containing the IPv4 or IPv6 DNS name or IP address plus : port number (default 20000 if omitted).",
             "type": "string",
@@ -237,21 +230,30 @@
             "displayName": "Start",
             "description": "Time of the first scheduled connection from start of day, in minutes.",
             "type": "integer",
-            "minimum": 0,
-            "maximum": 1439
+            "min": 0,
+            "max": 1439,
+            "group": "commsSchedule",
+            "order": 1
           },
           "repeat": {
             "displayName": "Repeat",
             "description": "Repeat interval (minutes).",
             "type": "integer",
-            "minimum": 1,
-            "max": 720
+            "min": 1,
+            "max": 720,
+            "group": "commsSchedule",
+            "order": 2
+          }
+        },
+        "groups": {
+          "commsSchedule": {
+            "displayName": "Communications Schedule"
           }
         }
       },
 
       "deviceLink": {
-        "comment": "One or more objects. All points 'connect' to a Device Link. How to specify which device links and types/quantities are available?",
+        "comment": "One or more objects. All points 'connect' to a Device Link. TODO: How to specify which device links and types/quantities are available in the profile Capability section?",
         "displayName": {
           "en-US": "WITS Device Link"
         },
@@ -264,8 +266,8 @@
             "displayName": "Device Link Number",
             "description": "Device Link index number.",
             "type": "integer",
-            "minimum": 1,
-            "maximum": 65535
+            "min": 1,
+            "max": 65535
           },
           "name": {
             "displayName": "Device Link Name",
@@ -297,8 +299,8 @@
             "displayName": "Point Number",
             "description": " Point number (1-based with allowable numbers defined in the capability/points/addresses.).",
             "type": "integer",
-            "minimum": 1,
-            "maximum": 65535
+            "min": 1,
+            "max": 65535
           },
 
           "type": {
@@ -365,12 +367,12 @@
             "type": "integer"
           },
 
-          "comment": "Actions to be taken when a points status changes (enabled or disabled).  The status types are listed.  For each status the actions may be: 0=do nothing, 1=log event, 2=generate event and call Master Station. All Actions are optional, unused actions can be ignored or not inserted into the object.",
-
           "whenOnline": {
             "displayName": "",
             "description": "ONLINE flag is set when the point is on-scan and active..",
-            "type": "number"
+            "type": "number",
+            "comment": "Actions to be taken when a points status changes (enabled or disabled).  The status types are listed.  For each status the actions may be: 0=do nothing, 1=log event, 2=generate event and call Master Station. All Actions are optional, unused actions can be ignored or not inserted into the object.",
+
           },
           "whenRestart": {
             "displayName": "",
@@ -436,43 +438,43 @@
             "description": "The scale object sets the point value scaling information. Raw data type for the raw instrument (0=integer, 1=Unsigned integer, 2=single precision floating point).",
             "type": ""
           },
-          
+
           "rawsc1": {
             "displayName": "",
             "description": "Raw Scale 1  is the first raw value of the point (e.g. lower or zero value for the instrument).",
             "type": ""
           },
-          
+
           "rawsc2": {
             "displayName": "",
             "description": "Raw scale 2 is the second raw value for the scaling (e.g. higher or full scale value of the instrument).",
             "type": ""
           },
-          
+
           "engsc1": {
             "displayName": "",
             "description": "Engineering Scale 1 ; this is the first engineering value that corresponds to the first raw value (e.g. smallest scaled output that can be reported.",
             "type": ""
           },
-          
+
           "engsc2": {
             "displayName": "",
             "description": "Engineering scale 2; this is the second engineering value that corresponds to the second raw value (e.g. the highest scaled value that can be recorded).",
             "type": ""
           },
-          
+
           "min": {
             "displayName": "",
             "description": "The measurement range’s minimum value, in engineering units. If a value is below the minimum, then it is under-range. The OVER_RANGE flag must be set when reporting values that are under-range. Under-range values should not be used when determining significant data (dead-band) changes.",
             "type": ""
           },
-          
+
           "max": {
             "displayName": "",
             "description": "The measurement range’s maximum value, in engineering units. If a value is above the maximum, then it is over-range. The OVER_RANGE flag must be set when reporting values that are over-range. Over-range values should not be used when determining significant data (dead-band) changes.",
             "type": ""
           },
-          
+
           "units": {
             "displayName": "",
             "description": "The units are a free format ASCII string that can be used when displaying the point value through local access displays etc. The Field Device should not interpret any meaning from this string and may choose to ignore it completely.",
@@ -492,13 +494,13 @@
           "en-US": "WITS Analogue Point Limit"
         },
         "parentTypes": [ "analogue", "counter" ],
-        "minObjects": 4, 
-		"comment": "e.g. this device has a mandatory four limits per analogue",
+        "minObjects": 4,
+        "comment": "e.g. this device has a mandatory four limits per analogue",
         "maxObjects": 4,
         "totalObjects": 200,
 
         "configFields": {
-          
+
           "parent": {
             "displayName": "",
             "description": "Analogue limits belong to analogue parent points only.",
@@ -517,15 +519,15 @@
           },
 
           "num": {
-			"comment": "Limit Index; limit objects must use consecutive limit indexes starting at 1.  The lowest index value must correspond to the lowest limit and the maximum index to the highest limit. See limitCount in PointSupport for supported maximum.",
+            "comment": "Limit Index; limit objects must use consecutive limit indexes starting at 1.  The lowest index value must correspond to the lowest limit and the maximum index to the highest limit. See limitCount in PointSupport for supported maximum.",
             "displayName": "Limit Number",
-            "description": " Limit number (1-based with allowable numbers defined in the capability/points/addresses.).",
+            "description": "Limit number (1-based with allowable numbers defined in the capability/points/addresses.).",
             "type": "integer",
-            "minimum": 1,
-            "maximum": 65535
+            "min": 1,
+            "max": 65535
           },
 
-          
+
           "action": {
             "displayName": "",
             "description": "Action to be taken on transgressing the limit  (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the Master Station).",
@@ -533,22 +535,22 @@
             "comment": "enum?"
           },
 
-          
+
           "dirctn": {
             "displayName": "",
             "description": "This object defines the point limit values for generating events when the current value of an analogue point exceeds a limi.",
             "type": "integer",
-			"comment": "Direction (0=positive going (low-normal-high, 1=negative going (high-normal-low ))."
+            "comment": "Direction (0=positive going (low-normal-high, 1=negative going (high-normal-low ))."
           },
 
-          
+
           "value": {
             "displayName": "",
             "description": "Limit threshold value, in engineering units.",
             "type": "number"
           },
 
-          
+
           "mon": {
             "displayName": "",
             "description": "Profiles reference numbers to be used for the days of the week.  All days may use the same profile or any combination of profiles against days.  If days are omitted or zero, then they are assumed to be reverting to the fixed limit threshold value above.",
@@ -585,21 +587,21 @@
             "type": "integer"
           },
 
-          
+
           "hyst": {
             "displayName": "",
             "description": "The hysteresis is an adjustment made to the limit value to set a further level beyond which the point value must travel to leave the state. The value of Hysteresis is always a positive number.",
             "type": "number"
           },
 
-          
+
           "enter": {
             "displayName": "",
             "description": "The Enter Persistence defines the number of milliseconds the point value must have been beyond or equal to the limit value to enter the corresponding new state. The Enter Persistence is only used when a new limit state is entered with the point value moving away from the Normal State.",
             "type": "integer"
           },
 
-          
+
           "leave": {
             "displayName": "",
             "description": "The Leave Persistence defines the number of milliseconds the point value must have been beyond the limit value with hysteresis to leave the current state (and therefore enter another state). The Leave Persistence is only used when a new limit state is entered with the point value moving towards the Normal State.",
@@ -619,7 +621,7 @@
         "totalObjects": 50,
 
         "configFields": {
-          
+
           "parent": {
             "displayName": "Parent Analogue",
             "description": "Analogue limits belong to analogue and counter parent points only. Only one per point.",
@@ -637,7 +639,7 @@
             ]
           },
 
-          
+
           "action": {
             "displayName": "",
             "description": "Action to be taken on transgressing the limit  (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the Master Station).",
@@ -651,7 +653,7 @@
             "type": "number"
           },
 
-          
+
           "period": {
             "displayName": "",
             "description": "The period defines the number of seconds the point value must have been within deadband value to raise the No Change event, in seconds.",
@@ -670,14 +672,14 @@
         "totalObjects": 50,
 
         "configFields": {
-          
+
           "parent": {
             "displayName": "Parent Point",
             "description": "Counter features belong to counter parent points only.",
             "type": "integer"
           },
 
-          
+
           "resetPeriod": {
             "displayName": "Reset Period",
             "description": "If zero or absent then will not reset. Interval between resets of this extension's value calculation, in seconds).",
@@ -719,13 +721,13 @@
             "description": "Binary features belong to binary parent points only.",
             "type": "integer"
           },
-		           
+
           "state0Action": {
             "displayName": "",
             "description": "0=do nothing, 1=log data, 2=log data and connect to master.",
             "type": "integer",
             "comment": "enum",
-			"group": "Actions.State 0"
+            "group": "Actions.State 0"
           },
           "state0Pers": {
             "displayName": "",
@@ -862,37 +864,37 @@
         "totalObjects": 50,
 
         "configFields": {
-          "comment": "Profile Index; profile objects must use consecutive profile indexes starting at 1. See profileCount in PointSupport for supported maximum.",
           "num": {
             "displayName": "Limit Number",
             "description": " Limit number (1-based with allowable numbers defined in the capability/points/addresses.).",
             "type": "integer",
-            "minimum": 1,
-            "maximum": 65535
+            "min": 1,
+            "max": 65535,
+            "comment": "Profile Index; profile objects must use consecutive profile indexes starting at 1. See profileCount in PointSupport for supported maximum."
           },
-          
+
           "type": {
             "displayName": "",
             "description": "Value type (0=single precision float – analogue, 1=32-bit unsigned integer – counter and binary).",
             "type": "integer",
             "comment": "enum"
           },
-          
+
           "values": {
             "displayName": "",
             "description": "Values array - first value applies at first time.",
             "array": true,
-			"comment": "??Extend schema for this array method.",
+            "comment": "??Extend schema for this array method.",
             "type": "number"
           },
-          
+
           "times": {
             "displayName": "",
             "description": "Times array - in seconds from start of day.",
             "array": true,
             "type": "number"
           },
-          
+
           "inter": {
             "displayName": "",
             "description": "The interpolation time (in minutes) is the time period used to compute a new value for the profile, interpolating between two profile points.  If set to 0 then no interpolation is performed.",
@@ -936,12 +938,12 @@
           },
 
           "num": {
-			"comment": "Extension Point Index; Extended point objects must use consecutive indexes starting at 1.",
+            "comment": "Extension Point Index; Extended point objects must use consecutive indexes starting at 1.",
             "displayName": "Limit Number",
             "description": " Limit number (1-based with allowable numbers defined in the capability/points/addresses.). See extPointCount in PointSupport for supported maximum.",
             "type": "integer",
-            "minimum": 1,
-            "maximum": 65535
+            "min": 1,
+            "max": 65535
           },
 
           "name": {
@@ -1020,7 +1022,7 @@
         "totalObjects": 5,
 
         "configFields": {
-          
+
           "parent": {
             "displayName": "",
             "description": "Belong to analogue output points only.",
@@ -1031,8 +1033,8 @@
             "displayName": "Limit Number",
             "description": " Limit number (1-based with allowable numbers defined in the capability/points/addresses.) See controlProfileCount in PointSupport for supported maximum..",
             "type": "integer",
-            "minimum": 1,
-            "maximum": 65535
+            "min": 1,
+            "max": 65535
           },
           "mon": {
             "displayName": "Monday",
@@ -1080,7 +1082,7 @@
         "minObjects": 0,
         "maxObjects": 5,
         "totalObjects": 5,
-		"comment": "Defines a high-speed sampling store for a point. Triggered by a digital input point. This defines parameters that are used by a Field Device to create additional log file entries as a result of an incident. To meet this requirement, the Field Device needs to be collecting the additional logging values.",
+        "comment": "Defines a high-speed sampling store for a point. Triggered by a digital input point. This defines parameters that are used by a Field Device to create additional log file entries as a result of an incident. To meet this requirement, the Field Device needs to be collecting the additional logging values.",
         "configFields": {
           "parent": {
             "displayName": "Parent Point Index",
@@ -1108,8 +1110,8 @@
             "displayName": "Store Number",
             "description": " Store number (1-based with allowable numbers defined in the capability/points/addresses.) Objects must use consecutive indexes starting at 1. See highSpeedStoreCount in PointSupport for supported maximum.",
             "type": "integer",
-            "minimum": 1,
-            "maximum": 65535
+            "min": 1,
+            "max": 65535
           },
           "trigger": {
             "displayName": "Trigger Point Index",
@@ -1153,6 +1155,8 @@
 
         }
       }
+
+
     }
   }
 }
