@@ -166,7 +166,7 @@
     },
     {
       "parent": 1,
-      "parentType": "di",
+      "parentType": "bi",
       "num": 2,
       "name": "pump 1.Run Time",
       "class": "Water.Pumps.ACME 245M",
@@ -200,7 +200,7 @@
       "parentType": "ai",
       "num": 1,
       "trigger": 1,
-      "triggerType": "di",
+      "triggerType": "bi",
       "triggerValue": 0,
       "start": -5000,
       "length": 15000,

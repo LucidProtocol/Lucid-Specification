@@ -62,8 +62,8 @@
       },
       "pointSupport": {
         "multiBit": {
-          "di2": "Consecutive",
-          "di3": "Consecutive"
+          "bi2": "Consecutive",
+          "bi3": "Consecutive"
         },
         "counterExclusive": true
       },

@@ -2,6 +2,7 @@
   "$schema": "http://json-schema.org/draft-06/schema",
   "$id": "WITS-IoT.schema.json",
   "name": "WITS-IoT Configuration and Operation Schema",
+  "description":  "Can be used to verify messages at: https://www.jsonschemavalidator.net/",
 
   "definitions": {
 
@@ -637,19 +638,19 @@
     "type": "object",
     "properties": {
       "multiBit": {
-        "description": "Multi bit binary input and output support is optionally described. Include di2, di3, do2, do3 if supported, and state whether bit numbers need to be consecutively used in the Incremental Configuration. If a type is absent from this list, they are unsupported.",
+        "description": "Multi bit binary input and output support is optionally described. Include bi2, bi3, bo2, bo3 if supported, and state whether bit numbers need to be consecutively used in the Incremental Configuration. If a type is absent from this list, they are unsupported.",
         "type": "object",
         "properties": {
-          "di2": {
+          "bi2": {
             "enum": [ "Consecutive", "NonConsecutive" ]
           },
-          "di3": {
+          "bi3": {
             "enum": [ "Consecutive", "NonConsecutive" ]
           },
-          "do2": {
+          "bo2": {
             "enum": [ "Consecutive", "NonConsecutive" ]
           },
-          "do3": {
+          "bo3": {
             "enum": [ "Consecutive", "NonConsecutive" ]
           }
         },
