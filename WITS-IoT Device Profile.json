@@ -18,7 +18,7 @@
           {
             "from": 6,
             "to": 8
-          },
+          }
         ],
         "bi": [
           {
@@ -67,10 +67,16 @@
         },
         "counterExclusive": true
       },
-      "channels": {
-        "from": 1,
-        "to": 2
-      },
+      "channels": [
+        {
+          "name": "Ethernet 1",
+          "num": 1
+        },
+        {
+          "name": "GPRS",
+          "num": 2
+        }
+      ],
       "deviceLinks": [
         {
           "name": "Onboard",
@@ -160,6 +166,12 @@
             "displayName": "On Scan",
             "description": "Device on/off scan (started/stopped).",
             "type": "boolean"
+          },
+          "s_ACME_set": {
+            "displayName": "Set Identification",
+            "description": "EXAMPLE manufacturer-specific field, prefixed with s_, then manufacturer name, then field name.",
+            "type": "string",
+            "specificToProfile":  false
           }
         }
       },
@@ -371,8 +383,7 @@
             "displayName": "",
             "description": "ONLINE flag is set when the point is on-scan and active..",
             "type": "number",
-            "comment": "Actions to be taken when a points status changes (enabled or disabled).  The status types are listed.  For each status the actions may be: 0=do nothing, 1=log event, 2=generate event and call Master Station. All Actions are optional, unused actions can be ignored or not inserted into the object.",
-
+            "comment": "Actions to be taken when a points status changes (enabled or disabled).  The status types are listed.  For each status the actions may be: 0=do nothing, 1=log event, 2=generate event and call Master Station. All Actions are optional, unused actions can be ignored or not inserted into the object."
           },
           "whenRestart": {
             "displayName": "",
@@ -381,12 +392,12 @@
           },
           "whenCommsLost": {
             "displayName": "",
-            "description": "The commslost (or COMM_LOST) flag indicates that communications with the Master Station have been lost.",
+            "description": "The commslost (or COMM_LOST) flag indicates that communications with the downstream device have been lost.",
             "type": "number"
           },
           "whenRemForce": {
             "displayName": "",
-            "description": "The remforce (REMOTE_FORCED) flag indicates that the value of the point has been forced to a value by a Master Station.",
+            "description": "The remforce (REMOTE_FORCED) flag indicates that the value of the point has been forced to a value by a downstream device.",
             "type": "number"
           },
           "whenLocForce": {
@@ -519,9 +530,9 @@
           },
 
           "num": {
-            "comment": "Limit Index; limit objects must use consecutive limit indexes starting at 1.  The lowest index value must correspond to the lowest limit and the maximum index to the highest limit. See limitCount in PointSupport for supported maximum.",
+            "comment": "Limit Index; limit objects must use consecutive limit indexes starting at 1. The lowest index value must correspond to the lowest limit and the maximum index to the highest limit. (Allowable numbers defined in the min/max/totalObjects).",
             "displayName": "Limit Number",
-            "description": "Limit number (1-based with allowable numbers defined in the capability/points/addresses.).",
+            "description": "Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
             "type": "integer",
             "min": 1,
             "max": 65535
@@ -610,21 +621,21 @@
         }
       },
 
-      "analogueNoChange": {
+      "noChange": {
         "displayName": {
-          "en-US": "WITS Analogue no change alarm"
+          "en-US": "WITS no change alarm"
         },
         "parentTypes": [ "analogue", "counter" ],
         "minObjects": 0,
-        "comment": "e.g. this device has a max of one no change alarm per analogue",
+        "comment": "e.g. this device has a max of one no change alarm per point. Can apply to analogue or counter.",
         "maxObjects": 1,
         "totalObjects": 50,
 
         "configFields": {
 
           "parent": {
-            "displayName": "Parent Analogue",
-            "description": "Analogue limits belong to analogue and counter parent points only. Only one per point.",
+            "displayName": "Parent Point",
+            "description": "No change alarms belong to analogue and counter parent points only. Only one per point.",
             "type": "integer"
           },
 
@@ -641,28 +652,28 @@
 
 
           "action": {
-            "displayName": "",
-            "description": "Action to be taken on transgressing the limit  (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the Master Station).",
+            "displayName": "Action",
+            "description": "Action to be taken on no change  (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the Master Station).",
             "type": "integer",
             "comment": "enum"
           },
 
           "deadband": {
-            "displayName": "",
+            "displayName": "Deadband",
             "description": "The deadband is a value in engineering units. The point value must change this amount to raise the event. The value of Deadband is always a positive number.",
             "type": "number"
           },
 
 
           "period": {
-            "displayName": "",
+            "displayName": "Period",
             "description": "The period defines the number of seconds the point value must have been within deadband value to raise the No Change event, in seconds.",
             "type": "integer"
           }
         }
       },
 
-      "ct": {
+      "c": {
         "displayName": {
           "en-US": "WITS Counter"
         },
@@ -682,7 +693,7 @@
 
           "resetPeriod": {
             "displayName": "Reset Period",
-            "description": "If zero or absent then will not reset. Interval between resets of this extension's value calculation, in seconds).",
+            "description": "If zero or absent then will not reset. Interval between resets of this point's value calculation, in seconds).",
             "type": "integer"
           },
 
@@ -694,13 +705,13 @@
 
           "reportPeriod": {
             "displayName": "Report Period",
-            "description": "Interval between reports of this extension's value. In seconds, starting at reset with last accumulated value.",
+            "description": "Interval between reports of this point's value. In seconds, starting at reset with last accumulated value.",
             "type": "integer"
           },
 
           "scale": {
             "displayName": "Scale Value",
-            "description": "Multiplies raw value to get value of extension.",
+            "description": "Multiplies raw value to get value of this counter.",
             "type": "number"
           }
         }
@@ -866,11 +877,11 @@
         "configFields": {
           "num": {
             "displayName": "Limit Number",
-            "description": " Limit number (1-based with allowable numbers defined in the capability/points/addresses.).",
+            "description": " Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
             "type": "integer",
             "min": 1,
             "max": 65535,
-            "comment": "Profile Index; profile objects must use consecutive profile indexes starting at 1. See profileCount in PointSupport for supported maximum."
+            "comment": "Profile Index; profile objects must use consecutive profile indexes starting at 1."
           },
 
           "type": {
@@ -940,7 +951,7 @@
           "num": {
             "comment": "Extension Point Index; Extended point objects must use consecutive indexes starting at 1.",
             "displayName": "Limit Number",
-            "description": " Limit number (1-based with allowable numbers defined in the capability/points/addresses.). See extPointCount in PointSupport for supported maximum.",
+            "description": " Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
             "type": "integer",
             "min": 1,
             "max": 65535
@@ -1031,7 +1042,7 @@
 
           "num": {
             "displayName": "Limit Number",
-            "description": " Limit number (1-based with allowable numbers defined in the capability/points/addresses.) See controlProfileCount in PointSupport for supported maximum..",
+            "description": " Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
             "type": "integer",
             "min": 1,
             "max": 65535
@@ -1108,7 +1119,7 @@
           },
           "num": {
             "displayName": "Store Number",
-            "description": " Store number (1-based with allowable numbers defined in the capability/points/addresses.) Objects must use consecutive indexes starting at 1. See highSpeedStoreCount in PointSupport for supported maximum.",
+            "description": " Store number (1-based with allowable numbers defined in the min/max/totalObjects).",
             "type": "integer",
             "min": 1,
             "max": 65535

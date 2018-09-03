@@ -130,7 +130,7 @@
     }
   ],
 
-  "ct": [
+  "c": [
     {
       "parent": 1,
       "resetPeriod": 86400,

@@ -559,23 +559,26 @@
     "type": "object",
     "properties": {
       "points": {
-        "$ref": "#/profileCapabilityPoints",
+        "$ref": "#/profileCapabilityPoints"
       },
       "pointSupport": {
-        "$ref": "#/profileCapabilityPointSupport",
+        "$ref": "#/profileCapabilityPointSupport"
       },
       "channels": {
-        "type": "object",
-        "properties": {
-          "from": {
-            "type": "integer"
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "num": {
+              "type": "integer"
+            }
           },
-          "to": {
-            "type": "integer"
-          }
-        },
-        "required": [ "from", "to" ],
-        "additionalProperties": false
+          "required": [ "name", "num" ],
+          "additionalProperties": false
+        }
       },
       "deviceLinks": {
         "type": "array",
@@ -701,8 +704,11 @@
           },
           "groups": {
             "$ref": "#/profileGroup"
-          }
-        },
+          },
+          "specificToProfile": {
+            "description": "Use this to specify that this object is not part of the WITS standard profile. Object to be named s_<mnfr>_<name>.",
+            "type":  "boolean"
+          }        },
         "required": [ "displayName" ],
         "additionalProperties": false
       }
@@ -763,6 +769,10 @@
           "order": {
             "description": "",
             "type": "number"
+          },
+          "specificToProfile": {
+            "description": "Use this to specify that this field is not part of the WITS standard profile. Field to be named s_<mnfr>_<name>.",
+            "type": "boolean"
           }
         },
         "required": [ "displayName" ],
