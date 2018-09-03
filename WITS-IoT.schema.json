@@ -401,11 +401,11 @@
               "type": "number"
             }
           },
-          "required": [ "value" ]
+          "required": [ "v" ]
         }
       }
     },
-    "required": [ "control" ],
+    "required": [ "c" ],
     "additionalProperties": false
   },
 
@@ -415,7 +415,7 @@
 
     "type": "object",
     "properties": {
-      "override": {
+      "o": {
         "type": "array",
         "items": {
           "type": "object",
@@ -427,15 +427,15 @@
             "name": {
               "type": "string"
             },
-            "value": {
+            "v": {
               "type": "number"
             }
           },
-          "required": [ "value" ]
+          "required": [ "v" ]
         }
       }
     },
-    "required": [ "override" ],
+    "required": [ "o" ],
     "additionalProperties": false
   },
 
@@ -445,7 +445,7 @@
 
     "type": "object",
     "properties": {
-      "release": {
+      "r": {
         "type": "array",
         "items": {
           "type": "object",
@@ -461,7 +461,7 @@
         }
       }
     },
-    "required": [ "release" ],
+    "required": [ "r" ],
     "additionalProperties": false
   },
 
