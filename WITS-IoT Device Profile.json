@@ -428,7 +428,7 @@
         }
       },
 
-      "ai": {
+      "analogue": {
         "displayName": {
           "en-US": "WITS Analogue Point"
         },
@@ -673,7 +673,7 @@
         }
       },
 
-      "c": {
+      "counter": {
         "displayName": {
           "en-US": "WITS Counter"
         },
@@ -717,9 +717,9 @@
         }
       },
 
-      "bi": {
+      "digital": {
         "displayName": {
-          "en-US": "WITS Single Bit Binary Input Point"
+          "en-US": "WITS Binary Point"
         },
         "parentTypes": [ "point" ],
         "minObjects": 0,

@@ -73,7 +73,7 @@
     }
   ],
 
-  "ai": [
+  "analogue": [
     {
       "parent": 1,
       "type": 0,
@@ -119,7 +119,7 @@
     }
   ],
 
-  "bi": [
+  "digital": [
     {
       "parent": 1,
       "parentType": "bi",
@@ -130,7 +130,7 @@
     }
   ],
 
-  "c": [
+  "counter": [
     {
       "parent": 1,
       "resetPeriod": 86400,
