@@ -136,7 +136,8 @@
       "resetPeriod": 86400,
       "resetOffset": 0,
       "reportPeriod": 900,
-      "scale": 1.0
+      "scale": 1.0,
+      "units": "m3"
     }
   ],
 
@@ -156,7 +157,7 @@
       "parentType": "ai",
       "num": 1,
       "name": "pump 1.Flow Average",
-      "class": "Water.Pumps.ACME 245M",
+      "className": "Water.Pumps.ACME 245M",
       "type": "Mean",
       "resetPeriod": 86400,
       "resetOffset": 0,
@@ -169,7 +170,7 @@
       "parentType": "bi",
       "num": 2,
       "name": "pump 1.Run Time",
-      "class": "Water.Pumps.ACME 245M",
+      "className": "Water.Pumps.ACME 245M",
       "type": "Run Time",
       "resetPeriod": 86400,
       "resetOffset": 0,

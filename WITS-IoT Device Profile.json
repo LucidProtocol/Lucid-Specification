@@ -342,7 +342,7 @@
             "maxLength": 64
           },
 
-          "class": {
+          "className": {
             "displayName": "Point Class",
             "description": "The class is optional, and is a string which can be used by the Master to denote equipment or asset ontology.",
             "type": "string",
@@ -355,25 +355,19 @@
             "type": "boolean"
           },
 
-          "overrideMin": {
-            "displayName": "Override Minimum",
-            "description": "Minimum value of override permitted.",
+          "canOverride": {
+            "displayName": "Can Override",
+            "description": "Whether local override is permitted.",
             "type": "boolean"
           },
 
-          "overrideMax": {
-            "displayName": "Override Maximum",
-            "description": "Maximum value of override permitted.",
-            "type": "boolean"
-          },
-
-          "rate": {
+          "logRate": {
             "displayName": "Log Rate",
             "description": "Base periodic logging rate (0=no logging). In seconds.",
             "type": "integer"
           },
 
-          "offset": {
+          "logOffset": {
             "displayName": "Log Offset",
             "description": "Offset time from the start of the week that the log is synchronised from (Monday, 00:00:00). Measured in seconds.  If 0, then log is offset from the last midnight.",
             "type": "integer"
@@ -487,13 +481,13 @@
           },
 
           "units": {
-            "displayName": "",
+            "displayName": "Units",
             "description": "The units are a free format ASCII string that can be used when displaying the point value through local access displays etc. The Field Device should not interpret any meaning from this string and may choose to ignore it completely.",
             "type": ""
           },
 
           "sigChangeValue": {
-            "displayName": "",
+            "displayName": "Significant Change Value",
             "description": "This configuration record defines parameters that are used by a Field Device to take an action when an analogue point changes by a significant amount.",
             "type": "number"
           }
@@ -713,6 +707,12 @@
             "displayName": "Scale Value",
             "description": "Multiplies raw value to get value of this counter.",
             "type": "number"
+          },
+
+          "units": {
+            "displayName": "",
+            "description": "The units are a free format ASCII string that can be used when displaying the point value through local access displays etc. The Field Device should not interpret any meaning from this string and may choose to ignore it completely.",
+            "type": "string"
           }
         }
       },
@@ -1018,7 +1018,7 @@
           "units": {
             "displayName": "",
             "description": "The units are a free format ASCII string that can be used when displaying the point value through local access displays etc. The Field Device should not interpret any meaning from this string and may choose to ignore it completely.",
-            "type": ""
+            "type": "string"
           }
         }
       },
