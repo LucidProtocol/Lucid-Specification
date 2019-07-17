@@ -438,11 +438,6 @@
             "description": "Analogue features belong to analogue parent points only.",
             "type": "integer"
           },
-          "type": {
-            "displayName": "",
-            "description": "The scale object sets the point value scaling information. Raw data type for the raw instrument (0=integer, 1=Unsigned integer, 2=single precision floating point).",
-            "type": ""
-          },
 
           "rawsc1": {
             "displayName": "",
@@ -532,6 +527,11 @@
             "max": 65535
           },
 
+          "name": {
+            "displayName": "Limit Name",
+            "description": "Name of this alarm limit.",
+            "type": "string"
+          },
 
           "action": {
             "displayName": "",
@@ -884,13 +884,6 @@
             "comment": "Profile Index; profile objects must use consecutive profile indexes starting at 1."
           },
 
-          "type": {
-            "displayName": "",
-            "description": "Value type (0=single precision float – analogue, 1=32-bit unsigned integer – counter and binary).",
-            "type": "integer",
-            "comment": "enum"
-          },
-
           "values": {
             "displayName": "",
             "description": "Values array - first value applies at first time.",
@@ -906,9 +899,16 @@
             "type": "number"
           },
 
+		  "type": {
+			"displayName": "Type",
+			"description": "Whether the profile is stepped or linear. Stepped is 'step first'. Stepped is the default.",
+			"type": "integer",
+			"enum": [ "Stepped", "Linear"]
+		  },
+		  
           "inter": {
             "displayName": "",
-            "description": "The interpolation time (in minutes) is the time period used to compute a new value for the profile, interpolating between two profile points.  If set to 0 then no interpolation is performed.",
+            "description": "The interpolation time (in minutes) is the time period used to compute a new value for the profile, interpolating between two profile points.  If set to 0 then no interpolation is performed. Applies to control values.",
             "type": "number"
           }
         }
@@ -932,8 +932,8 @@
           },
 
           "parentType": {
-            "displayName": "Point Type",
-            "description": "Type of the point. Must be a valid WITS-IoT point type suitable for extensions (ai, bi{n}, ao, bo{n}, c).",
+            "displayName": "Parent Point Type",
+            "description": "Type of the source point. Must be a valid WITS-IoT point type suitable for extensions (ai, bi{n}, ao, bo{n}, c).",
             "type": "string",
             "enum": [
               "ai",
@@ -1034,19 +1034,26 @@
 
         "configFields": {
 
-          "parent": {
-            "displayName": "",
-            "description": "Belong to analogue output points only.",
+          "point": {
+            "displayName": "Point",
+            "description": "Belong to analogue output or digital points only.",
             "type": "integer"
           },
+		  
+		      "type": {
+            "displayName": "Type",
+            "description": "Type of the point.",
+            "type": "integer"
+		      },
 
           "num": {
-            "displayName": "Limit Number",
-            "description": " Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
+            "displayName": "Point Number",
+            "description": "Point number (1-based with allowable numbers defined in the min/max/totalObjects).",
             "type": "integer",
             "min": 1,
             "max": 65535
           },
+		  
           "mon": {
             "displayName": "Monday",
             "description": "Profile reference. If days are omitted, then they are assumed to be reverting to the fixed limit threshold value above.",
@@ -1085,22 +1092,22 @@
         }
       },
 
-      "highSpeedStore": {
+      "incidentLog": {
         "displayName": {
-          "en-US": "WITS Triggered High Speed Store"
+          "en-US": "WITS Triggered Incident Logging"
         },
         "parentTypes": [ "point" ],
         "minObjects": 0,
         "maxObjects": 5,
         "totalObjects": 5,
-        "comment": "Defines a high-speed sampling store for a point. Triggered by a digital input point. This defines parameters that are used by a Field Device to create additional log file entries as a result of an incident. To meet this requirement, the Field Device needs to be collecting the additional logging values.",
+        "comment": "Defines a sampling store for a point. Triggered by a digital input point. This defines parameters that are used by a Field Device to create additional logs entries as a result of an incident. To meet this requirement, the Field Device needs to be collecting the additional logging values. Triggering is either by the time or the date or by the trigger point value matches its trigger state.",
         "configFields": {
-          "parent": {
+          "point": {
             "displayName": "Parent Point Index",
             "description": "Parent point index.",
             "type": "integer"
           },
-          "parentType": {
+          "type": {
             "displayName": "Point Type",
             "description": "Type of the point. Must be a valid WITS-IoT point type suitable for storage (ai, bi{n}, ao, bo{n}, c).",
             "type": "string",
@@ -1114,7 +1121,8 @@
               "bo",
               "bo2",
               "bo3",
-              "c"
+              "c",
+			  "x"
             ]
           },
           "num": {
@@ -1124,28 +1132,42 @@
             "min": 1,
             "max": 65535
           },
-          "trigger": {
-            "displayName": "Trigger Point Index",
-            "description": "Index of point causing this log to execute.",
+          "triggerPoint": {
+            "displayName": "Trigger Point Number",
+            "description": "Number of point causing this log to execute.",
             "type": "integer"
           },
           "triggerType": {
             "displayName": "Point Type",
-            "description": "Type of the point causing this log to execute. Must be a valid WITS-IoT point type suitable for trigger bi{n}, bo{n}.",
+            "description": "Type of the point causing this log to execute. Must be a valid WITS-IoT point type suitable for trigger.",
             "type": "string",
             "comment": "Device can restrict types available.",
             "enum": [
+			  "ai",
               "bi",
               "bi2",
               "bi3",
+			  "ao",
               "bo",
               "bo2",
-              "bo3"
+              "bo3",
+			  "c",
+			  "x"
             ]
           },
-          "triggerValue": {
-            "displayName": "Trigger Value",
-            "description": "Trigger occurs when point equals this value.",
+          "triggerMask": {
+            "displayName": "Trigger State Mask",
+            "description": "Trigger occurs when point is in a state matching this bit mask. Binary inputs match by value. Analogues match by alarm limit number. (TBA - see DNP3 Masks?)",
+            "type": "integer"
+          },
+          "triggerTime": {
+            "displayName": "Trigger Time",
+            "description": "The time (relative to the start of the day) when logging is to begin (in seconds). Logging is enhanced from this time and for the length as specified. Set to zero for this to be ignored.",
+            "type": "integer"
+          },
+          "triggerDate": {
+            "displayName": "Trigger Date",
+            "description": "The absolute (epoch) date when logging is to begin (in seconds from 1/1/1970). Logging is enhanced from this date/time and for the length as specified. Set to zero for this to be ignored.",
             "type": "integer"
           },
           "start": {
@@ -1166,8 +1188,6 @@
 
         }
       }
-
-
     }
   }
 }
