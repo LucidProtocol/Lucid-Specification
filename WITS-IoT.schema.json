@@ -474,6 +474,9 @@
       "cVer": {
         "type": "integer"
       },
+      "full": {
+        "type": "boolean"
+      },
       "device": {
         "type": "array",
         "items": {
@@ -482,7 +485,7 @@
         }
       }
     },
-    "required": [ "cVer", "device" ]
+    "required": [ "cVer", "full" ]
   },
 
   "messageProfile": {
