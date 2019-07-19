@@ -22,32 +22,33 @@
     {
       "num": 1,
       "name": "Main IP Channel",
-	  "APN": "giffgaff",
-	  "user": "user",
-	  "pass": "pass"
+	    "APN": "giffgaff",
+	    "user": "user",
+	    "pass": "pass"
     }
   ],
  
   "connection": [
     {
-	  "num": 1,
+	    "num": 1,
+      "name": "Server 1",
       "channel": 1,
       "prot": 1,
       "type": 1,
       "net": "123.456.789.012:20100",
-	  "retries": 2,
-	  "backoff": 120
+	    "retries": 2,
+	    "backoff": 120
     }
   ],
 
   "connectionSchedule": [
-	{
-	  "num": 1,
+	  {
+	    "num": 1,
       "mode": 2,
       "start": 200,
       "repeat": 120,
-	  "retries": 2,
-	  "backoff": 600
+	    "retries": 2,
+	    "backoff": 600
     }
   ],
 
@@ -201,6 +202,8 @@
     {
       "point": 1,
       "type": "ai",
+      "num": 1,
+      "name": "Value stuck",
       "action": 2,
       "deadband": 0.1,
       "period": 600
@@ -210,7 +213,7 @@
   "controlProfile": [
     {
       "point": 1,
-	  "type": "ao",
+	    "type": "ao",
       "num": 1,
       "mon": 1,
       "tue": 2,

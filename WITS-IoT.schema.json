@@ -641,20 +641,20 @@
     "type": "object",
     "properties": {
       "multiBit": {
-        "description": "Multi bit binary input and output support is optionally described. Include bi2, bi3, bo2, bo3 if supported, and state whether bit numbers need to be consecutively used in the Incremental Configuration. If a type is absent from this list, they are unsupported.",
+        "description": "Multi bit binary input and output support is optionally described. Include bi2, bi3, bo2, bo3 if supported, and state whether bit numbers are separately numbered as different points addresses, or part of a single digital address range. If a type is absent from this list, they are unsupported.",
         "type": "object",
         "properties": {
           "bi2": {
-            "enum": [ "Consecutive", "NonConsecutive" ]
+            "enum": [ "Consecutive", "Separate" ]
           },
           "bi3": {
-            "enum": [ "Consecutive", "NonConsecutive" ]
+            "enum": [ "Consecutive", "Separate"  ]
           },
           "bo2": {
-            "enum": [ "Consecutive", "NonConsecutive" ]
+            "enum": [ "Consecutive", "Separate"  ]
           },
           "bo3": {
-            "enum": [ "Consecutive", "NonConsecutive" ]
+            "enum": [ "Consecutive", "Separate"  ]
           }
         },
         "additionalProperties": false

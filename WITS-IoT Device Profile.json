@@ -1,9 +1,9 @@
 {
   "wits": 1,
-  "name": "ACME.Dev1.12",
+  "name": "ACME_Dev1-12.1",
   "prdt": "Dev1",
   "mnfr": "ACME",
-  "pVer": "12",
+  "pVer": "12.1",
   "canCoreUp": false,
   "canCoreDown": false,
   "canConfigDown": true,
@@ -177,8 +177,7 @@
       },
 
       "channel": {
-        "comment": "One or more connection objects.  Note that the channels are listed in priority order, if applicable, from highest first. Typically a device could have multiple channels with different capabilities, in which case each channel adds the fields needed as appropriate.",
-
+        "comment": "One or more channel objects.  Note that the channels are listed in priority order, if applicable, from highest first. Typically a device could have multiple channels with different capabilities, in which case each channel adds the fields needed as appropriate.",
         "displayName": {
           "en-US": "WITS Channel"
         },
@@ -203,13 +202,62 @@
             "type": "string",
             "maxLength": 100
           },
-          "mode": {
-            "displayName": "Connection Mode",
-            "description": "Unused, Permanent or On-Demand.",
-            "type": "integer",
-            "enum": [ "Unused", "Permanent", "On Demand" ],
-            "comment": "If enum values are not 0,1,2 etc, then we add: 'enumValues': [2,4,6]"
+
+          "APN": {
+            "displayName": "APN",
+            "description": "Access Point Name.",
+            "type": "string"
           },
+
+          "user": {
+            "displayName": "User",
+            "description": "APN User name.",
+            "type": "string"
+          },
+
+          "pass": {
+            "displayName": "Pass",
+            "description": "APN Password.",
+            "type": "string"
+          }
+        }
+      },
+
+      "connection": {
+        "comment": "One or more connection objects.",
+        "displayName": {
+          "en-US": "WITS Connection"
+        },
+
+        "parentTypes": [ "device" ],
+        "minObjects": 1,
+        "maxObjects": 1,
+        "totalObjects": 1,
+
+        "configFields": {
+          "num": {
+            "displayName": "Connection Number",
+            "description": "Connection index number.",
+            "type": "integer",
+            "min": 1,
+            "max": 65535
+          },
+
+          "name": {
+            "displayName": "Connection Name",
+            "description": "Connection name.",
+            "type": "string",
+            "maxLength": 100
+          },
+
+          "channel": {
+            "displayName": "Channel",
+            "description": "Channel number.",
+            "type": "integer",
+            "min": 1,
+            "max": 65535
+          },
+
           "prot": {
             "displayName": "Network Protocol",
             "description": "Defines the type of networking supported",
@@ -222,20 +270,67 @@
               "IPv6(UDP)"
             ]
           },
+
           "type": {
             "displayName": "Network type",
             "description": "Network endpoint type",
             "type": "integer",
             "enum": [ "listening", "initiating", "both" ]
           },
+
           "net": {
             "comment": "Is there a json schema for an address?",
             "displayName": "Network Address",
             "description": "Network information containing the IPv4 or IPv6 DNS name or IP address plus : port number (default 20000 if omitted).",
             "type": "string",
-            "maxLength": 64
+            "maxLength": 128
           },
 
+          "retries": {
+            "comment": "Defines the number of retries.",
+            "displayName": "Retries",
+            "description": "Number of retries.",
+            "type": "integer",
+            "min": 0,
+            "max": 10
+          },
+
+          "backoff": {
+            "displayName": "Backoff",
+            "description": "Retry interval (seconds).",
+            "type": "integer",
+            "min": 1,
+            "max": 600
+          }
+        }
+      },
+
+      "connectionSchedule": {
+        "comment": "One or more connection objects.  Note that the channels are listed in priority order, if applicable, from highest first. Typically a device could have multiple channels with different capabilities, in which case each channel adds the fields needed as appropriate.",
+        "displayName": {
+          "en-US": "WITS Connection Schedule"
+        },
+
+        "parentTypes": [ "device" ],
+        "minObjects": 1,
+        "maxObjects": 1,
+        "totalObjects": 1,
+
+        "configFields": {
+          "num": {
+            "displayName": "Channel Number",
+            "description": "Channel index number.",
+            "type": "integer",
+            "min": 1,
+            "max": 65535
+          },
+
+          "mode": {
+            "displayName": "Connection Mode",
+            "description": "Unused, Permanent or On-Demand.",
+            "type": "integer",
+            "enum": [ "Unused", "Permanent", "On Demand" ]
+          },
 
           "start": {
             "comment": "Defines the time and schedule that a field device must follow to connect to the Master Station.",
@@ -247,6 +342,7 @@
             "group": "commsSchedule",
             "order": 1
           },
+
           "repeat": {
             "displayName": "Repeat",
             "description": "Repeat interval (minutes).",
@@ -255,13 +351,25 @@
             "max": 720,
             "group": "commsSchedule",
             "order": 2
+          },
+
+           "retries": {
+            "comment": "Defines the number of retries.",
+            "displayName": "Retries",
+            "description": "Number of retries.",
+            "type": "integer",
+            "min": 0,
+            "max": 10
+          },
+
+          "backoff": {
+            "displayName": "Backoff",
+            "description": "Retry interval (seconds).",
+            "type": "integer",
+            "min": 1,
+            "max": 600
           }
-        },
-        "groups": {
-          "commsSchedule": {
-            "displayName": "Communications Schedule"
-          }
-        }
+       }
       },
 
       "deviceLink": {
@@ -493,7 +601,7 @@
         "displayName": {
           "en-US": "WITS Analogue Point Limit"
         },
-        "parentTypes": [ "analogue", "counter" ],
+        "parentTypes": [ "analogue" ],
         "minObjects": 4,
         "comment": "e.g. this device has a mandatory four limits per analogue",
         "maxObjects": 4,
@@ -501,20 +609,20 @@
 
         "configFields": {
 
-          "parent": {
+          "point": {
             "displayName": "",
             "description": "Analogue limits belong to analogue parent points only.",
             "type": "integer"
           },
 
-          "parentType": {
+          "type": {
             "displayName": "Point Type",
-            "description": "Type of the point. Must be a valid WITS-IoT point type suitable for limits (ai, ao, c).",
+            "description": "Type of the point. Must be a valid WITS-IoT point type suitable for limits (ai, ao).",
             "type": "string",
             "enum": [
               "ai",
               "ao",
-              "c"
+              "x"
             ]
           },
 
@@ -540,7 +648,6 @@
             "comment": "enum?"
           },
 
-
           "dirctn": {
             "displayName": "",
             "description": "This object defines the point limit values for generating events when the current value of an analogue point exceeds a limi.",
@@ -548,13 +655,11 @@
             "comment": "Direction (0=positive going (low-normal-high, 1=negative going (high-normal-low ))."
           },
 
-
           "value": {
             "displayName": "",
             "description": "Limit threshold value, in engineering units.",
             "type": "number"
           },
-
 
           "mon": {
             "displayName": "",
@@ -592,13 +697,11 @@
             "type": "integer"
           },
 
-
           "hyst": {
             "displayName": "",
             "description": "The hysteresis is an adjustment made to the limit value to set a further level beyond which the point value must travel to leave the state. The value of Hysteresis is always a positive number.",
             "type": "number"
           },
-
 
           "enter": {
             "displayName": "",
@@ -606,12 +709,96 @@
             "type": "integer"
           },
 
-
           "leave": {
             "displayName": "",
             "description": "The Leave Persistence defines the number of milliseconds the point value must have been beyond the limit value with hysteresis to leave the current state (and therefore enter another state). The Leave Persistence is only used when a new limit state is entered with the point value moving towards the Normal State.",
             "type": "integer"
           }
+        }
+      },
+
+      "counterLimit": {
+        "displayName": {
+          "en-US": "WITS Counter Point Limit"
+        },
+        "parentTypes": [ "counter" ],
+        "minObjects": 2,
+        "comment": "e.g. this device has a mandatory two limits per counter",
+        "maxObjects": 2,
+        "totalObjects": 200,
+
+        "configFields": {
+
+          "point": {
+            "displayName": "",
+            "description": "Counter limits belong to counter parent points only.",
+            "type": "integer"
+          },
+
+          "num": {
+            "comment": "Limit Index; limit objects must use consecutive limit indexes starting at 1. The lowest index value must correspond to the lowest limit and the maximum index to the highest limit. (Allowable numbers defined in the min/max/totalObjects).",
+            "displayName": "Limit Number",
+            "description": "Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
+            "type": "integer",
+            "min": 1,
+            "max": 65535
+          },
+
+          "name": {
+            "displayName": "Limit Name",
+            "description": "Name of this alarm limit.",
+            "type": "string"
+          },
+
+          "action": {
+            "displayName": "",
+            "description": "Action to be taken on transgressing the limit  (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the Master Station).",
+            "type": "integer",
+            "comment": "enum?"
+          },
+
+          "value": {
+            "displayName": "",
+            "description": "Limit threshold value, in engineering units.",
+            "type": "number"
+          },
+
+          "mon": {
+            "displayName": "",
+            "description": "Profiles reference numbers to be used for the days of the week.  All days may use the same profile or any combination of profiles against days.  If days are omitted or zero, then they are assumed to be reverting to the fixed limit threshold value above.",
+            "type": "integer"
+          },
+          "tue": {
+            "displayName": "",
+            "description": ".",
+            "type": "integer"
+          },
+          "wed": {
+            "displayName": "",
+            "description": ".",
+            "type": "integer"
+          },
+          "thu": {
+            "displayName": "",
+            "description": ".",
+            "type": "integer"
+          },
+          "fri": {
+            "displayName": "",
+            "description": ".",
+            "type": "integer"
+          },
+          "sat": {
+            "displayName": "",
+            "description": ".",
+            "type": "integer"
+          },
+          "sun": {
+            "displayName": "",
+            "description": ".",
+            "type": "integer"
+          }
+
         }
       },
 
@@ -627,23 +814,38 @@
 
         "configFields": {
 
-          "parent": {
+          "point": {
             "displayName": "Parent Point",
             "description": "No change alarms belong to analogue and counter parent points only. Only one per point.",
             "type": "integer"
           },
 
-          "parentType": {
+          "type": {
             "displayName": "Point Type",
             "description": "Type of the point. Must be a valid WITS-IoT point type suitable for no change alarm (ai, ao, c).",
             "type": "string",
             "enum": [
               "ai",
               "ao",
-              "c"
+              "c",
+              "x"
             ]
           },
 
+          "num": {
+            "comment": "Unlikely to have more than one of these. Limit Index; limit objects must use consecutive limit indexes starting at 1. The lowest index value must correspond to the lowest limit and the maximum index to the highest limit. (Allowable numbers defined in the min/max/totalObjects).",
+            "displayName": "Limit Number",
+            "description": "Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
+            "type": "integer",
+            "min": 1,
+            "max": 65535
+          },
+
+          "name": {
+            "displayName": "Alarm Name",
+            "description": "Name of this no change alarm.",
+            "type": "string"
+          },
 
           "action": {
             "displayName": "Action",
@@ -899,12 +1101,12 @@
             "type": "number"
           },
 
-		  "type": {
-			"displayName": "Type",
-			"description": "Whether the profile is stepped or linear. Stepped is 'step first'. Stepped is the default.",
-			"type": "integer",
-			"enum": [ "Stepped", "Linear"]
-		  },
+		      "type": {
+			      "displayName": "Type",
+			      "description": "Whether the profile is stepped or linear. Stepped is 'step first'. Stepped is the default.",
+			      "type": "integer",
+			      "enum": [ "Stepped", "Linear"]
+		      },
 		  
           "inter": {
             "displayName": "",
@@ -915,7 +1117,7 @@
       },
 
       "extPoint": {
-        "comment": "Extended Point - used to create derived point values",
+        "comment": "Extended Point - used to create secondary point values",
         "displayName": {
           "en-US": "WITS Extended Point"
         },
@@ -964,7 +1166,7 @@
             "maxLength": 64
           },
 
-          "class": {
+          "className": {
             "displayName": "Point Class",
             "description": "The class is optional, and is a string which can be used by the Master to denote equipment or asset ontology.",
             "type": "string",
@@ -1015,6 +1217,7 @@
             "description": "Add to Run Time or Count when the source point equals this value. e.g. this is a digital state or analogue value. Only applies to Run Time or Counter.",
             "type": "integer"
           },
+
           "units": {
             "displayName": "",
             "description": "The units are a free format ASCII string that can be used when displaying the point value through local access displays etc. The Field Device should not interpret any meaning from this string and may choose to ignore it completely.",
@@ -1054,6 +1257,13 @@
             "max": 65535
           },
 		  
+          "name": {
+            "displayName": "Point Name",
+            "description": "The name is optional, and is a string which can be used by the device to report data values or to display locally. Furthermore the name string may contain a hierarchy of fields with a separator which can imply a structure.",
+            "type": "string",
+            "maxLength": 64
+          },
+
           "mon": {
             "displayName": "Monday",
             "description": "Profile reference. If days are omitted, then they are assumed to be reverting to the fixed limit threshold value above.",
@@ -1101,12 +1311,15 @@
         "maxObjects": 5,
         "totalObjects": 5,
         "comment": "Defines a sampling store for a point. Triggered by a digital input point. This defines parameters that are used by a Field Device to create additional logs entries as a result of an incident. To meet this requirement, the Field Device needs to be collecting the additional logging values. Triggering is either by the time or the date or by the trigger point value matches its trigger state.",
+
         "configFields": {
+
           "point": {
             "displayName": "Parent Point Index",
             "description": "Parent point index.",
             "type": "integer"
           },
+
           "type": {
             "displayName": "Point Type",
             "description": "Type of the point. Must be a valid WITS-IoT point type suitable for storage (ai, bi{n}, ao, bo{n}, c).",
@@ -1122,9 +1335,10 @@
               "bo2",
               "bo3",
               "c",
-			  "x"
+              "x"
             ]
           },
+
           "num": {
             "displayName": "Store Number",
             "description": " Store number (1-based with allowable numbers defined in the min/max/totalObjects).",
@@ -1132,54 +1346,62 @@
             "min": 1,
             "max": 65535
           },
+
           "triggerPoint": {
             "displayName": "Trigger Point Number",
             "description": "Number of point causing this log to execute.",
             "type": "integer"
           },
+
           "triggerType": {
             "displayName": "Point Type",
             "description": "Type of the point causing this log to execute. Must be a valid WITS-IoT point type suitable for trigger.",
             "type": "string",
             "comment": "Device can restrict types available.",
             "enum": [
-			  "ai",
+              "ai",
               "bi",
               "bi2",
               "bi3",
-			  "ao",
+              "ao",
               "bo",
               "bo2",
               "bo3",
-			  "c",
-			  "x"
+              "c",
+              "x"
             ]
           },
+
           "triggerMask": {
             "displayName": "Trigger State Mask",
             "description": "Trigger occurs when point is in a state matching this bit mask. Binary inputs match by value. Analogues match by alarm limit number. (TBA - see DNP3 Masks?)",
             "type": "integer"
           },
+
           "triggerTime": {
             "displayName": "Trigger Time",
             "description": "The time (relative to the start of the day) when logging is to begin (in seconds). Logging is enhanced from this time and for the length as specified. Set to zero for this to be ignored.",
             "type": "integer"
           },
+
           "triggerDate": {
             "displayName": "Trigger Date",
             "description": "The absolute (epoch) date when logging is to begin (in seconds from 1/1/1970). Logging is enhanced from this date/time and for the length as specified. Set to zero for this to be ignored.",
             "type": "integer"
           },
+
           "start": {
             "displayName": "Start",
             "description": "The time (relative to the start of the incident) when logging is to begin (in milliseconds). Negative values mean the log starts before the trigger time.",
             "type": "integer"
           },
+
           "length": {
             "displayName": "Length",
             "description": "The length of time (in milliseconds) to continue logging the point after the incident.",
             "type": "integer"
           },
+
           "rate": {
             "displayName": "Log Rate",
             "description": "The rate to be used (in milliseconds) to log the point during the incident.",
