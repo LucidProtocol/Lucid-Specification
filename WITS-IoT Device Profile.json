@@ -1226,6 +1226,96 @@
         }
       },
 
+      "calcPoint": {
+        "displayName": {
+          "en-US": "WITS Calculation Point"
+        },
+        "parentTypes": [ "device" ],
+        "minObjects": 0,
+        "maxObjects": 100,
+        "totalObjects": 100,
+
+        "configFields": {
+
+          "num": {
+            "displayName": "Point Number",
+            "description": " Point number (1-based with allowable numbers defined in the capability/points/addresses.).",
+            "type": "integer",
+            "min": 1,
+            "max": 65535
+          },
+
+          "type": {
+            "displayName": "Point Type",
+            "description": "Type of the point. Must be a valid WITS-IoT input point type (ai, bi{2/3}).",
+            "type": "string",
+            "enum": [
+              "ai",
+              "bi",
+              "bi2",
+              "bi3"
+            ],
+            "comment": "A device may not support all of these items, as indicated in the point capability address ranges."
+          },
+
+          "name": {
+            "displayName": "Point Name",
+            "description": "The name is optional, and is a string which can be used by the device to report data values or to display locally. Furthermore the name string may contain a hierarchy of fields with a separator which can imply a structure.",
+            "type": "string",
+            "maxLength": 64
+          },
+
+          "className": {
+            "displayName": "Point Class",
+            "description": "The class is optional, and is a string which can be used by the Master to denote equipment or asset ontology.",
+            "type": "string",
+            "maxLength": 64
+          },
+
+          "canOverride": {
+            "displayName": "Can Override",
+            "description": "Whether local override is permitted.",
+            "type": "boolean"
+          },
+
+          "onChange": {
+            "displayName": "Calculate on Change",
+            "description": "Causes calculation when any input values or their qualities change.",
+            "type": "boolean"
+          },
+
+          "calcPeriod": {
+            "displayName": "Calculation Period",
+            "description": "Base periodic calculation rate. In seconds.",
+            "type": "integer"
+          },
+
+          "calcOffset": {
+            "displayName": "Calculation Time Offset",
+            "description": "Offset time from the start of the week that the calculation is synchronised from (Monday, 00:00:00). Measured in seconds.  If 0, then log is offset from the last midnight.",
+            "type": "integer"
+          },
+
+          "resetPeriod": {
+            "displayName": "Reset Period",
+            "description": "Previous value reset rate. In seconds.",
+            "type": "integer"
+          },
+
+          "resetOffset": {
+            "displayName": "Reset Time Offset",
+            "description": "Offset time from the start of the week that the previous value is reset from (Monday, 00:00:00). Measured in seconds.  If 0, then log is offset from the last midnight.",
+            "type": "integer"
+          },
+
+          "bytecode": {
+            "displayName": "Bytecode Data",
+            "description": "Array of calculation instruction tuples.",
+            "type": "arrayOfArrays"
+          }
+        }
+      },
+
       "controlProfile": {
         "displayName": {
           "en-US": "WITS Analogue Output Control Profile"
