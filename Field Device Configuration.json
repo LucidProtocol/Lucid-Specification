@@ -1,0 +1,288 @@
+{
+  "cVer": 123,
+  "full": true,
+  
+  "device": [
+    {
+      "nid": "A1234567890",
+      "loc": "16 Bridge St, Elton",
+      "ownr": "STW",
+      "asst": "ASST123456",
+      "name": "West Derby PRV",
+      "serl": "2005-12345Abc",
+      "location": true,
+      "latitude": 12.4356543,
+      "longitude": 76.12324,
+      "s_ACME_set": "abc.def",
+      "scan": true
+    }
+  ],
+
+  "channel": [
+    {
+      "num": 1,
+      "name": "Main IP Channel",
+	    "APN": "giffgaff",
+	    "user": "user",
+	    "pass": "pass"
+    }
+  ],
+ 
+  "connection": [
+    {
+	    "num": 1,
+      "name": "Server 1",
+      "channel": 1,
+      "prot": 1,
+      "type": 1,
+      "net": "123.456.789.012:20100",
+	    "retries": 2,
+	    "backoff": 120
+    }
+  ],
+
+  "connectionSchedule": [
+	  {
+	    "num": 1,
+      "mode": 2,
+      "start": 200,
+      "repeat": 120,
+	    "retries": 2,
+	    "backoff": 600
+    }
+  ],
+
+  "deviceLink": [
+    {
+      "num": 1,
+      "name": "Onboard IO"
+    }
+  ],
+
+  "point": [
+    {
+	    "deviceLink": 1,
+      "num": 1,
+      "type": "ai",
+      "name": "pump 1.Flow",
+      "className": "Water.Pumps.Acme 245M",
+      "scan": true,
+      "canOverride": true,
+      "logRate": 900,
+      "logOffset": 0
+    },
+    {
+      "deviceLink": 1,
+      "num": 1,
+      "type": "ao",
+      "name": "pump 1.Demand",
+      "className": "Water.Pumps.Acme 245M",
+      "scan": true,
+      "onChange": true,
+      "onConn": true,
+      "canOverride": true,
+      "logRate": 900,
+      "logOffset": 0
+    },
+    {
+      "deviceLink": 1,
+      "num": 1,
+      "type": "bi",
+      "name": "pump 1.Status",
+      "className": "Water.Pumps.Acme 245M",
+      "scan": true,
+      "canOverride": true,
+      "logRate": 3600,
+      "logOffset": 0
+    },
+    {
+      "deviceLink": 1,
+      "num": 1,
+      "type": "c",
+      "name": "pump 1.Starts",
+      "className": "Water.Pumps.Acme 245M",
+      "scan": true,
+      "canOverride": true,
+      "logRate": 3600,
+      "logOffset": 0
+    }
+  ],
+
+  "analogue": [
+    {
+      "point": 1,
+	    "type": "ai",
+      "rawsc1": 0,
+      "rawsc2": 256,
+      "engsc1": 0.0,
+      "engsc2": 200.0,
+      "min": 0.0,
+      "max": 99999.99,
+      "units": "m3",
+      "sigChangeValue": 0.1
+    }
+  ],
+
+  "digital": [
+    {
+      "point": 1,
+      "type": "bi",
+      "state0Action": 1,
+      "state0Pers": 2000,
+      "state1Action": 2,
+      "state1Pers": 4000
+    }
+  ],
+
+  "counter": [
+    {
+      "point": 1,
+      "resetPeriod": 86400,
+      "resetOffset": 0,
+      "reportPeriod": 900,
+      "scale": 1.0,
+      "units": "m3"
+    }
+  ],
+
+  "extPoint": [
+    {
+      "point": 1,
+      "parentType": "ai",
+      "num": 1,
+      "name": "pump 1.Flow Average",
+      "className": "Water.Pumps.ACME 245M",
+      "type": "Mean",
+      "resetPeriod": 86400,
+      "resetOffset": 0,
+      "reportPeriod": 900,
+      "scale": 1.0,
+      "units": "litres"
+    },
+    {
+      "point": 1,
+      "parentType": "bi",
+      "num": 2,
+      "name": "pump 1.Run Time",
+      "className": "Water.Pumps.ACME 245M",
+      "type": "Run Time",
+      "resetPeriod": 86400,
+      "resetOffset": 0,
+      "reportPeriod": 900,
+      "scale": 1.0,
+      "state": 1,
+      "units": "s"
+    }
+  ],
+
+  "calcPoint": [
+    {
+      "num": 1,
+      "name": "pump 1.Flow Filtered",
+      "className": "Water.Pumps.ACME 245M",
+      "type": "ai",
+      "units": "litres",
+      "canOverride": true,
+      "calcPeriod": 900,
+      "calcOffset": 0,
+      "resetPeriod": 86400,
+      "resetOffset": 0,
+      "bytecode": [
+        [ 10, "ai", 1 ],
+        [ 120 ],
+        [ 31 ],
+        [ 1, 2 ],
+        [ 34 ]
+      ]
+    },
+    {
+      "num": 1,
+      "name": "pump 1.Status point quality",
+      "className": "Water.Pumps.ACME 245M",
+      "type": "bi",
+      "canOverride": false,
+      "onChange": true,
+      "bytecode": [
+        [ 11, "bi", 1, 1 ]
+      ]
+    }
+  ],
+
+  "analogueLimit": [
+    {
+      "point": 1,
+      "type": "ai",
+      "num": 1,
+	    "name": "High",
+      "action": 2,
+      "dirctn": 0,
+      "value": 123.45,
+      "sat": 1,
+      "hyst": 1.0,
+      "enter": 2000,
+      "leave": 2000
+    }
+  ],
+
+  "counterLimit": [
+    {
+      "point": 1,
+      "num": 1,
+      "action": 2,
+      "value": 123.45
+    }
+  ],
+
+  "analogueNoChange": [
+    {
+      "point": 1,
+      "type": "ai",
+      "num": 1,
+      "name": "Value stuck",
+      "action": 2,
+      "deadband": 0.1,
+      "period": 600
+    }
+  ],
+
+  "controlProfile": [
+    {
+      "point": 1,
+	    "type": "ao",
+      "num": 1,
+      "mon": 1,
+      "tue": 2,
+      "wed": 3,
+      "thu": 4,
+      "fri": 5,
+      "sat": 6,
+      "sun": 7
+    }
+  ],
+
+  "profile": [
+    {
+      "num": 1,
+      "values": [ 0, 10, 20 ],
+      "time": [ 0, 3600, 7200 ],
+	  "type": 0,
+      "inter": 15
+    }
+  ],
+
+  "incidentLog": [
+    {
+      "point": 1,
+      "type": "ai",
+      "num": 1,
+      "triggerPoint": 1,
+      "triggerType": "bi",
+      "triggerMask": 0,
+      "triggerTime": 3600,
+      "triggerDate": 4321432145321,
+      "start": -5000,
+      "length": 15000,
+      "rate": 20
+    }
+  ]
+}

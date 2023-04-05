@@ -1,0 +1,824 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema",
+  "$id": "Lucid.schema.json",
+  "name": "Lucid Configuration and Operation Schema",
+  "description":  "Can be used to verify messages at: https://www.jsonschemavalidator.net/",
+
+  "definitions": {
+
+    "translatableString": {
+      "description": "i18n Support",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "patternProperties": {
+            "^\\w+$": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "Lucidtime": {
+      "description": "Lucid Date/Time string",
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^(\\d\\d\\d\\d)-?(\\d\\d)-?(\\d\\d)T?(\\d\\d):?(\\d\\d)(?::?(\\d\\d)(\\.\\d+)*?)?(Z|[+-])(?:(\\d\\d):?(\\d\\d))?$"
+        },
+        {
+          "type": "string",
+          "pattern": "^[0-9]+(\\.[0-9]+)?$"
+        }
+
+      ]
+    }
+  },
+
+  "messageLWT": {
+    "title": "LWT",
+    "description": "Schema for a Last Will and Testament. Topic: [UUID]/UP/lwt",
+
+    "type": "object",
+    "properties": {
+      "state": {
+        "type": "string"
+      }
+    },
+    "required": [ "state" ],
+    "additionalProperties": false
+  },
+
+  "coreBlock": {
+    "description": "Used in Birth Certificate",
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "ver": {
+        "type": "string"
+      },
+      "req": {
+        "type": "boolean"
+      }
+    },
+    "required": [ "name", "ver" ],
+    "additionalProperties": false
+  },
+
+  "messageBirthCertificate": {
+    "title": "BirthCertificate",
+    "description": "schema for a Birth Certificate. Topic: [UUID]/UP/status",
+
+    "type": "object",
+    "properties": {
+      "pRef": {
+        "description": "Reference name of the Profile Version",
+        "type": "string"
+      },
+      "core": {
+        "type": "array",
+        "items": { "$ref": "#/coreBlock" }
+      },
+      "cVer": {
+        "description": "Config Version",
+        "type": "integer"
+      },
+      "confReq": {
+        "type": "boolean"
+      },
+      "confState": {
+        "type": "string"
+      },
+      "inactiveState": {
+        "type": "boolean"
+      },
+      "nid": {
+        "type": "string"
+      },
+      "time": {
+        "description": "Add a separate definition for this with string regexp?",
+        "$ref": "#/definitions/Lucidtime"
+      }
+    },
+    "required": [ "pRef", "cVer", "time" ],
+    "additionalProperties": false
+  },
+
+  "messageCoreBlock": {
+    "title": "Core Block",
+    "description": "schema for a Core Block download. Topic: [UUID]/DOWN/core/block/<name>/<version-text> . Or /UP/",
+
+    "type": "object",
+    "properties": {
+      "blockPart": {
+        "type": "string"
+      },
+      "totalParts": {
+        "type": "integer"
+      },
+      "data": {
+        "type": "string"
+      }
+    },
+    "required": [ "blockPart", "totalParts", "data" ],
+    "additionalProperties": false
+  },
+
+  "coreBlockList": {
+    "title": "Core Block List",
+    "description": "Used in Birth Certificate.",
+
+    "type": "array",
+    "items": { "type": "string" }
+  },
+
+  "messageCoreBlockRequestActivate": {
+    "title": "Core Block Request",
+    "description": "schema for a Core Block Request - enable a block. Topic: [UUID]/UP/core/request",
+
+    "type": "object",
+    "properties": {
+      "activate": {
+        "$ref": "#/coreBlockList"
+      }
+    },
+    "required": [ "activate" ],
+    "additionalProperties": false
+  },
+
+  "messageCoreBlockRequestDeactivate": {
+    "title": "Core Block Request",
+    "description": "schema for a Core Block Request - disable a block. Topic: [UUID]/UP/core/request",
+
+    "type": "object",
+    "properties": {
+      "deactivate": {
+        "$ref": "#/coreBlockList"
+      }
+    },
+    "required": [ "deactivate" ],
+    "additionalProperties": false
+  },
+
+  "messageCoreBlockRequestUpload": {
+    "title": "Core Block Request",
+    "description": "schema for a Core Block Request - upload a block. Topic: [UUID]/UP/core/request",
+
+    "type": "object",
+    "properties": {
+      "upload": {
+        "$ref": "#/coreBlockList"
+      }
+    },
+    "required": [ "upload" ],
+    "additionalProperties": false
+  },
+
+  "DataList": {
+    "title": "Point Data List",
+    "description": "Used in messageData.",
+
+    "type": "array",
+    "items": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "n": {
+              "type": "string",
+              "pattern": "^[a-z]{2}:[0-9]+$"
+            },
+            "v": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "vm": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "q": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "t": {
+              "type": "object",
+              "properties": {
+                "s": {
+                  "$ref": "#/definitions/Lucidtime"
+                },
+                "i": {
+                  "type": "integer"
+                }
+              },
+              "required": [ "s", "i" ]
+            },
+            "ts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Lucidtime"
+              }
+            },
+            "r": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "a": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+
+          },
+          "required": [ "n" ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "v": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "vm": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "q": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "t": {
+              "type": "object",
+              "properties": {
+                "s": {
+                  "$ref": "#/definitions/Lucidtime"
+                },
+                "i": {
+                  "type": "integer"
+                }
+              },
+              "required": [ "s", "i" ]
+            },
+            "ts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Lucidtime"
+              }
+            },
+            "r": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "a": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "required": [ "name" ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+
+  "messageData": {
+    "title": "Data Message",
+    "description": "schema for a Data message. Topic: [UUID]/UP/data",
+    "comment": "'p': { 'n': 'ai:1', etc...",
+
+    "type": "object",
+    "properties": {
+      "p": {
+        "$ref": "#/DataList"
+      }
+    },
+    "required": [ "p" ],
+    "additionalProperties": false
+  },
+
+  "messageGetData": {
+    "title": "Get Data Message",
+    "description": "Schema for a data request. Topic: [UUID]/DOWN/getdata",
+
+    "type": "object",
+    "properties": {
+      "data": {
+        "enum": [ "Buffer", "All" ]
+      },
+      "n": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^[a-z]{2}:[0-9]+$"
+        }
+      },
+      "name": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "start": { "#ref": "#/definitions/Lucidtime" },
+      "end": { "#ref": "#/definitions/Lucidtime" }
+    },
+    "required": [ "data" ],
+    "additionalProperties": false
+  },
+
+  "messageClock": {
+    "title": "Clock message",
+    "description": "Schema to set or get clock. Topic: [UUID]/DOWN/setclock  or: [UUID]/UP/getclock",
+
+    "type": "object",
+    "properties": {
+      "master": { "#ref": "#/definitions/Lucidtime" },
+      "device": { "#ref": "#/definitions/Lucidtime" }
+    },
+    "required": [ "master" ],
+    "additionalProperties": false
+  },
+
+  "messageGetDeviceInfo": {
+    "title": "Get Device Information Message",
+    "description": "Schema for a profile/status/config request. Topic: [UUID]/DOWN/getdata",
+
+    "type": "object",
+    "properties": {
+      "config": {
+        "enum": [ "Status", "Profile", "Configuration" ]
+      }
+    },
+    "required": [ "config" ],
+    "additionalProperties": false
+  },
+
+  "messageControl": {
+    "title": "Control one or more values",
+    "description": "Schema for controls. Topic: [UUID]/DOWN/control",
+
+    "type": "object",
+    "properties": {
+      "c": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "n": {
+              "type": "string",
+              "pattern": "^[a-z]{2}:[0-9]+$"
+            },
+            "name": {
+              "type": "string"
+            },
+            "v": {
+              "type": "number"
+            }
+          },
+          "required": [ "v" ]
+        }
+      }
+    },
+    "required": [ "c" ],
+    "additionalProperties": false
+  },
+
+  "messageOverride": {
+    "title": "Override one or more values",
+    "description": "Schema for overrides. Topic: [UUID]/DOWN/override",
+
+    "type": "object",
+    "properties": {
+      "o": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "n": {
+              "type": "string",
+              "pattern": "^[a-z]{2}:[0-9]+$"
+            },
+            "name": {
+              "type": "string"
+            },
+            "v": {
+              "type": "number"
+            }
+          },
+          "required": [ "v" ]
+        }
+      }
+    },
+    "required": [ "o" ],
+    "additionalProperties": false
+  },
+
+  "messageRelease": {
+    "title": "Release override for one or more signals",
+    "description": "Schema for releasing overrides. Topic: [UUID]/DOWN/override",
+
+    "type": "object",
+    "properties": {
+      "r": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "n": {
+              "type": "string",
+              "pattern": "^[a-z]{2}:[0-9]+$"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "required": [ "r" ],
+    "additionalProperties": false
+  },
+
+  "messageConfiguration": {
+    "title": "Configuration",
+    "description": "Schema for a Configuration message. a generic schema to validate configuration, with no complete check of object property names, because that is a function of the Device Profile. [UUID]/DOWN/Configuration. Or /UP/. Validation requires a device array, even if empty, to distinguish from status message",
+
+    "type": "object",
+    "properties": {
+      "cVer": {
+        "type": "integer"
+      },
+      "full": {
+        "type": "boolean"
+      },
+      "device": {
+        "type": "array",
+        "items": {
+          "type": "object"
+
+        }
+      }
+    },
+    "required": [ "cVer", "full" ]
+  },
+
+  "messageProfile": {
+    "title": "Profile",
+    "description": "Schema for a Device Profile. Topic: [UUID]/UP/profile",
+
+    "type": "object",
+    "properties": {
+      "lucid": {
+        "type": "number",
+        "description": "Lucid Version (only a Major version number)"
+      },
+      "prdt": {
+        "type": "string",
+        "description": "Device Manufacturer’s product name and model (text) – must not be empty"
+      },
+      "mnfr": {
+        "type": "string",
+        "description": "Device Manufacturer (text) – must not be empty"
+      },
+      "pVer": {
+        "type": "string",
+        "description": "Device Profile Version   (text) – must not be empty. This is written into the string sent in the Birth Certificate."
+      },
+      "canCoreUp": {
+        "type": "boolean",
+        "description": "Capability for file data transfers in either direction, denotes whether each block can be uploaded or downloaded by the Master. Note that there is no canConfigUp as this feature is mandatory for the device in the MS to be configured automatically from upload."
+      },
+      "canCoreDown": {
+        "type": "boolean"
+      },
+      "canConfigDown": {
+        "type": "boolean"
+      },
+      "supportCompression": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "description": "Compression: (if GZIP compression is supported, or other types in future.)"
+        }
+      },
+
+      "profile": {
+        "description": "This is the main body of the profile.",
+        "$ref": "#/profileContent"
+      }
+    },
+    "required": [ "lucid", "mnfr", "prdt", "pVer" ],
+    "additionalProperties": false
+  },
+
+  "profileContent": {
+    "title": "Profile Content Section",
+    "description": "Schema for Device Profile Content.",
+    "type": "object",
+    "properties": {
+      "capability": {
+        "$ref": "#/profileCapability"
+      },
+      "objectTypes": {
+        "$ref": "#/profileObjectType"
+      }
+    },
+    "additionalProperties": false
+  },
+
+  "profileCapability": {
+    "title": "Profile Capability Section",
+    "description": "The profile contains the device capability section. While the Object Types have fields which determine the quantities of those objects, it is common practice for devices to have ranges of object numbers. This section gives the ranges of numbers available, subject to the limits defined in the Object Types.",
+    "type": "object",
+    "properties": {
+      "points": {
+        "$ref": "#/profileCapabilityPoints"
+      },
+      "pointSupport": {
+        "$ref": "#/profileCapabilityPointSupport"
+      },
+      "channels": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "num": {
+              "type": "integer"
+            }
+          },
+          "required": [ "name", "num" ],
+          "additionalProperties": false
+        }
+      },
+      "deviceLinks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "num": {
+              "type": "integer"
+            }
+          },
+          "required": [ "name", "num" ],
+          "additionalProperties": false
+        }
+      },
+      "commands": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+
+  "profileCapabilityPoints": {
+    "title": "Profile Capability Points Section",
+    "description": "A range is an inclusive set of integers. There can be more than one range. Multiple ranges may be used, e.g. for Physical, Virtual or External points.",
+    "type": "object",
+    "patternProperties": {
+      "^[a-z][a-z]?$": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "properties": {
+            "from": {
+              "type": "integer"
+            },
+            "to": {
+              "type": "integer"
+            },
+            "comment": {
+              "type": "string"
+            }
+          },
+          "required": [ "from", "to" ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+
+  "profileCapabilityPointSupport": {
+    "title": "Profile Capability Point Support Section",
+    "description": "Schema for Device Profile Capability Point Support Content.",
+    "type": "object",
+    "properties": {
+      "multiBit": {
+        "description": "Multi bit binary input and output support is optionally described. Include bi2, bi3, bo2, bo3 if supported, and state whether bit numbers are separately numbered as different points addresses, or part of a single digital address range. If a type is absent from this list, they are unsupported.",
+        "type": "object",
+        "properties": {
+          "bi2": {
+            "enum": [ "Consecutive", "Separate" ]
+          },
+          "bi3": {
+            "enum": [ "Consecutive", "Separate"  ]
+          },
+          "bo2": {
+            "enum": [ "Consecutive", "Separate"  ]
+          },
+          "bo3": {
+            "enum": [ "Consecutive", "Separate"  ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "counterExclusive": {
+        "type": "boolean"
+      }
+    },
+    "additionalProperties": false
+  },
+
+  "profileObjectType": {
+    "title": "Profile Object Types Section",
+    "description": "Schema for Device Profile object types Content.",
+    "type": "object",
+    "patternProperties": {
+      "^[a-zA-Z][a-zA-Z0-9]*$": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "$ref": "#/definitions/translatableString"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "parentTypes": {
+            "type": "array",
+            "items": {
+              "description": "Only a list of object names.",
+              "type": "string"
+            }
+          },
+          "minObjects": {
+            "description": "At least n need to be defined for the parent object.",
+            "type": "integer"
+          },
+          "maxObjects": {
+            "description": "No more than n can to be defined for the parent object.",
+            "type": "integer"
+          },
+          "totalObjects": {
+            "description": "No more than n can be defined for the device in total.",
+            "type": "integer"
+          },
+          "configFields": {
+            "$ref": "#/profileObjectField"
+          },
+          "groups": {
+            "$ref": "#/profileGroup"
+          },
+          "specificToProfile": {
+            "description": "Use this to specify that this object is not part of the Lucid standard profile. Object to be named s_<mnfr>_<name>.",
+            "type":  "boolean"
+          }        },
+        "required": [ "displayName" ],
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+
+  "profileObjectField": {
+    "title": "Profile Object Field Section",
+    "description": "Schema for Device Profile object fields Content.",
+    "type": "object",
+    "patternProperties": {
+      "^[a-zA-Z][a-zA-Z0-9]*$": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "$ref": "#/definitions/translatableString"
+          },
+          "description": {
+            "$ref": "#/definitions/translatableString"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "array": {
+            "type": "boolean"
+          },
+          "enum": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "enumValues": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "maxLength": {
+            "type": "integer"
+          },
+          "min": {
+            "type": "number"
+          },
+          "max": {
+            "type": "number"
+          },
+          "enable": {
+            "type": "string"
+          },
+          "group": {
+            "type": "string"
+          },
+          "order": {
+            "description": "",
+            "type": "number"
+          },
+          "specificToProfile": {
+            "description": "Use this to specify that this field is not part of the Lucid standard profile. Field to be named s_<mnfr>_<name>.",
+            "type": "boolean"
+          },
+          "required": {
+            "description": "Whether this field is required for this object, defaults to false",
+            "type": "boolean"
+          }
+        },
+        "required": [ "displayName" ],
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+
+  "profileGroup": {
+    "title": "Profile Object Field Grouping Section",
+    "description": "Schema for Device Profile object field groups Content.",
+    "type": "object",
+    "patternProperties": {
+      "^[a-zA-Z][a-zA-Z0-9]*$": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "$ref": "#/definitions/translatableString"
+          }
+        },
+        "required": [ "displayName" ],
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+
+  "oneOf": [
+    { "$ref": "#/messageLWT" },
+    { "$ref": "#/messageBirthCertificate" },
+    { "$ref": "#/messageCoreBlock" },
+    { "$ref": "#/messageCoreBlockRequestActivate" },
+    { "$ref": "#/messageCoreBlockRequestDeactivate" },
+    { "$ref": "#/messageCoreBlockRequestUpload" },
+    { "$ref": "#/messageData" },
+    { "$ref": "#/messageGetData" },
+    { "$ref": "#/messageClock" },
+    { "$ref": "#/messageGetDeviceInfo" },
+    { "$ref": "#/messageControl" },
+    { "$ref": "#/messageOverride" },
+    { "$ref": "#/messageRelease" },
+    { "$ref": "#/messageConfiguration" },
+    { "$ref": "#/messageProfile" }
+  ]
+}
