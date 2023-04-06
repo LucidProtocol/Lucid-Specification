@@ -260,7 +260,7 @@
     }
   ],
 
-  "profile": [
+  "limitProfile": [
     {
       "num": 1,
       "values": [ 0, 10, 20 ],

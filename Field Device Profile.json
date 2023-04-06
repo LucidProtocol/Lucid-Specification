@@ -6,7 +6,7 @@
   "canCoreUp": false,
   "canCoreDown": false,
   "canConfigDown": true,
-  "profile": {
+  "body": {
     "capability": {
       "points": {
         "ai": [
@@ -779,38 +779,38 @@
           },
 
           "mon": {
-            "displayName": "",
-            "description": "Profiles reference numbers to be used for the days of the week.  All days may use the same profile or any combination of profiles against days.  If days are omitted or zero, then they are assumed to be reverting to the fixed limit threshold value above.",
+            "displayName": "Limit Profile reference for Monday",
+            "description": "Limit Profiles reference numbers to be used for the days of the week.  All days may use the same limit profile or any combination of profiles against days.  If days are omitted or zero, then they are assumed to be reverting to the fixed limit threshold value above.",
             "type": "integer"
           },
           "tue": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "Limit Profile reference for Tuesday",
+            "description": "Limit Profile reference.",
             "type": "integer"
           },
           "wed": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "Limit Profile reference for Wednesday",
+            "description": "Limit Profile reference.",
             "type": "integer"
           },
           "thu": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "Limit Profile reference for Thursday",
+            "description": "Limit Profile reference.",
             "type": "integer"
           },
           "fri": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "Limit Profile reference for Friday",
+            "description": "Limit Profile reference.",
             "type": "integer"
           },
           "sat": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "Limit Profile reference for Saturday",
+            "description": "Limit Profile reference.",
             "type": "integer"
           },
           "sun": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "Limit Profile reference for Sunday",
+            "description": "Limit Profile reference.",
             "type": "integer"
           }
 
@@ -1082,9 +1082,9 @@
         }
       },
 
-      "profile": {
+      "limitProfile": {
         "displayName": {
-          "en-US": "Lucid Profile"
+          "en-US": "Lucid Limit Profile"
         },
         "parentTypes": [ "device" ],
         "minObjects": 0,
@@ -1098,7 +1098,7 @@
             "type": "integer",
             "min": 1,
             "max": 65535,
-            "comment": "Profile Index; profile objects must use consecutive profile indexes starting at 1."
+            "comment": "Limit Profile Index; limit profile objects must use consecutive limit profile indexes starting at 1."
           },
 
           "values": {
@@ -1371,37 +1371,37 @@
 
           "mon": {
             "displayName": "Monday",
-            "description": "Profile reference. If days are omitted, then they are assumed to be reverting to the fixed limit threshold value above.",
+            "description": "Control Profile reference. If days are omitted, then they are assumed to be reverting to the fixed limit threshold value above.",
             "type": "integer"
           },
           "tue": {
             "displayName": "Tuesday",
-            "description": "Profile reference.",
+            "description": "Control Profile reference.",
             "type": "integer"
           },
           "wed": {
             "displayName": "Wednesday",
-            "description": "Profile reference.",
+            "description": "Control Profile reference.",
             "type": "integer"
           },
           "thu": {
             "displayName": "Thursday",
-            "description": "Profile reference.",
+            "description": "Control Profile reference.",
             "type": "integer"
           },
           "fri": {
             "displayName": "Friday",
-            "description": "Profile reference.",
+            "description": "Control Profile reference.",
             "type": "integer"
           },
           "sat": {
             "displayName": "Saturday",
-            "description": "Profile reference.",
+            "description": "Control Profile reference.",
             "type": "integer"
           },
           "sun": {
             "displayName": "Sunday",
-            "description": "Profile reference.",
+            "description": "Control Profile reference.",
             "type": "integer"
           }
         }

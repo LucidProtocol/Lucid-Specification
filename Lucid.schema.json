@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-06/schema",
   "$id": "Lucid.schema.json",
   "name": "Lucid Configuration and Operation Schema",
-  "description":  "Can be used to verify messages at: https://www.jsonschemavalidator.net/",
+  "description": "Can be used to verify messages at: https://www.jsonschemavalidator.net/",
 
   "definitions": {
 
@@ -53,7 +53,7 @@
   },
 
   "coreBlock": {
-    "description": "Used in Birth Certificate",
+    "description": "Used in Status message for files",
     "type": "object",
     "properties": {
       "name": {
@@ -70,14 +70,14 @@
     "additionalProperties": false
   },
 
-  "messageBirthCertificate": {
-    "title": "BirthCertificate",
-    "description": "schema for a Birth Certificate. Topic: [UUID]/UP/status",
+  "messageStatus": {
+    "title": "StatusMessage",
+    "description": "schema for a Status message. Topic: [UUID]/UP/status",
 
     "type": "object",
     "properties": {
       "pRef": {
-        "description": "Reference name of the Profile Version",
+        "description": "Reference name of the Device Profile Version, the mnfr, prdt and pVer fields separated by underscores",
         "type": "string"
       },
       "core": {
@@ -131,7 +131,7 @@
 
   "coreBlockList": {
     "title": "Core Block List",
-    "description": "Used in Birth Certificate.",
+    "description": "Used in the Status Message.",
 
     "type": "array",
     "items": { "type": "string" }
@@ -367,7 +367,7 @@
 
   "messageGetDeviceInfo": {
     "title": "Get Device Information Message",
-    "description": "Schema for a profile/status/config request. Topic: [UUID]/DOWN/getdata",
+    "description": "Schema for a Status/Device Profile/Configuration request. Topic: [UUID]/DOWN/getdata",
 
     "type": "object",
     "properties": {
@@ -488,8 +488,8 @@
     "required": [ "cVer", "full" ]
   },
 
-  "messageProfile": {
-    "title": "Profile",
+  "messageDeviceProfile": {
+    "title": "DeviceProfile",
     "description": "Schema for a Device Profile. Topic: [UUID]/UP/profile",
 
     "type": "object",
@@ -498,17 +498,17 @@
         "type": "number",
         "description": "Lucid Version (only a Major version number)"
       },
-      "prdt": {
-        "type": "string",
-        "description": "Device Manufacturer’s product name and model (text) – must not be empty"
-      },
       "mnfr": {
         "type": "string",
         "description": "Device Manufacturer (text) – must not be empty"
       },
+      "prdt": {
+        "type": "string",
+        "description": "Device Manufacturer’s product name and model (text) – must not be empty"
+      },
       "pVer": {
         "type": "string",
-        "description": "Device Profile Version   (text) – must not be empty. This is written into the string sent in the Birth Certificate."
+        "description": "Device Profile Version   (text) – must not be empty. This is written into the string sent in the Status."
       },
       "canCoreUp": {
         "type": "boolean",
@@ -528,40 +528,40 @@
         }
       },
 
-      "profile": {
-        "description": "This is the main body of the profile.",
-        "$ref": "#/profileContent"
+      "body": {
+        "description": "This is the main body of the Device Profile.",
+        "$ref": "#/deviceProfileContent"
       }
     },
     "required": [ "lucid", "mnfr", "prdt", "pVer" ],
     "additionalProperties": false
   },
 
-  "profileContent": {
-    "title": "Profile Content Section",
+  "deviceProfileContent": {
+    "title": "Device Profile Content Section",
     "description": "Schema for Device Profile Content.",
     "type": "object",
     "properties": {
       "capability": {
-        "$ref": "#/profileCapability"
+        "$ref": "#/deviceProfileCapability"
       },
       "objectTypes": {
-        "$ref": "#/profileObjectType"
+        "$ref": "#/deviceProfileObjectType"
       }
     },
     "additionalProperties": false
   },
 
-  "profileCapability": {
-    "title": "Profile Capability Section",
-    "description": "The profile contains the device capability section. While the Object Types have fields which determine the quantities of those objects, it is common practice for devices to have ranges of object numbers. This section gives the ranges of numbers available, subject to the limits defined in the Object Types.",
+  "deviceProfileCapability": {
+    "title": "Device Profile Capability Section",
+    "description": "The Device Profile contains the device capability section. While the Object Types have fields which determine the quantities of those objects, it is common practice for devices to have ranges of object numbers. This section gives the ranges of numbers available, subject to the limits defined in the Object Types.",
     "type": "object",
     "properties": {
       "points": {
-        "$ref": "#/profileCapabilityPoints"
+        "$ref": "#/deviceProfileCapabilityPoints"
       },
       "pointSupport": {
-        "$ref": "#/profileCapabilityPointSupport"
+        "$ref": "#/deviceProfileCapabilityPointSupport"
       },
       "channels": {
         "type": "array",
@@ -605,8 +605,8 @@
     "additionalProperties": false
   },
 
-  "profileCapabilityPoints": {
-    "title": "Profile Capability Points Section",
+  "deviceProfileCapabilityPoints": {
+    "title": "Device Profile Capability Points Section",
     "description": "A range is an inclusive set of integers. There can be more than one range. Multiple ranges may be used, e.g. for Physical, Virtual or External points.",
     "type": "object",
     "patternProperties": {
@@ -634,8 +634,8 @@
     "additionalProperties": false
   },
 
-  "profileCapabilityPointSupport": {
-    "title": "Profile Capability Point Support Section",
+  "deviceProfileCapabilityPointSupport": {
+    "title": "Device Profile Capability Point Support Section",
     "description": "Schema for Device Profile Capability Point Support Content.",
     "type": "object",
     "properties": {
@@ -647,13 +647,13 @@
             "enum": [ "Consecutive", "Separate" ]
           },
           "bi3": {
-            "enum": [ "Consecutive", "Separate"  ]
+            "enum": [ "Consecutive", "Separate" ]
           },
           "bo2": {
-            "enum": [ "Consecutive", "Separate"  ]
+            "enum": [ "Consecutive", "Separate" ]
           },
           "bo3": {
-            "enum": [ "Consecutive", "Separate"  ]
+            "enum": [ "Consecutive", "Separate" ]
           }
         },
         "additionalProperties": false
@@ -665,8 +665,8 @@
     "additionalProperties": false
   },
 
-  "profileObjectType": {
-    "title": "Profile Object Types Section",
+  "deviceProfileObjectType": {
+    "title": "Device Profile Object Types Section",
     "description": "Schema for Device Profile object types Content.",
     "type": "object",
     "patternProperties": {
@@ -699,15 +699,16 @@
             "type": "integer"
           },
           "configFields": {
-            "$ref": "#/profileObjectField"
+            "$ref": "#/deviceProfileObjectField"
           },
           "groups": {
-            "$ref": "#/profileGroup"
+            "$ref": "#/deviceProfileGroup"
           },
-          "specificToProfile": {
-            "description": "Use this to specify that this object is not part of the Lucid standard profile. Object to be named s_<mnfr>_<name>.",
-            "type":  "boolean"
-          }        },
+          "specificToDeviceProfile": {
+            "description": "Use this to specify that this object is not part of the Lucid standard Device Profile. Object to be named s_<mnfr>_<name>.",
+            "type": "boolean"
+          }
+        },
         "required": [ "displayName" ],
         "additionalProperties": false
       }
@@ -715,8 +716,8 @@
     "additionalProperties": false
   },
 
-  "profileObjectField": {
-    "title": "Profile Object Field Section",
+  "deviceProfileObjectField": {
+    "title": "Device Profile Object Field Section",
     "description": "Schema for Device Profile object fields Content.",
     "type": "object",
     "patternProperties": {
@@ -769,8 +770,8 @@
             "description": "",
             "type": "number"
           },
-          "specificToProfile": {
-            "description": "Use this to specify that this field is not part of the Lucid standard profile. Field to be named s_<mnfr>_<name>.",
+          "specificToDeviceProfile": {
+            "description": "Use this to specify that this field is not part of the Lucid standard Device Profile. Field to be named s_<mnfr>_<name>.",
             "type": "boolean"
           },
           "required": {
@@ -785,8 +786,8 @@
     "additionalProperties": false
   },
 
-  "profileGroup": {
-    "title": "Profile Object Field Grouping Section",
+  "deviceProfileGroup": {
+    "title": "Device Profile Object Field Grouping Section",
     "description": "Schema for Device Profile object field groups Content.",
     "type": "object",
     "patternProperties": {
@@ -806,7 +807,7 @@
 
   "oneOf": [
     { "$ref": "#/messageLWT" },
-    { "$ref": "#/messageBirthCertificate" },
+    { "$ref": "#/messageStatus" },
     { "$ref": "#/messageCoreBlock" },
     { "$ref": "#/messageCoreBlockRequestActivate" },
     { "$ref": "#/messageCoreBlockRequestDeactivate" },
@@ -819,6 +820,6 @@
     { "$ref": "#/messageOverride" },
     { "$ref": "#/messageRelease" },
     { "$ref": "#/messageConfiguration" },
-    { "$ref": "#/messageProfile" }
+    { "$ref": "#/messageDeviceProfile" }
   ]
 }
