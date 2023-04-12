@@ -77,7 +77,7 @@
     "type": "object",
     "properties": {
       "pRef": {
-        "description": "Reference name of the Device Profile Version, the mnfr, prdt and pVer fields separated by underscores",
+        "description": "Reference name of the Device Profile Version, the Manufacturer, Product name and Profile Version fields separated by underscores.",
         "type": "string"
       },
       "core": {
@@ -88,10 +88,10 @@
         "description": "Config Version",
         "type": "integer"
       },
-      "confReq": {
+      "cReq": {
         "type": "boolean"
       },
-      "confState": {
+      "cState": {
         "type": "string"
       },
       "inactiveState": {
@@ -498,17 +498,9 @@
         "type": "number",
         "description": "Lucid Version (only a Major version number)"
       },
-      "mnfr": {
+      "pRef": {
         "type": "string",
-        "description": "Device Manufacturer (text) – must not be empty"
-      },
-      "prdt": {
-        "type": "string",
-        "description": "Device Manufacturer’s product name and model (text) – must not be empty"
-      },
-      "pVer": {
-        "type": "string",
-        "description": "Device Profile Version   (text) – must not be empty. This is written into the string sent in the Status."
+        "description": "Reference name of the Device Profile Version, the Manufacturer, Product name and Profile Version fields separated by underscores."
       },
       "canCoreUp": {
         "type": "boolean",
@@ -533,7 +525,7 @@
         "$ref": "#/deviceProfileContent"
       }
     },
-    "required": [ "lucid", "mnfr", "prdt", "pVer" ],
+    "required": [ "lucid", "pRef" ],
     "additionalProperties": false
   },
 
@@ -657,9 +649,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "counterExclusive": {
-        "type": "boolean"
       }
     },
     "additionalProperties": false

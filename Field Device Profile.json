@@ -1,8 +1,6 @@
 {
   "lucid": 1,
-  "prdt": "Dev1",
-  "mnfr": "ACME",
-  "pVer": "12.1",
+  "pRef": "ACME_Dev1_1-1",
   "canCoreUp": false,
   "canCoreDown": false,
   "canConfigDown": true,
@@ -63,8 +61,7 @@
         "multiBit": {
           "bi2": "Consecutive",
           "bi3": "Consecutive"
-        },
-        "counterExclusive": true
+        }
       },
       "channels": [
         {
@@ -170,7 +167,7 @@
             "displayName": "Set Identification",
             "description": "EXAMPLE manufacturer-specific field, prefixed with s_, then manufacturer name, then field name.",
             "type": "string",
-            "specificToProfile":  false
+            "specificToProfile": false
           }
         }
       },
@@ -361,7 +358,7 @@
             "order": 2
           },
 
-           "retries": {
+          "retries": {
             "comment": "Defines the number of retries.",
             "displayName": "Retries",
             "description": "Number of retries.",
@@ -377,7 +374,7 @@
             "min": 1,
             "max": 600
           }
-       }
+        }
       },
 
       "deviceLink": {
@@ -1116,13 +1113,13 @@
             "type": "number"
           },
 
-		      "type": {
-			      "displayName": "Type",
-			      "description": "Whether the profile is stepped or linear. Stepped is 'step first'. Stepped is the default.",
-			      "type": "integer",
-			      "enum": [ "Stepped", "Linear"]
-		      },
-		  
+          "type": {
+            "displayName": "Type",
+            "description": "Whether the profile is stepped or linear. Stepped is 'step first'. Stepped is the default.",
+            "type": "integer",
+            "enum": [ "Stepped", "Linear" ]
+          },
+
           "inter": {
             "displayName": "",
             "description": "The interpolation time (in minutes) is the time period used to compute a new value for the profile, interpolating between two profile points.  If set to 0 then no interpolation is performed. Applies to control values.",
@@ -1347,12 +1344,12 @@
             "description": "Belong to analogue output or digital points only.",
             "type": "integer"
           },
-		  
-		      "type": {
+
+          "type": {
             "displayName": "Type",
             "description": "Type of the point.",
             "type": "integer"
-		      },
+          },
 
           "num": {
             "displayName": "Point Number",
@@ -1361,7 +1358,7 @@
             "min": 1,
             "max": 65535
           },
-		  
+
           "name": {
             "displayName": "Point Name",
             "description": "The name is optional, and is a string which can be used by the device to report data values or to display locally. Furthermore the name string may contain a hierarchy of fields with a separator which can imply a structure.",
