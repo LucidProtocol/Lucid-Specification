@@ -57,12 +57,6 @@
           }
         ]
       },
-      "pointSupport": {
-        "multiBit": {
-          "bi2": "Consecutive",
-          "bi3": "Consecutive"
-        }
-      },
       "channels": [
         {
           "name": "Ethernet 1",
@@ -430,17 +424,13 @@
 
           "type": {
             "displayName": "Point Type",
-            "description": "Type of the point. Must be a valid point type (ai, bi{2/3}, ao, bo{2/3}, ct, mi, mo).",
+            "description": "Type of the point. Must be a valid point type (ai, bi, ao, bo, c, mi, mo).",
             "type": "string",
             "enum": [
               "ai",
               "bi",
-              "bi2",
-              "bi3",
               "ao",
               "bo",
-              "bo2",
-              "bo3",
               "c",
               "mi",
               "mo"
@@ -1147,17 +1137,13 @@
 
           "parentType": {
             "displayName": "Parent Point Type",
-            "description": "Type of the source point. Must be a valid point type suitable for extensions (ai, bi{n}, ao, bo{n}, c).",
+            "description": "Type of the source point. Must be a valid point type suitable for extensions (ai, bi, ao, bo, c).",
             "type": "string",
             "enum": [
               "ai",
               "bi",
-              "bi2",
-              "bi3",
               "ao",
               "bo",
-              "bo2",
-              "bo3",
               "c"
             ]
           },
@@ -1259,13 +1245,11 @@
 
           "type": {
             "displayName": "Point Type",
-            "description": "Type of the point. Must be a valid input point type (ai, bi{2/3}).",
+            "description": "Type of the point. Must be a valid input point type (ai, bi).",
             "type": "string",
             "enum": [
               "ai",
-              "bi",
-              "bi2",
-              "bi3"
+              "bi"
             ],
             "comment": "A device may not support all of these items, as indicated in the point capability address ranges."
           },
@@ -1424,18 +1408,14 @@
 
           "type": {
             "displayName": "Point Type",
-            "description": "Type of the point. Must be a valid point type suitable for storage (ai, bi{n}, ao, bo{n}, c).",
+            "description": "Type of the point. Must be a valid point type suitable for storage (ai, bi, ao, bo, c).",
             "type": "string",
             "comment": "Device can restrict types available",
             "enum": [
               "ai",
               "bi",
-              "bi2",
-              "bi3",
               "ao",
               "bo",
-              "bo2",
-              "bo3",
               "c",
               "x"
             ]
@@ -1463,12 +1443,8 @@
             "enum": [
               "ai",
               "bi",
-              "bi2",
-              "bi3",
               "ao",
               "bo",
-              "bo2",
-              "bo3",
               "c",
               "x"
             ]

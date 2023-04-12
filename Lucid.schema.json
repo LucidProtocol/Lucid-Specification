@@ -552,9 +552,6 @@
       "points": {
         "$ref": "#/deviceProfileCapabilityPoints"
       },
-      "pointSupport": {
-        "$ref": "#/deviceProfileCapabilityPointSupport"
-      },
       "channels": {
         "type": "array",
         "items": {
@@ -621,34 +618,6 @@
           "required": [ "from", "to" ],
           "additionalProperties": false
         }
-      }
-    },
-    "additionalProperties": false
-  },
-
-  "deviceProfileCapabilityPointSupport": {
-    "title": "Device Profile Capability Point Support Section",
-    "description": "Schema for Device Profile Capability Point Support Content.",
-    "type": "object",
-    "properties": {
-      "multiBit": {
-        "description": "Multi bit binary input and output support is optionally described. Include bi2, bi3, bo2, bo3 if supported, and state whether bit numbers are separately numbered as different points addresses, or part of a single digital address range. If a type is absent from this list, they are unsupported.",
-        "type": "object",
-        "properties": {
-          "bi2": {
-            "enum": [ "Consecutive", "Separate" ]
-          },
-          "bi3": {
-            "enum": [ "Consecutive", "Separate" ]
-          },
-          "bo2": {
-            "enum": [ "Consecutive", "Separate" ]
-          },
-          "bo3": {
-            "enum": [ "Consecutive", "Separate" ]
-          }
-        },
-        "additionalProperties": false
       }
     },
     "additionalProperties": false

@@ -127,6 +127,7 @@
     {
       "point": 1,
       "type": "bi",
+      "bits": 1,
       "state0Action": 1,
       "state0Pers": 2000,
       "state1Action": 2,
