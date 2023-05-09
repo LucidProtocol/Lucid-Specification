@@ -196,7 +196,7 @@
 
           "conn": {
             "displayName": "Connection Name",
-            "description": "Name to connect to the data service, such as APN, SSID etc.",
+            "description": "Name to connect to the data service, such as APN, SSID or device-specific connection details.",
             "type": "string"
           },
 
@@ -344,29 +344,12 @@
 
           "repeat": {
             "displayName": "Repeat",
-            "description": "Repeat interval (minutes).",
+            "description": "Repeat interval (milliseconds).",
             "type": "integer",
             "min": 1,
-            "max": 720,
+            "max": 604800000,
             "group": "commsSchedule",
             "order": 2
-          },
-
-          "retries": {
-            "comment": "Defines the number of retries.",
-            "displayName": "Retries",
-            "description": "Number of retries.",
-            "type": "integer",
-            "min": 0,
-            "max": 10
-          },
-
-          "backoff": {
-            "displayName": "Backoff",
-            "description": "Retry interval (seconds).",
-            "type": "integer",
-            "min": 1,
-            "max": 600
           }
         }
       },

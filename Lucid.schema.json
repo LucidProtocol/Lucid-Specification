@@ -23,7 +23,7 @@
       ]
     },
     "Lucidtime": {
-      "description": "Lucid Date/Time string",
+      "description": "Lucid absolute Date/Time string - either a readable string RFC3339 or a string representation of a number in milliseconds.",
       "oneOf": [
         {
           "type": "string",
@@ -358,10 +358,10 @@
 
     "type": "object",
     "properties": {
-      "master": { "#ref": "#/definitions/Lucidtime" },
-      "device": { "#ref": "#/definitions/Lucidtime" }
+      "sa": { "#ref": "#/definitions/Lucidtime" },
+      "fd": { "#ref": "#/definitions/Lucidtime" }
     },
-    "required": [ "master" ],
+    "required": [ "sa" ],
     "additionalProperties": false
   },
 
