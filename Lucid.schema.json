@@ -663,7 +663,7 @@
             "$ref": "#/deviceProfileGroup"
           },
           "specificToDeviceProfile": {
-            "description": "Use this to specify that this object is not part of the Lucid standard Device Profile. Object to be named s_<mnfr>_<name>.",
+            "description": "Use this to specify that this object is not part of the Lucid standard Device Profile. Object to be named s_<manufacturer-name>_<field-name>.",
             "type": "boolean"
           }
         },

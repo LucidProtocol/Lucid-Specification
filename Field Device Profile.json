@@ -69,6 +69,10 @@
       ],
       "deviceLinks": [
         {
+          "name": "Internal",
+          "num": 0
+        },
+        {
           "name": "Onboard",
           "num": 1
         },
@@ -100,7 +104,14 @@
             "type": "string",
             "displayName": "Node Id",
             "description": "The unique Id applying to the field application. Remains the same when replacing a device.",
-            "maxLength": 64
+            "maxLength": 64,
+            "required": true
+          },
+          "name": {
+            "displayName": "Name",
+            "type": "string",
+            "description": "Name as used by the Master Station.",
+            "maxLength": 50
           },
           "loc": {
             "displayName": "Location",
@@ -117,12 +128,6 @@
             "displayName": "Asset",
             "type": "string",
             "description": "Owners asset code.",
-            "maxLength": 50
-          },
-          "name": {
-            "displayName": "Name",
-            "type": "string",
-            "description": "Name as used by the Master Station.",
             "maxLength": 50
           },
           "serl": {
@@ -155,7 +160,8 @@
           "scan": {
             "displayName": "On Scan",
             "description": "Device on/off scan (started/stopped).",
-            "type": "boolean"
+            "type": "boolean",
+            "required": true
           },
           "s_ACME_set": {
             "displayName": "Set Identification",
