@@ -504,7 +504,7 @@
       },
       "canCoreUp": {
         "type": "boolean",
-        "description": "Capability for file data transfers in either direction, denotes whether each block can be uploaded or downloaded by the Master. Note that there is no canConfigUp as this feature is mandatory for the device in the MS to be configured automatically from upload."
+        "description": "Capability for file data transfers in either direction, denotes whether each block can be uploaded or downloaded by the SA. Note that there is no canConfigUp as this feature is mandatory for the device in the MS to be configured automatically from upload."
       },
       "canCoreDown": {
         "type": "boolean"
