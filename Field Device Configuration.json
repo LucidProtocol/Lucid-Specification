@@ -45,9 +45,7 @@
 	    "num": 1,
       "mode": 2,
       "start": 200,
-      "repeat": 120,
-	    "retries": 2,
-	    "backoff": 600
+      "repeat": 120
     }
   ],
 
