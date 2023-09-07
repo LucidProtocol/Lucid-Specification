@@ -231,7 +231,7 @@
     }
   ],
 
-  "analogueNoChange": [
+  "NoChange": [
     {
       "point": 1,
       "type": "ai",

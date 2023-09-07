@@ -510,6 +510,11 @@
             "displayName": "When Referrer",
             "description": "The Reference Error flag indicates that the measurement process has determined that the object’s data value may not have the expected level of accuracy. For example, the reference signal used in the analogue-to-digital conversion process is out of limits, or a calculated value has been contaminated with noise (analogue inputs only). The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
             "type": "number"
+          },
+          "whenChange": {
+            "displayName": "When Changed",
+            "description": "If the point has changed value (in the case of an analogue or counter, if changed outside significant change deadband. The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
+            "type": "number"
           }
         }
       },
@@ -906,6 +911,12 @@
             "displayName": "",
             "description": "The units are a free format ASCII string that can be used when displaying the point value through local access displays etc. The Field Device should not interpret any meaning from this string and may choose to ignore it completely.",
             "type": "string"
+          },
+
+          "sigChangeValue": {
+            "displayName": "Significant Change Value",
+            "description": "This configuration record defines parameters that are used by a Field Device to take an action when a counter point changes by a significant amount.",
+            "type": "number"
           }
         }
       },
