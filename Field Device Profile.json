@@ -4,6 +4,7 @@
   "canCoreUp": false,
   "canCoreDown": false,
   "canConfigDown": true,
+  "supportCompression": [ "GZIP" ],
   "body": {
     "capability": {
       "points": {
@@ -201,7 +202,7 @@
           },
 
           "conn": {
-            "displayName": "Connection Name",
+            "displayName": "Connection String",
             "description": "Name to connect to the data service, such as APN, SSID or device-specific connection details.",
             "type": "string"
           },
@@ -215,12 +216,6 @@
           "pass": {
             "displayName": "Password",
             "description": "Password.",
-            "type": "string"
-          },
-
-          "param": {
-            "displayName": "Connection Parameters",
-            "description": "Parameters to connect to the data service.",
             "type": "string"
           }
 
@@ -323,8 +318,16 @@
 
         "configFields": {
           "num": {
-            "displayName": "Channel Number",
-            "description": "Channel index number.",
+            "displayName": "Schedule Number",
+            "description": "Connection Schedule index number.",
+            "type": "integer",
+            "min": 1,
+            "max": 65535
+          },
+
+          "conn": {
+            "displayName": "Connection Number",
+            "description": "Connection index number.",
             "type": "integer",
             "min": 1,
             "max": 65535
@@ -380,6 +383,12 @@
           "name": {
             "displayName": "Device Link Name",
             "description": "Device Link name.",
+            "type": "string",
+            "maxLength": 100
+          },
+          "conn": {
+            "displayName": "Connection String",
+            "description": "Device Link Connection String.",
             "type": "string",
             "maxLength": 100
           }

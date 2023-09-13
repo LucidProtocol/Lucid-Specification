@@ -516,7 +516,7 @@
         "type": "array",
         "items": {
           "type": "string",
-          "description": "Compression: (if GZIP compression is supported, or other types in future.)"
+          "description": "Compression: (specify GZIP if compression is supported, and/or other types in future.)"
         }
       },
 
