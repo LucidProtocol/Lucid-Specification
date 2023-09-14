@@ -82,20 +82,27 @@
         "description": "Config Version",
         "type": "integer"
       },
+      "source": {
+        "description": "Optional SA Source identification.",
+        "type": "string"
+      },
       "cReq": {
+        "description": "Configuration Required flag",
         "type": "boolean"
       },
       "cState": {
         "type": "string"
       },
       "inactiveState": {
+        "description": "True if this device is inactive",
         "type": "boolean"
       },
       "nid": {
+        "description":  "Node identifier used for device replacement, identifies this device to the user's application",
         "type": "string"
       },
       "time": {
-        "description": "Add a separate definition for this with string regexp?",
+        "description": "Time this message was created.",
         "$ref": "#/definitions/Lucidtime"
       }
     },
