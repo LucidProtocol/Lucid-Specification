@@ -546,45 +546,45 @@
           },
 
           "rawsc1": {
-            "displayName": "",
+            "displayName": "Raw Scale 1",
             "description": "Raw Scale 1  is the first raw value of the point (e.g. lower or zero value for the instrument).",
-            "type": ""
+            "type": "number"
           },
 
           "rawsc2": {
-            "displayName": "",
+            "displayName": "Raw Scale 2",
             "description": "Raw scale 2 is the second raw value for the scaling (e.g. higher or full scale value of the instrument).",
-            "type": ""
+            "type": "number"
           },
 
           "engsc1": {
-            "displayName": "",
+            "displayName": "Eng Scale 1",
             "description": "Engineering Scale 1 ; this is the first engineering value that corresponds to the first raw value (e.g. smallest scaled output that can be reported.",
-            "type": ""
+            "type": "number"
           },
 
           "engsc2": {
-            "displayName": "",
+            "displayName": "Eng Scale 2",
             "description": "Engineering scale 2; this is the second engineering value that corresponds to the second raw value (e.g. the highest scaled value that can be recorded).",
-            "type": ""
+            "type": "number"
           },
 
           "min": {
-            "displayName": "",
+            "displayName": "Minimum",
             "description": "The measurement range’s minimum value, in engineering units. If a value is below the minimum, then it is under-range. The OVER_RANGE flag must be set when reporting values that are under-range. Under-range values should not be used when determining significant data (dead-band) changes.",
-            "type": ""
+            "type": "number"
           },
 
           "max": {
-            "displayName": "",
+            "displayName": "Maximum",
             "description": "The measurement range’s maximum value, in engineering units. If a value is above the maximum, then it is over-range. The OVER_RANGE flag must be set when reporting values that are over-range. Over-range values should not be used when determining significant data (dead-band) changes.",
-            "type": ""
+            "type": "number"
           },
 
           "units": {
             "displayName": "Units",
             "description": "The units are a free format ASCII string that can be used when displaying the point value through local access displays etc. The Field Device should not interpret any meaning from this string and may choose to ignore it completely.",
-            "type": ""
+            "type": "string"
           },
 
           "sigChangeValue": {
