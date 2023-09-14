@@ -23,17 +23,11 @@
       ]
     },
     "Lucidtime": {
-      "description": "Lucid absolute Date/Time string - either a readable string RFC3339 or a string representation of a number in milliseconds.",
+      "description": "Lucid absolute Date/Time number - a number in milliseconds from 1/1/1970 - the Unix Epoch.",
       "oneOf": [
         {
-          "type": "string",
-          "pattern": "^(\\d\\d\\d\\d)-?(\\d\\d)-?(\\d\\d)T?(\\d\\d):?(\\d\\d)(?::?(\\d\\d)(\\.\\d+)*?)?(Z|[+-])(?:(\\d\\d):?(\\d\\d))?$"
-        },
-        {
-          "type": "string",
-          "pattern": "^[0-9]+(\\.[0-9]+)?$"
+          "type": "number"
         }
-
       ]
     }
   },
