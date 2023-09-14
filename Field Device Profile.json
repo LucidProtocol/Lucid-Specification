@@ -515,8 +515,8 @@
             "description": "The discontinuity flag indicates that the reported value cannot be compared against previous values for calculating count difference (e.g. rate of change calculation). The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
             "type": "number"
           },
-          "whenReferrer": {
-            "displayName": "When Referrer",
+          "whenRefError": {
+            "displayName": "When Ref Error",
             "description": "The Reference Error flag indicates that the measurement process has determined that the object’s data value may not have the expected level of accuracy. For example, the reference signal used in the analogue-to-digital conversion process is out of limits, or a calculated value has been contaminated with noise (analogue inputs only). The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
             "type": "number"
           },
