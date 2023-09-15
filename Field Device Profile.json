@@ -207,15 +207,21 @@
             "type": "string"
           },
 
+          "dns": {
+            "displayName": "DNS",
+            "description": "DNS names in a comma-separated string.",
+            "type": "string"
+          },
+
           "user": {
             "displayName": "User",
-            "description": "User name.",
+            "description": "User name for the network connection.",
             "type": "string"
           },
 
           "pass": {
             "displayName": "Password",
-            "description": "Password.",
+            "description": "Password for the network connection.",
             "type": "string"
           }
 
