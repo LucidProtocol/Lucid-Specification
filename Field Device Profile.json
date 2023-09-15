@@ -897,7 +897,6 @@
             "type": "integer"
           },
 
-
           "resetPeriod": {
             "displayName": "Reset Period",
             "description": "If zero or absent then will not reset. Interval between resets of this point's value calculation, in seconds).",
@@ -923,7 +922,7 @@
           },
 
           "units": {
-            "displayName": "",
+            "displayName": "Units",
             "description": "The units are a free format ASCII string that can be used when displaying the point value through local access displays etc. The Field Device should not interpret any meaning from this string and may choose to ignore it completely.",
             "type": "string"
           },
@@ -952,135 +951,156 @@
             "type": "integer"
           },
 
-          "state0Action": {
-            "displayName": "",
-            "description": "0=do nothing, 1=log data, 2=log data and connect to SA.",
-            "type": "integer",
-            "comment": "enum",
-            "group": "Actions.State 0"
+          "bits": {
+            "displayName": "Bit Count",
+            "description": "Number of bits: 1, 2 or 3. (Default is 1).",
+            "type": "integer"
           },
+
+          "state0Action": {
+            "displayName": "State 0 Action",
+            "description": "0=do nothing, 1=log data, 2=log data and connect to SA.",
+            "type": "integer"
+          },
+
           "state0Pers": {
-            "displayName": "",
+            "displayName": "State 0 Persistence",
             "description": "Persistence – number of milliseconds the point must remain in this state before the action is taken. (Optional).",
             "type": "integer"
           },
+
           "state0Name": {
-            "displayName": "",
-            "description": "Name - name of state, may be used locally. (Optional)..",
+            "displayName": "State 0 Name",
+            "description": "Name - name of state, may be used locally. (Optional).",
             "type": "string"
           },
+
           "state1Action": {
-            "displayName": "",
-            "description": ".",
-            "type": "integer",
-            "comment": "enum"
+            "displayName": "State 1 Action",
+            "description": "0=do nothing, 1=log data, 2=log data and connect to SA.",
+            "type": "integer"
           },
+
           "state1Pers": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "State 1 Persistence",
+            "description": "Persistence – number of milliseconds the point must remain in this state before the action is taken. (Optional).",
             "type": "integer"
           },
+
           "state1Name": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "State 1 Name",
+            "description": "Name - name of state, may be used locally. (Optional).",
             "type": "string"
           },
+
           "state2Action": {
-            "displayName": "",
-            "description": ".",
-            "type": "integer",
-            "comment": "enum"
+            "displayName": "State 2 Action",
+            "description": "2=do nothing, 1=log data, 2=log data and connect to SA.",
+            "type": "integer"
           },
+
           "state2Pers": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "State 2 Persistence",
+            "description": "Persistence – number of milliseconds the point must remain in this state before the action is taken. (Optional).",
             "type": "integer"
           },
+
           "state2Name": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "State 2 Name",
+            "description": "Name - name of state, may be used locally. (Optional).",
             "type": "string"
           },
+
           "state3Action": {
-            "displayName": "",
-            "description": ".",
-            "type": "integer",
-            "comment": "enum"
+            "displayName": "State 3 Action",
+            "description": "0=do nothing, 1=log data, 2=log data and connect to SA.",
+            "type": "integer"
           },
+
           "state3Pers": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "State 3 Persistence",
+            "description": "Persistence – number of milliseconds the point must remain in this state before the action is taken. (Optional).",
             "type": "integer"
           },
+
           "state3Name": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "State 3 Name",
+            "description": "Name - name of state, may be used locally. (Optional).",
             "type": "string"
           },
+
           "state4Action": {
-            "displayName": "",
-            "description": ".",
-            "type": "integer",
-            "comment": "enum"
+            "displayName": "State 4 Action",
+            "description": "0=do nothing, 1=log data, 2=log data and connect to SA.",
+            "type": "integer"
           },
+
           "state4Pers": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "State 4 Persistence",
+            "description": "Persistence – number of milliseconds the point must remain in this state before the action is taken. (Optional).",
             "type": "integer"
           },
+
           "state4Name": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "State 4 Name",
+            "description": "Name - name of state, may be used locally. (Optional).",
             "type": "string"
           },
+
           "state5Action": {
-            "displayName": "",
-            "description": ".",
-            "type": "integer",
-            "comment": "enum"
+            "displayName": "State 5 Action",
+            "description": "0=do nothing, 1=log data, 2=log data and connect to SA.",
+            "type": "integer"
           },
+
           "state5Pers": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "State 5 Persistence",
+            "description": "Persistence – number of milliseconds the point must remain in this state before the action is taken. (Optional).",
             "type": "integer"
           },
+
           "state5Name": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "State 5 Name",
+            "description": "Name - name of state, may be used locally. (Optional).",
             "type": "string"
           },
+
           "state6Action": {
-            "displayName": "",
-            "description": ".",
-            "type": "integer",
-            "comment": "enum"
-          },
-          "state6Pers": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "State 6 Action",
+            "description": "0=do nothing, 1=log data, 2=log data and connect to SA.",
             "type": "integer"
           },
+
+          "state6Pers": {
+            "displayName": "State 6 Persistence",
+            "description": "Persistence – number of milliseconds the point must remain in this state before the action is taken. (Optional).",
+            "type": "integer"
+          },
+
           "state6Name": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "State 6 Name",
+            "description": "Name - name of state, may be used locally. (Optional).",
             "type": "string"
           },
+
           "state7Action": {
-            "displayName": "",
-            "description": ".",
-            "type": "integer",
-            "comment": "enum"
-          },
-          "state7Pers": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "State 7 Action",
+            "description": "0=do nothing, 1=log data, 2=log data and connect to SA.",
             "type": "integer"
           },
+
+          "state7Pers": {
+            "displayName": "State 7 Persistence",
+            "description": "Persistence – number of milliseconds the point must remain in this state before the action is taken. (Optional).",
+            "type": "integer"
+          },
+
           "state7Name": {
-            "displayName": "",
-            "description": ".",
+            "displayName": "State 7 Name",
+            "description": "Name - name of state, may be used locally. (Optional).",
             "type": "string"
           }
+
         }
       },
 
