@@ -82,13 +82,13 @@
         "description": "Config Version",
         "type": "integer"
       },
-      "source": {
-        "description": "Optional SA Source identification.",
-        "type": "string"
-      },
       "cReq": {
         "description": "Configuration Required flag",
         "type": "boolean"
+      },
+      "source": {
+        "description": "Optional SA Source identification.",
+        "type": "string"
       },
       "cState": {
         "type": "string"
@@ -98,7 +98,7 @@
         "type": "boolean"
       },
       "nid": {
-        "description":  "Node identifier used for device replacement, identifies this device to the user's application",
+        "description": "Node identifier used for device replacement, identifies this device to the user's application",
         "type": "string"
       },
       "time": {
