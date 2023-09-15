@@ -40,9 +40,13 @@
     "properties": {
       "state": {
         "type": "string"
+      },
+      "time": {
+        "description": "Time this message was created.",
+        "$ref": "#/definitions/Lucidtime"
       }
     },
-    "required": [ "state" ],
+    "required": [ "state", "time" ],
     "additionalProperties": false
   },
 
