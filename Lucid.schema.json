@@ -90,6 +90,10 @@
         "description": "Configuration Required flag",
         "type": "boolean"
       },
+      "timeReq": {
+        "description": "Time Required flag",
+        "type": "boolean"
+      },
       "source": {
         "description": "Optional SA Source identification.",
         "type": "string"
