@@ -116,7 +116,7 @@
       "min": 0.0,
       "max": 99999.99,
       "units": "m3",
-      "sigChangeValue": 0.1
+      "change": 0.1
     }
   ],
 
