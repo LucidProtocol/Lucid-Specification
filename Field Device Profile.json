@@ -614,7 +614,7 @@
         "configFields": {
 
           "point": {
-            "displayName": "",
+            "displayName": "Point Number",
             "description": "Analogue limits belong to analogue parent points only.",
             "type": "integer"
           },
@@ -648,8 +648,7 @@
           "action": {
             "displayName": "",
             "description": "Action to be taken on transgressing the limit  (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA).",
-            "type": "integer",
-            "comment": "enum?"
+            "type": "integer"
           },
 
           "dirctn": {
@@ -734,7 +733,7 @@
         "configFields": {
 
           "point": {
-            "displayName": "",
+            "displayName": "Point Number",
             "description": "Counter limits belong to counter parent points only.",
             "type": "integer"
           },
@@ -757,21 +756,13 @@
           "action": {
             "displayName": "",
             "description": "Action to be taken on transgressing the limit  (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA).",
-            "type": "integer",
-            "comment": "enum?"
+            "type": "integer"
           },
 
           "value": {
             "displayName": "",
             "description": "Limit threshold value, in engineering units.",
             "type": "number"
-          },
-
-          "mode": {
-            "displayName": "",
-            "description": "This object defines the point limit values for generating events when the current value of a counter point crosses a limit.",
-            "type": "integer",
-            "comment": "Direction (0=high limit, 1=low limit calculated when the parent is reset)."
           },
 
           "mon": {
