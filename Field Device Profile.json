@@ -1170,14 +1170,15 @@
               "bi",
               "ao",
               "bo",
+              "x",
               "c"
             ]
           },
 
           "num": {
             "comment": "Extension Point Index; Extended point objects must use consecutive indexes starting at 1.",
-            "displayName": "Limit Number",
-            "description": " Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
+            "displayName": "Extension Point Number",
+            "description": "Extension Point number (1-based with allowable numbers defined in the min/max/totalObjects).",
             "type": "integer",
             "min": 1,
             "max": 65535
@@ -1199,12 +1200,12 @@
 
           "type": {
             "displayName": "Extension Point Type",
-            "description": "Run times count in 1 seconds units, scaled by the scaleFactoType of the extension. Counters count 1 per value change to 'state' value, also scaled.",
+            "description": "Run times count in 1 seconds units, scaled by the scaleFactorType of the extension. Counters count 1 per value change to 'state' value, also scaled.",
             "type": "string",
             "enum": [
-              "Rate of Change",
+              "RoC",
               "Min",
-              "Max",
+              "Max",  
               "Mean",
               "Integral",
               "Run Time",
@@ -1214,19 +1215,19 @@
 
           "resetPeriod": {
             "displayName": "Reset Period",
-            "description": "Interval between resets of this extension's value calculation, in seconds). If zero or absent then will not reset.",
+            "description": "Interval between resets of this extension's value calculation, in milliseconds). If zero or absent then will not reset.",
             "type": "integer"
           },
 
           "resetOffset": {
             "displayName": "Reset Offset",
-            "description": "Offset from start of week (Monday) in seconds.",
+            "description": "Offset from start of week (Monday) in milliseconds.",
             "type": "integer"
           },
 
           "reportPeriod": {
             "displayName": "Report Period",
-            "description": "Interval between reports of this extension's value. In seconds, starting at reset with last accumulated value.",
+            "description": "Interval between reports of this extension's value. In milliseconds, starting at reset with last accumulated value.",
             "type": "integer"
           },
 
@@ -1243,7 +1244,7 @@
           },
 
           "units": {
-            "displayName": "",
+            "displayName": "Units",
             "description": "The units are a free format ASCII string that can be used when displaying the point value through local access displays etc. The Field Device should not interpret any meaning from this string and may choose to ignore it completely.",
             "type": "string"
           }
