@@ -1097,7 +1097,7 @@
 
       "limitProfile": {
         "displayName": {
-          "en-US": "Lucid Limit Profile"
+          "en-US": "Lucid Limit and Control Profile"
         },
         "parentTypes": [ "device" ],
         "minObjects": 0,
@@ -1107,38 +1107,36 @@
         "configFields": {
           "num": {
             "displayName": "Limit Number",
-            "description": " Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
+            "description": "Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
             "type": "integer",
             "min": 1,
-            "max": 65535,
-            "comment": "Limit Profile Index; limit profile objects must use consecutive limit profile indexes starting at 1."
+            "max": 65535
           },
 
           "values": {
-            "displayName": "",
+            "displayName": "Limit Values",
             "description": "Values array - first value applies at first time.",
             "array": true,
-            "comment": "??Extend schema for this array method.",
             "type": "number"
           },
 
           "times": {
-            "displayName": "",
-            "description": "Times array - in seconds from start of day.",
+            "displayName": "Limit Times",
+            "description": "Times array - in milliseconds from start of day.",
             "array": true,
             "type": "number"
           },
 
           "type": {
             "displayName": "Type",
-            "description": "Whether the profile is stepped or linear. Stepped is 'step first'. Stepped is the default.",
+            "description": "Whether the profile is stepped (0) or linear (1). Stepped is 'step first'. Stepped is the default.",
             "type": "integer",
             "enum": [ "Stepped", "Linear" ]
           },
 
           "inter": {
             "displayName": "",
-            "description": "The interpolation time (in minutes) is the time period used to compute a new value for the profile, interpolating between two profile points.  If set to 0 then no interpolation is performed. Applies to control values.",
+            "description": "The interpolation time (in milliseconds) is the time period used to compute a new value for the profile, interpolating between two profile points.  If set to 0 then no interpolation is performed. Applies to control values.",
             "type": "number"
           }
         }
@@ -1359,7 +1357,7 @@
           "type": {
             "displayName": "Type",
             "description": "Type of the point.",
-            "type": "integer"
+            "type": "string"
           },
 
           "num": {
@@ -1371,8 +1369,8 @@
           },
 
           "name": {
-            "displayName": "Point Name",
-            "description": "The name is optional, and is a string which can be used by the device to report data values or to display locally. Furthermore the name string may contain a hierarchy of fields with a separator which can imply a structure.",
+            "displayName": "Profile Name",
+            "description": "The name is optional.",
             "type": "string",
             "maxLength": 64
           },
