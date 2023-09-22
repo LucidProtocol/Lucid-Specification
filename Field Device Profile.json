@@ -1369,11 +1369,11 @@
         "displayName": {
           "en-US": "Lucid Triggered Incident Logging"
         },
-        "parentTypes": [ "point" ],
+        "parentTypes": [ "point", "extPoint" ],
         "minObjects": 0,
         "maxObjects": 5,
         "totalObjects": 5,
-        "comment": "Defines a sampling store for a point. Triggered by a digital input point. This defines parameters that are used by a Field Device to create additional logs entries as a result of an incident. To meet this requirement, the Field Device needs to be collecting the additional logging values. Triggering is either by the time or the date or by the trigger point value matches its trigger state.",
+        "comment": "Defines a sampling store for a point. Optionally triggered by a point. This defines parameters that are used by a Field Device to create additional logs entries as a result of an incident. To meet this requirement, the Field Device needs to be collecting the additional logging values. Triggering is either by the time or the date or by the trigger point value matches its trigger state.",
 
         "configFields": {
 
@@ -1385,7 +1385,7 @@
 
           "type": {
             "displayName": "Point Type",
-            "description": "Type of the point. Must be a valid point type suitable for storage (ai, bi, ao, bo, c).",
+            "description": "Type of the point. Must be a valid point type suitable for storage (ai, bi, ao, bo, c, x).",
             "type": "string",
             "comment": "Device can restrict types available",
             "enum": [
@@ -1408,7 +1408,7 @@
 
           "triggerPoint": {
             "displayName": "Trigger Point Number",
-            "description": "Number of point causing this log to execute.",
+            "description": "Number of point causing this log to be delivered.",
             "type": "integer"
           },
 
@@ -1422,44 +1422,37 @@
               "bi",
               "ao",
               "bo",
-              "c",
-              "x"
+              "c"
             ]
           },
 
           "triggerMask": {
             "displayName": "Trigger State Mask",
-            "description": "Trigger occurs when point is in a state matching this bit mask. Binary inputs match by value. Analogues match by alarm limit number. (TBA - see DNP3 Masks?)",
+            "description": "Trigger occurs when point is in a state matching this bit mask. Binary inputs match by value. Analogues and counters match by alarm limit number, where the limit numbers correspond to bit numbers.",
             "type": "integer"
           },
 
-          "triggerTime": {
-            "displayName": "Trigger Time",
-            "description": "The time (relative to the start of the day) when logging is to begin (in seconds). Logging is enhanced from this time and for the length as specified. Set to zero for this to be ignored.",
-            "type": "integer"
-          },
-
-          "triggerDate": {
-            "displayName": "Trigger Date",
-            "description": "The absolute (epoch) date when logging is to begin (in seconds from 1/1/1970). Logging is enhanced from this date/time and for the length as specified. Set to zero for this to be ignored.",
-            "type": "integer"
-          },
-
-          "start": {
+          "triggerStart": {
             "displayName": "Start",
             "description": "The time (relative to the start of the incident) when logging is to begin (in milliseconds). Negative values mean the log starts before the trigger time.",
             "type": "integer"
           },
 
-          "length": {
+          "triggerLength": {
             "displayName": "Length",
             "description": "The length of time (in milliseconds) to continue logging the point after the incident.",
             "type": "integer"
           },
 
-          "rate": {
+          "logRate": {
             "displayName": "Log Rate",
-            "description": "The rate to be used (in milliseconds) to log the point during the incident.",
+            "description": "The rate to be used (in milliseconds) to log the point.",
+            "type": "integer"
+          },
+
+          "logOffset": {
+            "displayName": "Log Offset",
+            "description": "Offset time from the start of the week that the log is synchronised from (Monday, 00:00:00). Measured in seconds.  If 0, then log is offset from the last midnight.",
             "type": "integer"
           }
 

@@ -276,12 +276,10 @@
       "num": 1,
       "triggerPoint": 1,
       "triggerType": "bi",
-      "triggerMask": 0,
-      "triggerTime": 3600,
-      "triggerDate": 4321432145321,
-      "start": -5000,
-      "length": 15000,
-      "rate": 20
+      "triggerMask": 1,
+      "triggerStart": -5000,
+      "triggerLength": 15000,
+      "logRate": 1000
     }
   ]
 }
