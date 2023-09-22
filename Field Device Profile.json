@@ -80,6 +80,10 @@
         {
           "name": "PLC1",
           "num": 2
+        },
+        {
+          "name": "Calc",
+          "num": 3
         }
       ],
       "commands": [
@@ -486,51 +490,89 @@
             "type": "number",
             "comment": "Actions to be taken when a points status changes (enabled or disabled).  The status types are listed.  The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA."
           },
+
           "whenRestart": {
             "displayName": "When Restarted",
             "description": "RESTART flag is set when the point has been reconfigured or the field device or point have come ON-SCAN. This flag remains set until the first value has been recorded by the field device. The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
             "type": "number"
           },
+
           "whenCommsLost": {
             "displayName": "When Communications Lost",
             "description": "The commslost (or COMM_LOST) flag indicates that communications with the downstream device have been lost. The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
             "type": "number"
           },
+
           "whenRemForce": {
             "displayName": "When Remotely Forced",
             "description": "The remforce (REMOTE_FORCED) flag indicates that the value of the point has been forced to a value by a downstream device. The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
             "type": "number"
           },
+
           "whenLocForce": {
             "displayName": "When Locally Forced",
             "description": "The locforced (LOCAL_FORCED) flag indicates that the value of the point has been forced to a value by the device (test state, for example) or by human interaction. The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
             "type": "number"
           },
+
           "whenChatter": {
             "displayName": "When Chatter",
             "description": "The chatter (CHATTER_FILTER) flag indicates that a binary or double-bit binary point is changing value often enough to trigger a chatter filter. The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
             "type": "number"
           },
+
           "whenOverrange": {
             "displayName": "When Overrange",
             "description": "The overrange (OVER_RANGE) flag indicates that the point’s true value exceeds the defined range that the point supports (analogue inputs only). The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
             "type": "number"
           },
+
           "whenDiscontinuity": {
             "displayName": "When Discontinuity",
             "description": "The discontinuity flag indicates that the reported value cannot be compared against previous values for calculating count difference (e.g. rate of change calculation). The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
             "type": "number"
           },
+
           "whenRefError": {
             "displayName": "When Ref Error",
             "description": "The Reference Error flag indicates that the measurement process has determined that the object’s data value may not have the expected level of accuracy. For example, the reference signal used in the analogue-to-digital conversion process is out of limits, or a calculated value has been contaminated with noise (analogue inputs only). The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
             "type": "number"
           },
+
           "whenChange": {
             "displayName": "When Changed",
             "description": "If the point has changed value (in the case of an analogue or counter, if changed outside significant change deadband. The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
             "type": "number"
+          },
+
+          "bytecode": {
+            "comment": "Specify this only for a calculated point (the deviceLink is Calc). The bytecode is compiled from an expression by the configuring application.",
+            "displayName": "Bytecode Data",
+            "description": "Array of calculation instruction items.",
+            "type": "arrayOfArrays"
+          },
+
+          "onChange": {
+            "comment": "Relevant to calculated points only.",
+            "displayName": "Calculate on Change",
+            "description": "Causes calculation when any input values or their qualities change.",
+            "type": "boolean"
+          },
+
+          "calcPeriod": {
+            "comment": "Relevant to calculated points only.",
+            "displayName": "Calculation Period",
+            "description": "Base periodic calculation rate. In milliseconds. If 0 then calculation is not performed by time period.",
+            "type": "integer"
+          },
+
+          "calcOffset": {
+            "comment": "Relevant to calculated points only.",
+            "displayName": "Calculation Time Offset",
+            "description": "Offset time from the start of the week that the calculation is synchronised from (Monday, 00:00:00). Measured in milliseconds.  If 0, then log is offset from the last midnight.",
+            "type": "integer"
           }
+
         }
       },
 
@@ -862,7 +904,6 @@
             "type": "number"
           },
 
-
           "period": {
             "displayName": "Period",
             "description": "The period defines the number of seconds the point value must have been within deadband value to raise the No Change event, in seconds.",
@@ -1168,7 +1209,6 @@
               "bi",
               "ao",
               "bo",
-              "x",
               "c"
             ]
           },
@@ -1245,94 +1285,6 @@
             "displayName": "Units",
             "description": "The units are a free format ASCII string that can be used when displaying the point value through local access displays etc. The Field Device should not interpret any meaning from this string and may choose to ignore it completely.",
             "type": "string"
-          }
-        }
-      },
-
-      "calcPoint": {
-        "displayName": {
-          "en-US": "Lucid Calculation Point"
-        },
-        "parentTypes": [ "device" ],
-        "minObjects": 0,
-        "maxObjects": 100,
-        "totalObjects": 100,
-
-        "configFields": {
-
-          "num": {
-            "displayName": "Point Number",
-            "description": " Point number (1-based with allowable numbers defined in the capability/points/addresses.).",
-            "type": "integer",
-            "min": 1,
-            "max": 65535
-          },
-
-          "type": {
-            "displayName": "Point Type",
-            "description": "Type of the point. Must be a valid input point type (ai, bi).",
-            "type": "string",
-            "enum": [
-              "ai",
-              "bi"
-            ],
-            "comment": "A device may not support all of these items, as indicated in the point capability address ranges."
-          },
-
-          "name": {
-            "displayName": "Point Name",
-            "description": "The name is optional, and is a string which can be used by the device to report data values or to display locally. Furthermore the name string may contain a hierarchy of fields with a separator which can imply a structure.",
-            "type": "string",
-            "maxLength": 64
-          },
-
-          "className": {
-            "displayName": "Point Class",
-            "description": "The class is optional, and is a string which can be used by the SA to denote equipment or asset ontology.",
-            "type": "string",
-            "maxLength": 64
-          },
-
-          "canOverride": {
-            "displayName": "Can Override",
-            "description": "Whether local override is permitted.",
-            "type": "boolean"
-          },
-
-          "onChange": {
-            "displayName": "Calculate on Change",
-            "description": "Causes calculation when any input values or their qualities change.",
-            "type": "boolean"
-          },
-
-          "calcPeriod": {
-            "displayName": "Calculation Period",
-            "description": "Base periodic calculation rate. In seconds.",
-            "type": "integer"
-          },
-
-          "calcOffset": {
-            "displayName": "Calculation Time Offset",
-            "description": "Offset time from the start of the week that the calculation is synchronised from (Monday, 00:00:00). Measured in seconds.  If 0, then log is offset from the last midnight.",
-            "type": "integer"
-          },
-
-          "resetPeriod": {
-            "displayName": "Reset Period",
-            "description": "Previous value reset rate. In seconds.",
-            "type": "integer"
-          },
-
-          "resetOffset": {
-            "displayName": "Reset Time Offset",
-            "description": "Offset time from the start of the week that the previous value is reset from (Monday, 00:00:00). Measured in seconds.  If 0, then log is offset from the last midnight.",
-            "type": "integer"
-          },
-
-          "bytecode": {
-            "displayName": "Bytecode Data",
-            "description": "Array of calculation instruction tuples.",
-            "type": "arrayOfArrays"
           }
         }
       },

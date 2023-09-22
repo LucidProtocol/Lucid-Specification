@@ -55,6 +55,10 @@
     {
       "num": 1,
       "name": "Onboard IO"
+    },
+    {
+      "num": 2,
+      "name": "Calc"
     }
   ],
 
@@ -102,6 +106,36 @@
       "canOverride": true,
       "logRate": 3600,
       "logOffset": 0
+    },
+    {
+      "deviceLink": 2,
+      "num": 1,
+      "name": "pump 1.Flow Filtered",
+      "className": "Water.Pumps.ACME 245M",
+      "type": "ai",
+      "units": "litres",
+      "canOverride": true,
+      "calcPeriod": 900,
+      "calcOffset": 0,
+      "bytecode": [
+        [ 10, "ai", 1 ],
+        [ 120 ],
+        [ 31 ],
+        [ 1, 2 ],
+        [ 34 ]
+      ]
+    },
+    {
+      "deviceLink": 2,
+      "num": 2,
+      "name": "pump 1.Status point quality",
+      "className": "Water.Pumps.ACME 245M",
+      "type": "bi",
+      "canOverride": false,
+      "onChange": true,
+      "bytecode": [
+        [ 11, "bi", 1, 1 ]
+      ]
     }
   ],
 
@@ -170,39 +204,6 @@
       "scale": 1.0,
       "state": 1,
       "units": "s"
-    }
-  ],
-
-  "calcPoint": [
-    {
-      "num": 1,
-      "name": "pump 1.Flow Filtered",
-      "className": "Water.Pumps.ACME 245M",
-      "type": "ai",
-      "units": "litres",
-      "canOverride": true,
-      "calcPeriod": 900,
-      "calcOffset": 0,
-      "resetPeriod": 86400,
-      "resetOffset": 0,
-      "bytecode": [
-        [ 10, "ai", 1 ],
-        [ 120 ],
-        [ 31 ],
-        [ 1, 2 ],
-        [ 34 ]
-      ]
-    },
-    {
-      "num": 1,
-      "name": "pump 1.Status point quality",
-      "className": "Water.Pumps.ACME 245M",
-      "type": "bi",
-      "canOverride": false,
-      "onChange": true,
-      "bytecode": [
-        [ 11, "bi", 1, 1 ]
-      ]
     }
   ],
 
