@@ -362,7 +362,7 @@
 
           "repeat": {
             "displayName": "Repeat",
-            "description": "The frequency of connection in milliseconds.",
+            "description": "The number of milliseconds between the start of each connection attempt.",
             "type": "integer",
             "min": 1,
             "max": 604800000,
