@@ -1132,8 +1132,19 @@
             "displayName": "State 7 Name",
             "description": "Name - name of state, may be used locally. (Optional).",
             "type": "string"
-          }
+          },
 
+          "controlPulseTime": {
+            "displayName": "Control Pulse Time",
+            "description": "Control Pulse time (milliseconds) applies only to 1 bit digital output points.",
+            "type": "integer"
+          },
+
+          "controlPulsePolarity": {
+            "displayName": "Control Pulse Polarity",
+            "description": "Control Pulse polarity applies only to 1 bit digital output points. If True then the pulse is from 1 to 0 and back to 1. If False then the pulse is from 0 to 1 and back to 0.",
+            "type": "boolean"
+          }
         }
       },
 
