@@ -46,8 +46,8 @@
     {
       "num": 1,
       "mode": 2,
-      "start": 200,
-      "repeat": 120
+      "start": 200000,
+      "repeat": 120000
     }
   ],
 
@@ -71,7 +71,7 @@
       "className": "Water.Pumps.Acme 245M",
       "scan": true,
       "canOverride": true,
-      "logRate": 900,
+      "logRate": 900000,
       "logOffset": 0
     },
     {
@@ -82,7 +82,7 @@
       "className": "Water.Pumps.Acme 245M",
       "scan": true,
       "canOverride": true,
-      "logRate": 900,
+      "logRate": 900000,
       "logOffset": 0
     },
     {
@@ -93,7 +93,7 @@
       "className": "Water.Pumps.Acme 245M",
       "scan": true,
       "canOverride": true,
-      "logRate": 3600,
+      "logRate": 3600000,
       "logOffset": 0
     },
     {
@@ -104,7 +104,7 @@
       "className": "Water.Pumps.Acme 245M",
       "scan": true,
       "canOverride": true,
-      "logRate": 3600,
+      "logRate": 3600000,
       "logOffset": 0
     },
     {
@@ -115,7 +115,7 @@
       "type": "ai",
       "units": "litres",
       "canOverride": true,
-      "calcPeriod": 900,
+      "calcPeriod": 900000,
       "calcOffset": 0,
       "bytecode": [
         [ 10, "ai", 1 ],
@@ -169,9 +169,9 @@
   "counter": [
     {
       "point": 1,
-      "resetPeriod": 86400,
+      "resetPeriod": 86400000,
       "resetOffset": 0,
-      "reportPeriod": 900,
+      "reportPeriod": 900000,
       "scale": 1.0,
       "units": "m3"
     }
@@ -185,9 +185,9 @@
       "name": "pump 1.Flow Average",
       "className": "Water.Pumps.ACME 245M",
       "type": "Mean",
-      "resetPeriod": 86400,
+      "resetPeriod": 86400000,
       "resetOffset": 0,
-      "reportPeriod": 900,
+      "reportPeriod": 900000,
       "scale": 1.0,
       "units": "litres"
     },
@@ -198,9 +198,9 @@
       "name": "pump 1.Run Time",
       "className": "Water.Pumps.ACME 245M",
       "type": "Run Time",
-      "resetPeriod": 86400,
+      "resetPeriod": 86400000,
       "resetOffset": 0,
-      "reportPeriod": 900,
+      "reportPeriod": 900000,
       "scale": 1.0,
       "state": 1,
       "units": "s"
@@ -263,7 +263,7 @@
     {
       "num": 1,
       "values": [ 0, 10, 20 ],
-      "time": [ 0, 3600, 7200 ],
+      "time": [ 0, 3600000, 7200000 ],
       "type": 0,
       "inter": 15
     }
