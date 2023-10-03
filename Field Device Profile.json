@@ -352,24 +352,32 @@
           },
 
           "start": {
-            "comment": "Defines the time and schedule that a field device must follow to connect to the SA.",
             "displayName": "Start",
-            "description": "Time of the first scheduled connection from start of day, in minutes.",
+            "description": "The start time for the scheduled connection, as an offset in milliseconds from the start of the week (or month if startBoundary is 1).",
             "type": "integer",
             "min": 0,
-            "max": 1439,
             "group": "commsSchedule",
             "order": 1
           },
 
           "repeat": {
             "displayName": "Repeat",
-            "description": "Repeat interval (milliseconds).",
+            "description": "The frequency of connection in milliseconds.",
             "type": "integer",
             "min": 1,
             "max": 604800000,
             "group": "commsSchedule",
             "order": 2
+          },
+
+          "startBoundary": {
+            "displayName": "Start Boundary",
+            "description": "If 0 (default) the start boundary is a week. If 1 the start boundary is a month.",
+            "type": "integer",
+            "min": 0,
+            "max": 1,
+            "group": "commsSchedule",
+            "order": 3
           }
         }
       },
