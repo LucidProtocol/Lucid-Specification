@@ -1244,8 +1244,9 @@
             "enum": [
               "RoC",
               "Min",
-              "Max",  
+              "Max",
               "Mean",
+              "StdDev",
               "Integral",
               "Run Time",
               "Count"
