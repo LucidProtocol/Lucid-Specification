@@ -528,7 +528,13 @@
           "description": "Compression: (specify GZIP if compression is supported, and/or other types in future.)"
         }
       },
-
+      "security": {
+        "type": "array",
+        "items": {
+          "type": "number",
+          "description": "A list of the security levels supported by this device."
+        }
+      },
       "body": {
         "description": "This is the main body of the Device Profile.",
         "$ref": "#/deviceProfileContent"

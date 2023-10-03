@@ -5,6 +5,7 @@
   "canCoreDown": false,
   "canConfigDown": true,
   "supportCompression": [ "GZIP" ],
+  "security": [0, 1, 2, 3],
   "body": {
     "capability": {
       "points": {
