@@ -859,7 +859,7 @@
         "displayName": {
           "en-US": "Lucid no change alarm"
         },
-        "parentTypes": [ "analogue", "counter", "extension" ],
+        "parentTypes": [ "analogue", "counter", "extPoint" ],
         "minObjects": 0,
         "comment": "e.g. this device has a max of one no change alarm per point. Can apply to analogue or counter.",
         "maxObjects": 1,
