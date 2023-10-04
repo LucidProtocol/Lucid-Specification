@@ -1222,7 +1222,7 @@
 
           "parentType": {
             "displayName": "Parent Point Type",
-            "description": "Type of the source point. Must be a valid point type suitable for extensions (ai, bi, ao, bo, c).",
+            "description": "Type of the source point. Must be a valid point type suitable for extended points (ai, bi, ao, bo, c).",
             "type": "string",
             "enum": [
               "ai",
@@ -1234,9 +1234,9 @@
           },
 
           "num": {
-            "comment": "Extension Point Index; Extended point objects must use consecutive indexes starting at 1.",
-            "displayName": "Extension Point Number",
-            "description": "Extension Point number (1-based with allowable numbers defined in the min/max/totalObjects).",
+            "comment": "Extended Point Index; Extended point objects must use consecutive indexes starting at 1.",
+            "displayName": "Extended Point Number",
+            "description": "Extended Point number (1-based with allowable numbers defined in the min/max/totalObjects).",
             "type": "integer",
             "min": 1,
             "max": 65535
@@ -1257,8 +1257,8 @@
           },
 
           "type": {
-            "displayName": "Extension Point Type",
-            "description": "Run times count in 1 seconds units, scaled by the scaleFactorType of the extension. Counters count 1 per value change to 'state' value, also scaled.",
+            "displayName": "Extended Point Type",
+            "description": "Run times count in 1 seconds units, scaled by the scaleFactorType of the extended point. Counters count 1 per value change to 'state' value, also scaled.",
             "type": "string",
             "enum": [
               "RoC",
@@ -1274,7 +1274,7 @@
 
           "resetPeriod": {
             "displayName": "Reset Period",
-            "description": "Interval between resets of this extension's value calculation, in milliseconds). If zero or absent then will not reset.",
+            "description": "Interval between resets of this extended point's value calculation, in milliseconds). If zero or absent then will not reset.",
             "type": "integer"
           },
 
@@ -1286,13 +1286,13 @@
 
           "reportPeriod": {
             "displayName": "Report Period",
-            "description": "Interval between reports of this extension's value. In milliseconds, starting at reset with last accumulated value.",
+            "description": "Interval between reports of this extended point's value. In milliseconds, starting at reset with last accumulated value.",
             "type": "integer"
           },
 
           "scale": {
             "displayName": "Scale Value",
-            "description": "Multiplies raw value to get value of extension.",
+            "description": "Multiplies the raw (input) value to get the value of this extended point.",
             "type": "number"
           },
 
