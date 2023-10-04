@@ -209,8 +209,8 @@
 
   "analogueLimit": [
     {
-      "point": 1,
-      "type": "ai",
+      "parent": 1,
+      "parentType": "ai",
       "num": 1,
       "name": "High",
       "action": 2,
@@ -225,7 +225,7 @@
 
   "counterLimit": [
     {
-      "point": 1,
+      "parent": 1,
       "num": 1,
       "action": 2,
       "value": 123.45
@@ -234,8 +234,8 @@
 
   "NoChange": [
     {
-      "point": 1,
-      "type": "ai",
+      "parent": 1,
+      "parentType": "ai",
       "num": 1,
       "name": "Value stuck",
       "action": 2,
@@ -246,8 +246,8 @@
 
   "controlProfile": [
     {
-      "point": 1,
-      "type": "ao",
+      "parent": 1,
+      "parentType": "ao",
       "num": 1,
       "mon": 1,
       "tue": 2,
@@ -271,8 +271,8 @@
 
   "incidentLog": [
     {
-      "point": 1,
-      "type": "ai",
+      "parent": 1,
+      "parentType": "ai",
       "num": 1,
       "triggerPoint": 1,
       "triggerType": "bi",

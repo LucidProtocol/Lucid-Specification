@@ -383,7 +383,7 @@
       },
 
       "deviceLink": {
-        "comment": "One or more objects. All points 'connect' to a Device Link. TODO: How to specify which device links and types/quantities are available in the profile Capability section?",
+        "comment": "One or more objects. All points 'connect' to a Device Link.",
         "displayName": {
           "en-US": "Lucid Device Link"
         },
@@ -407,7 +407,7 @@
           },
           "conn": {
             "displayName": "Connection String",
-            "description": "Device Link Connection String.",
+            "description": "Device Link Connection String. This is optional and can be used to configure the characteristics of the connected IO.",
             "type": "string",
             "maxLength": 100
           }
@@ -664,14 +664,14 @@
 
         "configFields": {
 
-          "point": {
+          "parent": {
             "displayName": "Point Number",
             "description": "Analogue limits belong to analogue parent points only.",
             "type": "integer"
           },
 
-          "type": {
-            "displayName": "Point Type",
+          "parentType": {
+            "displayName": "Parent Point Type",
             "description": "Type of the point. Must be a valid point type suitable for limits (ai, ao).",
             "type": "string",
             "enum": [
@@ -783,8 +783,8 @@
 
         "configFields": {
 
-          "point": {
-            "displayName": "Point Number",
+          "parent": {
+            "displayName": "Parent Point Number",
             "description": "Counter limits belong to counter parent points only.",
             "type": "integer"
           },
@@ -867,13 +867,13 @@
 
         "configFields": {
 
-          "point": {
+          "parent": {
             "displayName": "Parent Point",
             "description": "No change alarms belong to analogue and counter parent points only. Only one per point.",
             "type": "integer"
           },
 
-          "type": {
+          "parentType": {
             "displayName": "Point Type",
             "description": "Type of the point. Must be a valid point type suitable for no change alarm (ai, ao, c).",
             "type": "string",
@@ -1321,15 +1321,15 @@
 
         "configFields": {
 
-          "point": {
-            "displayName": "Point",
+          "parent": {
+            "displayName": "Parent Point",
             "description": "Belong to analogue output or digital points only.",
             "type": "integer"
           },
 
-          "type": {
-            "displayName": "Type",
-            "description": "Type of the point.",
+          "parentType": {
+            "displayName": "Parent Type",
+            "description": "Parent type of the point.",
             "type": "string"
           },
 
@@ -1398,15 +1398,15 @@
 
         "configFields": {
 
-          "point": {
+          "parent": {
             "displayName": "Parent Point Index",
             "description": "Parent point index.",
             "type": "integer"
           },
 
-          "type": {
-            "displayName": "Point Type",
-            "description": "Type of the point. Must be a valid point type suitable for storage (ai, bi, ao, bo, c, x).",
+          "parentType": {
+            "displayName": "Parent Point Type",
+            "description": "Parent type of the point. Must be a valid point type suitable for storage (ai, bi, ao, bo, c, x).",
             "type": "string",
             "comment": "Device can restrict types available",
             "enum": [
