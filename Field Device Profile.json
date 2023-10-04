@@ -958,7 +958,7 @@
 
           "scale": {
             "displayName": "Scale Value",
-            "description": "Multiplies raw value to get value of this counter.",
+            "description": "Multiplies the number of counts to evaluate the value of this counter. i.e. this is the scaled value of one count.",
             "type": "number"
           },
 
