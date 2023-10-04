@@ -117,12 +117,12 @@
       "canOverride": true,
       "calcPeriod": 900000,
       "calcOffset": 0,
-      "bytecode": [
-        [ 10, "ai", 1 ],
-        [ 120 ],
-        [ 31 ],
-        [ 1, 2 ],
-        [ 34 ]
+      "calcCode": [
+        10, 0, 1,
+        120,
+        31,
+        1, 2,
+        34
       ]
     },
     {
@@ -132,9 +132,9 @@
       "className": "Water.Pumps.ACME 245M",
       "type": "bi",
       "canOverride": false,
-      "onChange": true,
-      "bytecode": [
-        [ 11, "bi", 1, 1 ]
+      "calcOnChange": true,
+      "calcCode": [
+        11, 1, 1, 1
       ]
     }
   ],

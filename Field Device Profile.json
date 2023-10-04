@@ -554,14 +554,14 @@
             "type": "number"
           },
 
-          "bytecode": {
-            "comment": "Specify this only for a calculated point (the deviceLink is Calc). The bytecode is compiled from an expression by the configuring application.",
-            "displayName": "Bytecode Data",
+          "calcCode": {
+            "comment": "Specify this only for a calculated point (the deviceLink is Calc). The code is compiled from an expression by the configuring application.",
+            "displayName": "Calculation Code Data",
             "description": "Array of calculation instruction items.",
-            "type": "arrayOfArrays"
+            "type": "arrayOfNumber"
           },
 
-          "onChange": {
+          "calcOnChange": {
             "comment": "Relevant to calculated points only.",
             "displayName": "Calculate on Change",
             "description": "Causes calculation when any input values or their qualities change.",
