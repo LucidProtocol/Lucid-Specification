@@ -976,7 +976,7 @@
         }
       },
 
-      "digital": {
+      "binary": {
         "displayName": {
           "en-US": "Lucid Binary Point"
         },
@@ -1144,13 +1144,13 @@
 
           "controlPulseTime": {
             "displayName": "Control Pulse Time",
-            "description": "Control Pulse time (milliseconds) applies only to 1 bit digital output points.",
+            "description": "Control Pulse time (milliseconds) applies only to 1 bit binary output points.",
             "type": "integer"
           },
 
           "controlPulsePolarity": {
             "displayName": "Control Pulse Polarity",
-            "description": "Control Pulse polarity applies only to 1 bit digital output points. If True then the pulse is from 1 to 0 and back to 1. If False then the pulse is from 0 to 1 and back to 0.",
+            "description": "Control Pulse polarity applies only to 1 bit binary output points. If True then the pulse is from 1 to 0 and back to 1. If False then the pulse is from 0 to 1 and back to 0.",
             "type": "boolean"
           }
         }
@@ -1298,7 +1298,7 @@
 
           "state": {
             "displayName": "State",
-            "description": "Add to Run Time or Count when the source point equals this value. e.g. this is a digital state or analogue value. Only applies to Run Time or Counter.",
+            "description": "Add to Run Time or Count when the source point equals this value. e.g. this is a binary state or analogue value. Only applies to Run Time or Counter.",
             "type": "integer"
           },
 
@@ -1323,7 +1323,7 @@
 
           "parent": {
             "displayName": "Parent Point",
-            "description": "Belong to analogue output or digital points only.",
+            "description": "Belong to analogue output or binary points only.",
             "type": "integer"
           },
 

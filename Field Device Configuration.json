@@ -154,7 +154,7 @@
     }
   ],
 
-  "digital": [
+  "binary": [
     {
       "point": 1,
       "type": "bi",
