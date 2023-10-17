@@ -141,8 +141,8 @@
 
   "analogue": [
     {
-      "point": 1,
-      "type": "ai",
+      "parent": 1,
+      "parentType": "ai",
       "rawsc1": 0,
       "rawsc2": 256,
       "engsc1": 0.0,
@@ -156,8 +156,8 @@
 
   "binary": [
     {
-      "point": 1,
-      "type": "bi",
+      "parent": 1,
+      "parentType": "bi",
       "bits": 1,
       "state0Action": 1,
       "state0Pers": 2000,
@@ -168,7 +168,7 @@
 
   "counter": [
     {
-      "point": 1,
+      "parent": 1,
       "resetPeriod": 86400000,
       "resetOffset": 0,
       "reportPeriod": 900000,
@@ -179,7 +179,7 @@
 
   "extPoint": [
     {
-      "point": 1,
+      "parent": 1,
       "parentType": "ai",
       "num": 1,
       "name": "pump 1.Flow Average",
@@ -192,7 +192,7 @@
       "units": "litres"
     },
     {
-      "point": 1,
+      "parent": 1,
       "parentType": "bi",
       "num": 2,
       "name": "pump 1.Run Time",

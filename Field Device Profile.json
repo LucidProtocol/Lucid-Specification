@@ -602,6 +602,16 @@
             "type": "integer"
           },
 
+          "parentType": {
+            "displayName": "Point Type",
+            "description": "Type of the point. Must be a valid point type (ai, ao).",
+            "type": "string",
+            "enum": [
+              "ai",
+              "ao"
+            ]
+          },
+
           "rawsc1": {
             "displayName": "Raw Scale 1",
             "description": "Raw Scale 1  is the first raw value of the point (e.g. lower or zero value for the instrument).",
@@ -990,6 +1000,16 @@
             "displayName": "Parent Point",
             "description": "Binary features belong to binary parent points only.",
             "type": "integer"
+          },
+
+          "ParentType": {
+            "displayName": "Point Type",
+            "description": "Type of the point. Must be a valid point type (bi, bo).",
+            "type": "string",
+            "enum": [
+              "bi",
+              "bo"
+            ]
           },
 
           "bits": {
@@ -1434,7 +1454,7 @@
           },
 
           "triggerType": {
-            "displayName": "Point Type",
+            "displayName": "Trigger Point Type",
             "description": "Type of the point causing this log to execute. Must be a valid point type suitable for trigger.",
             "type": "string",
             "comment": "Device can restrict types available.",
