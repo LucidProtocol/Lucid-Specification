@@ -481,6 +481,19 @@
             "type": "boolean"
           },
 
+          "scanRate": {
+            "displayName": "Scan Rate",
+            "description": "Base periodic read rate of the source data/hardware. In milliseconds. Not used for Calculation points.",
+            "type": "integer",
+            "comment": "If not specified the device may use its own rate, but will be the faster of the logRate or any attached incidentLog rates."
+          },
+
+          "scanOffset": {
+            "displayName": "Scan Offset",
+            "description": "Offset time from the start of the week that the scanning is synchronised from (Monday, 00:00:00). Measured in milliseconds.  If 0, then log is offset from the last midnight.  Not used for Calculation points.",
+            "type": "integer"
+          },
+
           "logRate": {
             "displayName": "Log Rate",
             "description": "Base periodic logging rate (0=no logging). In milliseconds.",
