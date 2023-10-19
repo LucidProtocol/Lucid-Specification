@@ -117,7 +117,8 @@
             "displayName": "Name",
             "type": "string",
             "description": "Name as used by the SA.",
-            "maxLength": 50
+            "maxLength": 50,
+            "required": true
           },
           "loc": {
             "displayName": "Location",
@@ -168,12 +169,6 @@
             "description": "Device on/off scan (started/stopped).",
             "type": "boolean",
             "required": true
-          },
-          "s_ACME_set": {
-            "displayName": "Set Identification",
-            "description": "EXAMPLE manufacturer-specific field, prefixed with s_, then manufacturer name, then field name.",
-            "type": "string",
-            "specificToProfile": false
           }
         }
       },
@@ -203,7 +198,8 @@
             "displayName": "Channel Name",
             "description": "Channel name.",
             "type": "string",
-            "maxLength": 100
+            "maxLength": 100,
+            "required": true
           },
 
           "conn": {
@@ -250,14 +246,16 @@
             "description": "Connection index number.",
             "type": "integer",
             "min": 1,
-            "max": 65535
+            "max": 65535,
+            "required": true
           },
 
           "name": {
             "displayName": "Connection Name",
             "description": "Connection name.",
             "type": "string",
-            "maxLength": 100
+            "maxLength": 100,
+            "required": true
           },
 
           "channel": {
@@ -265,7 +263,8 @@
             "description": "Channel number.",
             "type": "integer",
             "min": 1,
-            "max": 65535
+            "max": 65535,
+            "required": true
           },
 
           "prot": {
@@ -275,14 +274,16 @@
             "enum": [
               "IPv4(TCP)",
               "IPv6(TCP)"
-            ]
+            ],
+            "required": true
           },
 
           "net": {
             "displayName": "Network Address",
             "description": "Network information containing the IPv4 or IPv6 DNS name or IP address plus : port number (default 20000 if omitted).",
             "type": "string",
-            "maxLength": 128
+            "maxLength": 128,
+            "required": true
           },
 
           "user": {
@@ -333,7 +334,8 @@
             "description": "Connection Schedule index number.",
             "type": "integer",
             "min": 1,
-            "max": 65535
+            "max": 65535,
+            "required": true
           },
 
           "conn": {
@@ -341,14 +343,16 @@
             "description": "Connection index number.",
             "type": "integer",
             "min": 1,
-            "max": 65535
+            "max": 65535,
+            "required": true
           },
 
           "mode": {
             "displayName": "Connection Mode",
             "description": "Unused, Permanent or On-Demand.",
             "type": "integer",
-            "enum": [ "Unused", "Permanent", "On Demand" ]
+            "enum": [ "Unused", "Permanent", "On Demand" ],
+            "required": true
           },
 
           "start": {
@@ -397,13 +401,15 @@
             "description": "Device Link index number.",
             "type": "integer",
             "min": 1,
-            "max": 65535
+            "max": 65535,
+            "required": true
           },
           "name": {
             "displayName": "Device Link Name",
             "description": "Device Link name.",
             "type": "string",
-            "maxLength": 100
+            "maxLength": 100,
+            "required": true
           },
           "conn": {
             "displayName": "Connection String",
@@ -428,7 +434,8 @@
           "parent": {
             "displayName": "Device Link",
             "description": "Reference to the Device Link for this point.",
-            "type": "integer"
+            "type": "integer",
+            "required": true
           },
 
           "num": {
@@ -436,7 +443,8 @@
             "description": " Point number (1-based with allowable numbers defined in the capability/points/addresses.).",
             "type": "integer",
             "min": 1,
-            "max": 65535
+            "max": 65535,
+            "required": true
           },
 
           "type": {
@@ -452,7 +460,8 @@
               "mi",
               "mo"
             ],
-            "comment": "A device may not support all of these items, as indicated in the point capability address ranges."
+            "comment": "A device may not support all of these items, as indicated in the point capability address ranges.",
+            "required": true
           },
 
           "name": {
@@ -472,7 +481,8 @@
           "scan": {
             "displayName": "Point On-Scan",
             "description": "On-scan is set to True if the point is active (or needs to be made active).",
-            "type": "boolean"
+            "type": "boolean",
+            "required": true
           },
 
           "canOverride": {
@@ -595,407 +605,6 @@
             "type": "integer"
           }
 
-        }
-      },
-
-      "analogue": {
-        "displayName": {
-          "en-US": "Lucid Analogue Point"
-        },
-        "parentTypes": [ "point" ],
-        "minObjects": 0,
-        "maxObjects": 50,
-        "totalObjects": 50,
-
-        "configFields": {
-
-          "parent": {
-            "displayName": "Parent Point",
-            "description": "Analogue features belong to analogue parent points only.",
-            "type": "integer"
-          },
-
-          "parentType": {
-            "displayName": "Point Type",
-            "description": "Type of the point. Must be a valid point type (ai, ao).",
-            "type": "string",
-            "enum": [
-              "ai",
-              "ao"
-            ]
-          },
-
-          "rawsc1": {
-            "displayName": "Raw Scale 1",
-            "description": "Raw Scale 1  is the first raw value of the point (e.g. lower or zero value for the instrument).",
-            "type": "number"
-          },
-
-          "rawsc2": {
-            "displayName": "Raw Scale 2",
-            "description": "Raw scale 2 is the second raw value for the scaling (e.g. higher or full scale value of the instrument).",
-            "type": "number"
-          },
-
-          "engsc1": {
-            "displayName": "Eng Scale 1",
-            "description": "Engineering Scale 1 ; this is the first engineering value that corresponds to the first raw value (e.g. smallest scaled output that can be reported.",
-            "type": "number"
-          },
-
-          "engsc2": {
-            "displayName": "Eng Scale 2",
-            "description": "Engineering scale 2; this is the second engineering value that corresponds to the second raw value (e.g. the highest scaled value that can be recorded).",
-            "type": "number"
-          },
-
-          "min": {
-            "displayName": "Minimum",
-            "description": "The measurement range’s minimum value, in engineering units. If a value is below the minimum, then it is under-range. The OVER_RANGE flag must be set when reporting values that are under-range. Under-range values should not be used when determining significant data (dead-band) changes.",
-            "type": "number"
-          },
-
-          "max": {
-            "displayName": "Maximum",
-            "description": "The measurement range’s maximum value, in engineering units. If a value is above the maximum, then it is over-range. The OVER_RANGE flag must be set when reporting values that are over-range. Over-range values should not be used when determining significant data (dead-band) changes.",
-            "type": "number"
-          },
-
-          "units": {
-            "displayName": "Units",
-            "description": "The units are a free format ASCII string that can be used when displaying the point value through local access displays etc. The Field Device should not interpret any meaning from this string and may choose to ignore it completely.",
-            "type": "string"
-          },
-
-          "change": {
-            "displayName": "Significant Change Value",
-            "description": "This configuration record defines parameters that are used by a Field Device to take an action when an analogue point changes by a significant amount.",
-            "type": "number"
-          }
-        }
-      },
-
-      "analogueLimit": {
-        "displayName": {
-          "en-US": "Lucid Analogue Point Limit"
-        },
-        "parentTypes": [ "analogue" ],
-        "minObjects": 4,
-        "comment": "e.g. this device has a mandatory four limits per analogue",
-        "maxObjects": 4,
-        "totalObjects": 200,
-
-        "configFields": {
-
-          "parent": {
-            "displayName": "Point Number",
-            "description": "Analogue limits belong to analogue parent points only.",
-            "type": "integer"
-          },
-
-          "parentType": {
-            "displayName": "Parent Point Type",
-            "description": "Type of the point. Must be a valid point type suitable for limits (ai, ao).",
-            "type": "string",
-            "enum": [
-              "ai",
-              "ao",
-              "x"
-            ]
-          },
-
-          "num": {
-            "comment": "Limit Index; limit objects must use consecutive limit indexes starting at 1. The lowest index value must correspond to the lowest limit and the maximum index to the highest limit. (Allowable numbers defined in the min/max/totalObjects).",
-            "displayName": "Limit Number",
-            "description": "Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
-            "type": "integer",
-            "min": 1,
-            "max": 65535
-          },
-
-          "name": {
-            "displayName": "Limit Name",
-            "description": "Name of this alarm limit.",
-            "type": "string"
-          },
-
-          "action": {
-            "displayName": "",
-            "description": "Action to be taken on transgressing the limit  (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA).",
-            "type": "integer"
-          },
-
-          "dirctn": {
-            "displayName": "",
-            "description": "This object defines the point limit values for generating events when the current value of an analogue point exceeds a limi.",
-            "type": "integer",
-            "comment": "Direction (0=positive going (low-normal-high, 1=negative going (high-normal-low ))."
-          },
-
-          "value": {
-            "displayName": "",
-            "description": "Limit threshold value, in engineering units.",
-            "type": "number"
-          },
-
-          "mon": {
-            "displayName": "",
-            "description": "Profiles reference numbers to be used for the days of the week.  All days may use the same profile or any combination of profiles against days.  If days are omitted or zero, then they are assumed to be reverting to the fixed limit threshold value above.",
-            "type": "integer"
-          },
-          "tue": {
-            "displayName": "",
-            "description": ".",
-            "type": "integer"
-          },
-          "wed": {
-            "displayName": "",
-            "description": ".",
-            "type": "integer"
-          },
-          "thu": {
-            "displayName": "",
-            "description": ".",
-            "type": "integer"
-          },
-          "fri": {
-            "displayName": "",
-            "description": ".",
-            "type": "integer"
-          },
-          "sat": {
-            "displayName": "",
-            "description": ".",
-            "type": "integer"
-          },
-          "sun": {
-            "displayName": "",
-            "description": ".",
-            "type": "integer"
-          },
-
-          "hyst": {
-            "displayName": "",
-            "description": "The hysteresis is an adjustment made to the limit value to set a further level beyond which the point value must travel to leave the state. The value of Hysteresis is always a positive number.",
-            "type": "number"
-          },
-
-          "enter": {
-            "displayName": "",
-            "description": "The Enter Persistence defines the number of milliseconds the point value must have been beyond or equal to the limit value to enter the corresponding new state. The Enter Persistence is only used when a new limit state is entered with the point value moving away from the Normal State.",
-            "type": "integer"
-          },
-
-          "leave": {
-            "displayName": "",
-            "description": "The Leave Persistence defines the number of milliseconds the point value must have been beyond the limit value with hysteresis to leave the current state (and therefore enter another state). The Leave Persistence is only used when a new limit state is entered with the point value moving towards the Normal State.",
-            "type": "integer"
-          }
-        }
-      },
-
-      "counterLimit": {
-        "displayName": {
-          "en-US": "Lucid Counter Point Limit"
-        },
-        "parentTypes": [ "counter" ],
-        "minObjects": 2,
-        "comment": "e.g. this device has a mandatory two limits per counter",
-        "maxObjects": 2,
-        "totalObjects": 200,
-
-        "configFields": {
-
-          "parent": {
-            "displayName": "Parent Point Number",
-            "description": "Counter limits belong to counter parent points only.",
-            "type": "integer"
-          },
-
-          "num": {
-            "comment": "Limit Index; limit objects must use consecutive limit indexes starting at 1. The lowest index value must correspond to the lowest limit and the maximum index to the highest limit. (Allowable numbers defined in the min/max/totalObjects).",
-            "displayName": "Limit Number",
-            "description": "Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
-            "type": "integer",
-            "min": 1,
-            "max": 65535
-          },
-
-          "name": {
-            "displayName": "Limit Name",
-            "description": "Name of this alarm limit.",
-            "type": "string"
-          },
-
-          "action": {
-            "displayName": "",
-            "description": "Action to be taken on transgressing the limit  (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA).",
-            "type": "integer"
-          },
-
-          "value": {
-            "displayName": "",
-            "description": "Limit threshold value, in engineering units.",
-            "type": "number"
-          },
-
-          "mon": {
-            "displayName": "Limit Profile reference for Monday",
-            "description": "Limit Profiles reference numbers to be used for the days of the week.  All days may use the same limit profile or any combination of profiles against days.  If days are omitted or zero, then they are assumed to be reverting to the fixed limit threshold value above.",
-            "type": "integer"
-          },
-          "tue": {
-            "displayName": "Limit Profile reference for Tuesday",
-            "description": "Limit Profile reference.",
-            "type": "integer"
-          },
-          "wed": {
-            "displayName": "Limit Profile reference for Wednesday",
-            "description": "Limit Profile reference.",
-            "type": "integer"
-          },
-          "thu": {
-            "displayName": "Limit Profile reference for Thursday",
-            "description": "Limit Profile reference.",
-            "type": "integer"
-          },
-          "fri": {
-            "displayName": "Limit Profile reference for Friday",
-            "description": "Limit Profile reference.",
-            "type": "integer"
-          },
-          "sat": {
-            "displayName": "Limit Profile reference for Saturday",
-            "description": "Limit Profile reference.",
-            "type": "integer"
-          },
-          "sun": {
-            "displayName": "Limit Profile reference for Sunday",
-            "description": "Limit Profile reference.",
-            "type": "integer"
-          }
-
-        }
-      },
-
-      "noChange": {
-        "displayName": {
-          "en-US": "Lucid no change alarm"
-        },
-        "parentTypes": [ "analogue", "counter", "extPoint" ],
-        "minObjects": 0,
-        "comment": "e.g. this device has a max of one no change alarm per point. Can apply to analogue or counter.",
-        "maxObjects": 1,
-        "totalObjects": 50,
-
-        "configFields": {
-
-          "parent": {
-            "displayName": "Parent Point",
-            "description": "No change alarms belong to analogue and counter parent points only. Only one per point.",
-            "type": "integer"
-          },
-
-          "parentType": {
-            "displayName": "Point Type",
-            "description": "Type of the point. Must be a valid point type suitable for no change alarm (ai, ao, c).",
-            "type": "string",
-            "enum": [
-              "ai",
-              "ao",
-              "c",
-              "x"
-            ]
-          },
-
-          "num": {
-            "comment": "Unlikely to have more than one of these. Limit Index; limit objects must use consecutive limit indexes starting at 1. The lowest index value must correspond to the lowest limit and the maximum index to the highest limit. (Allowable numbers defined in the min/max/totalObjects).",
-            "displayName": "Limit Number",
-            "description": "Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
-            "type": "integer",
-            "min": 1,
-            "max": 65535
-          },
-
-          "name": {
-            "displayName": "Alarm Name",
-            "description": "Name of this no change alarm.",
-            "type": "string"
-          },
-
-          "action": {
-            "displayName": "Action",
-            "description": "Action to be taken on no change  (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA).",
-            "type": "integer",
-            "comment": "enum"
-          },
-
-          "deadband": {
-            "displayName": "Deadband",
-            "description": "The deadband is a value in engineering units. The point value must change this amount to raise the event. The value of Deadband is always a positive number.",
-            "type": "number"
-          },
-
-          "period": {
-            "displayName": "Period",
-            "description": "The period defines the number of seconds the point value must have been within deadband value to raise the No Change event, in seconds.",
-            "type": "integer"
-          }
-        }
-      },
-
-      "counter": {
-        "displayName": {
-          "en-US": "Lucid Counter"
-        },
-        "parentTypes": [ "point" ],
-        "minObjects": 0,
-        "maxObjects": 50,
-        "totalObjects": 50,
-
-        "configFields": {
-
-          "parent": {
-            "displayName": "Parent Point",
-            "description": "Counter features belong to counter parent points only.",
-            "type": "integer"
-          },
-
-          "resetPeriod": {
-            "displayName": "Reset Period",
-            "description": "If zero or absent then will not reset. Interval between resets of this point's value calculation, in seconds).",
-            "type": "integer"
-          },
-
-          "resetOffset": {
-            "displayName": "Reset Offset",
-            "description": "Offset from start of week (Monday) in seconds.",
-            "type": "integer"
-          },
-
-          "reportPeriod": {
-            "displayName": "Report Period",
-            "description": "Interval between reports of this point's value. In seconds, starting at reset with last accumulated value.",
-            "type": "integer"
-          },
-
-          "scale": {
-            "displayName": "Scale Value",
-            "description": "Multiplies the number of counts to evaluate the value of this counter. i.e. this is the scaled value of one count.",
-            "type": "number"
-          },
-
-          "units": {
-            "displayName": "Units",
-            "description": "The units are a free format ASCII string that can be used when displaying the point value through local access displays etc. The Field Device should not interpret any meaning from this string and may choose to ignore it completely.",
-            "type": "string"
-          },
-
-          "change": {
-            "displayName": "Significant Change Value",
-            "description": "This configuration record defines parameters that are used by a Field Device to take an action when a counter point changes by a significant amount.",
-            "type": "number"
-          }
         }
       },
 
@@ -1189,49 +798,421 @@
         }
       },
 
-      "limitProfile": {
+      "analogue": {
         "displayName": {
-          "en-US": "Lucid Limit and Control Profile"
+          "en-US": "Lucid Analogue Point"
         },
-        "parentTypes": [ "device" ],
+        "parentTypes": [ "point" ],
         "minObjects": 0,
         "maxObjects": 50,
         "totalObjects": 50,
 
         "configFields": {
+
+          "parent": {
+            "displayName": "Parent Point",
+            "description": "Analogue features belong to analogue parent points only.",
+            "type": "integer",
+            "required": true
+          },
+
+          "parentType": {
+            "displayName": "Point Type",
+            "description": "Type of the point. Must be a valid point type (ai, ao).",
+            "type": "string",
+            "enum": [
+              "ai",
+              "ao"
+            ],
+            "required": true
+          },
+
+          "rawsc1": {
+            "displayName": "Raw Scale 1",
+            "description": "Raw Scale 1  is the first raw value of the point (e.g. lower or zero value for the instrument).",
+            "type": "number"
+          },
+
+          "rawsc2": {
+            "displayName": "Raw Scale 2",
+            "description": "Raw scale 2 is the second raw value for the scaling (e.g. higher or full scale value of the instrument).",
+            "type": "number"
+          },
+
+          "engsc1": {
+            "displayName": "Eng Scale 1",
+            "description": "Engineering Scale 1 ; this is the first engineering value that corresponds to the first raw value (e.g. smallest scaled output that can be reported.",
+            "type": "number"
+          },
+
+          "engsc2": {
+            "displayName": "Eng Scale 2",
+            "description": "Engineering scale 2; this is the second engineering value that corresponds to the second raw value (e.g. the highest scaled value that can be recorded).",
+            "type": "number"
+          },
+
+          "min": {
+            "displayName": "Minimum",
+            "description": "The measurement range’s minimum value, in engineering units. If a value is below the minimum, then it is under-range. The OVER_RANGE flag must be set when reporting values that are under-range. Under-range values should not be used when determining significant data (dead-band) changes.",
+            "type": "number"
+          },
+
+          "max": {
+            "displayName": "Maximum",
+            "description": "The measurement range’s maximum value, in engineering units. If a value is above the maximum, then it is over-range. The OVER_RANGE flag must be set when reporting values that are over-range. Over-range values should not be used when determining significant data (dead-band) changes.",
+            "type": "number"
+          },
+
+          "units": {
+            "displayName": "Units",
+            "description": "The units are a free format ASCII string that can be used when displaying the point value through local access displays etc. The Field Device should not interpret any meaning from this string and may choose to ignore it completely.",
+            "type": "string"
+          },
+
+          "change": {
+            "displayName": "Significant Change Value",
+            "description": "This configuration record defines parameters that are used by a Field Device to take an action when an analogue point changes by a significant amount.",
+            "type": "number"
+          }
+        }
+      },
+
+      "counter": {
+        "displayName": {
+          "en-US": "Lucid Counter"
+        },
+        "parentTypes": [ "point" ],
+        "minObjects": 0,
+        "maxObjects": 50,
+        "totalObjects": 50,
+
+        "configFields": {
+
+          "parent": {
+            "displayName": "Parent Point",
+            "description": "Counter features belong to counter parent points only.",
+            "type": "integer",
+            "required": true
+          },
+
+          "resetPeriod": {
+            "displayName": "Reset Period",
+            "description": "If zero or absent then will not reset. Interval between resets of this point's value calculation, in seconds).",
+            "type": "integer"
+          },
+
+          "resetOffset": {
+            "displayName": "Reset Offset",
+            "description": "Offset from start of week (Monday) in seconds.",
+            "type": "integer"
+          },
+
+          "reportPeriod": {
+            "displayName": "Report Period",
+            "description": "Interval between reports of this point's value. In seconds, starting at reset with last accumulated value.",
+            "type": "integer"
+          },
+
+          "scale": {
+            "displayName": "Scale Value",
+            "description": "Multiplies the number of counts to evaluate the value of this counter. i.e. this is the scaled value of one count.",
+            "type": "number"
+          },
+
+          "units": {
+            "displayName": "Units",
+            "description": "The units are a free format ASCII string that can be used when displaying the point value through local access displays etc. The Field Device should not interpret any meaning from this string and may choose to ignore it completely.",
+            "type": "string"
+          },
+
+          "change": {
+            "displayName": "Significant Change Value",
+            "description": "This configuration record defines parameters that are used by a Field Device to take an action when a counter point changes by a significant amount.",
+            "type": "number"
+          }
+        }
+      },
+
+      "analogueLimit": {
+        "displayName": {
+          "en-US": "Lucid Analogue Point Limit"
+        },
+        "parentTypes": [ "analogue" ],
+        "minObjects": 4,
+        "comment": "e.g. this device has a mandatory four limits per analogue",
+        "maxObjects": 4,
+        "totalObjects": 200,
+
+        "configFields": {
+
+          "parent": {
+            "displayName": "Point Number",
+            "description": "Analogue limits belong to analogue parent points only.",
+            "type": "integer",
+            "required": true
+          },
+
+          "parentType": {
+            "displayName": "Parent Point Type",
+            "description": "Type of the point. Must be a valid point type suitable for limits (ai, ao).",
+            "type": "string",
+            "enum": [
+              "ai",
+              "ao",
+              "x"
+            ],
+            "required": true
+          },
+
           "num": {
+            "comment": "Limit Index; limit objects must use consecutive limit indexes starting at 1. The lowest index value must correspond to the lowest limit and the maximum index to the highest limit. (Allowable numbers defined in the min/max/totalObjects).",
             "displayName": "Limit Number",
             "description": "Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
             "type": "integer",
             "min": 1,
-            "max": 65535
+            "max": 65535,
+            "required": true
           },
 
-          "values": {
-            "displayName": "Limit Values",
-            "description": "Values array - first value applies at first time.",
-            "array": true,
-            "type": "number"
+          "name": {
+            "displayName": "Limit Name",
+            "description": "Name of this alarm limit.",
+            "type": "string"
           },
 
-          "times": {
-            "displayName": "Limit Times",
-            "description": "Times array - in milliseconds from start of day.",
-            "array": true,
-            "type": "number"
-          },
-
-          "type": {
-            "displayName": "Type",
-            "description": "Whether the profile is stepped (0) or linear (1). Stepped is 'step first'. Stepped is the default.",
-            "type": "integer",
-            "enum": [ "Stepped", "Linear" ]
-          },
-
-          "inter": {
+          "action": {
             "displayName": "",
-            "description": "The interpolation time (in milliseconds) is the time period used to compute a new value for the profile, interpolating between two profile points.  If set to 0 then no interpolation is performed. Applies to control values.",
+            "description": "Action to be taken on transgressing the limit  (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA).",
+            "type": "integer",
+            "required": true
+          },
+
+          "dirctn": {
+            "displayName": "",
+            "description": "This object defines the point limit values for generating events when the current value of an analogue point exceeds a limi.",
+            "type": "integer",
+            "comment": "Direction (0=positive going (low-normal-high, 1=negative going (high-normal-low )).",
+            "required": true
+          },
+
+          "value": {
+            "displayName": "",
+            "description": "Limit threshold value, in engineering units.",
+            "type": "number",
+            "required": true
+          },
+
+          "mon": {
+            "displayName": "",
+            "description": "Profiles reference numbers to be used for the days of the week.  All days may use the same profile or any combination of profiles against days.  If days are omitted or zero, then they are assumed to be reverting to the fixed limit threshold value above.",
+            "type": "integer"
+          },
+          "tue": {
+            "displayName": "",
+            "description": ".",
+            "type": "integer"
+          },
+          "wed": {
+            "displayName": "",
+            "description": ".",
+            "type": "integer"
+          },
+          "thu": {
+            "displayName": "",
+            "description": ".",
+            "type": "integer"
+          },
+          "fri": {
+            "displayName": "",
+            "description": ".",
+            "type": "integer"
+          },
+          "sat": {
+            "displayName": "",
+            "description": ".",
+            "type": "integer"
+          },
+          "sun": {
+            "displayName": "",
+            "description": ".",
+            "type": "integer"
+          },
+
+          "hyst": {
+            "displayName": "",
+            "description": "The hysteresis is an adjustment made to the limit value to set a further level beyond which the point value must travel to leave the state. The value of Hysteresis is always a positive number.",
             "type": "number"
+          },
+
+          "enter": {
+            "displayName": "",
+            "description": "The Enter Persistence defines the number of milliseconds the point value must have been beyond or equal to the limit value to enter the corresponding new state. The Enter Persistence is only used when a new limit state is entered with the point value moving away from the Normal State.",
+            "type": "integer"
+          },
+
+          "leave": {
+            "displayName": "",
+            "description": "The Leave Persistence defines the number of milliseconds the point value must have been beyond the limit value with hysteresis to leave the current state (and therefore enter another state). The Leave Persistence is only used when a new limit state is entered with the point value moving towards the Normal State.",
+            "type": "integer"
+          }
+        }
+      },
+
+      "counterLimit": {
+        "displayName": {
+          "en-US": "Lucid Counter Point Limit"
+        },
+        "parentTypes": [ "counter" ],
+        "minObjects": 2,
+        "comment": "e.g. this device has a mandatory two limits per counter",
+        "maxObjects": 2,
+        "totalObjects": 200,
+
+        "configFields": {
+
+          "parent": {
+            "displayName": "Parent Point Number",
+            "description": "Counter limits belong to counter parent points only.",
+            "type": "integer",
+            "required": true
+          },
+
+          "num": {
+            "comment": "Limit Index; limit objects must use consecutive limit indexes starting at 1. The lowest index value must correspond to the lowest limit and the maximum index to the highest limit. (Allowable numbers defined in the min/max/totalObjects).",
+            "displayName": "Limit Number",
+            "description": "Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
+            "type": "integer",
+            "min": 1,
+            "max": 65535,
+            "required": true
+          },
+
+          "name": {
+            "displayName": "Limit Name",
+            "description": "Name of this alarm limit.",
+            "type": "string"
+          },
+
+          "action": {
+            "displayName": "",
+            "description": "Action to be taken on transgressing the limit  (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA).",
+            "type": "integer",
+            "required": true
+          },
+
+          "value": {
+            "displayName": "",
+            "description": "Limit threshold value, in engineering units.",
+            "type": "number",
+            "required": true
+          },
+
+          "mon": {
+            "displayName": "Limit Profile reference for Monday",
+            "description": "Limit Profiles reference numbers to be used for the days of the week.  All days may use the same limit profile or any combination of profiles against days.  If days are omitted or zero, then they are assumed to be reverting to the fixed limit threshold value above.",
+            "type": "integer"
+          },
+          "tue": {
+            "displayName": "Limit Profile reference for Tuesday",
+            "description": "Limit Profile reference.",
+            "type": "integer"
+          },
+          "wed": {
+            "displayName": "Limit Profile reference for Wednesday",
+            "description": "Limit Profile reference.",
+            "type": "integer"
+          },
+          "thu": {
+            "displayName": "Limit Profile reference for Thursday",
+            "description": "Limit Profile reference.",
+            "type": "integer"
+          },
+          "fri": {
+            "displayName": "Limit Profile reference for Friday",
+            "description": "Limit Profile reference.",
+            "type": "integer"
+          },
+          "sat": {
+            "displayName": "Limit Profile reference for Saturday",
+            "description": "Limit Profile reference.",
+            "type": "integer"
+          },
+          "sun": {
+            "displayName": "Limit Profile reference for Sunday",
+            "description": "Limit Profile reference.",
+            "type": "integer"
+          }
+
+        }
+      },
+
+      "noChange": {
+        "displayName": {
+          "en-US": "Lucid no change alarm"
+        },
+        "parentTypes": [ "analogue", "counter", "extPoint" ],
+        "minObjects": 0,
+        "comment": "e.g. this device has a max of one no change alarm per point. Can apply to analogue or counter.",
+        "maxObjects": 1,
+        "totalObjects": 50,
+
+        "configFields": {
+
+          "parent": {
+            "displayName": "Parent Point",
+            "description": "No change alarms belong to analogue and counter parent points only. Only one per point.",
+            "type": "integer",
+            "required": true
+          },
+
+          "parentType": {
+            "displayName": "Point Type",
+            "description": "Type of the point. Must be a valid point type suitable for no change alarm (ai, ao, c).",
+            "type": "string",
+            "enum": [
+              "ai",
+              "ao",
+              "c",
+              "x"
+            ],
+            "required": true
+          },
+
+          "num": {
+            "comment": "Unlikely to have more than one of these. Limit Index; limit objects must use consecutive limit indexes starting at 1. The lowest index value must correspond to the lowest limit and the maximum index to the highest limit. (Allowable numbers defined in the min/max/totalObjects).",
+            "displayName": "Limit Number",
+            "description": "Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
+            "type": "integer",
+            "min": 1,
+            "max": 65535,
+            "required": true
+          },
+
+          "name": {
+            "displayName": "Alarm Name",
+            "description": "Name of this no change alarm.",
+            "type": "string"
+          },
+
+          "deadband": {
+            "displayName": "Deadband",
+            "description": "The deadband is a value in engineering units. The point value must change this amount to raise the event. The value of Deadband is always a positive number.",
+            "type": "number"
+          },
+
+          "period": {
+            "displayName": "Period",
+            "description": "The period defines the number of seconds the point value must have been within deadband value to raise the No Change event, in seconds.",
+            "type": "integer",
+            "required": true
+          },
+
+          "action": {
+            "displayName": "Action",
+            "description": "Action to be taken on no change  (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA).",
+            "type": "integer",
+            "comment": "enum",
+            "required": true
           }
         }
       },
@@ -1250,7 +1231,8 @@
           "parent": {
             "displayName": "Parent Point",
             "description": "Extended points belong to a parent point.",
-            "type": "integer"
+            "type": "integer",
+            "required": true
           },
 
           "parentType": {
@@ -1263,7 +1245,8 @@
               "ao",
               "bo",
               "c"
-            ]
+            ],
+            "required": true
           },
 
           "num": {
@@ -1272,7 +1255,8 @@
             "description": "Extended Point number (1-based with allowable numbers defined in the min/max/totalObjects).",
             "type": "integer",
             "min": 1,
-            "max": 65535
+            "max": 65535,
+            "required": true
           },
 
           "name": {
@@ -1302,7 +1286,8 @@
               "Integral",
               "Run Time",
               "Count"
-            ]
+            ],
+            "required": true
           },
 
           "resetPeriod": {
@@ -1343,6 +1328,56 @@
         }
       },
 
+      "limitProfile": {
+        "displayName": {
+          "en-US": "Lucid Limit and Control Profile"
+        },
+        "parentTypes": [ "device" ],
+        "minObjects": 0,
+        "maxObjects": 50,
+        "totalObjects": 50,
+
+        "configFields": {
+          "num": {
+            "displayName": "Limit Number",
+            "description": "Limit number (1-based with allowable numbers defined in the min/max/totalObjects).",
+            "type": "integer",
+            "min": 1,
+            "max": 65535,
+            "required": true
+          },
+
+          "values": {
+            "displayName": "Limit Values",
+            "description": "Values array - first value applies at first time.",
+            "array": true,
+            "type": "number",
+            "required": true
+          },
+
+          "times": {
+            "displayName": "Limit Times",
+            "description": "Times array - in milliseconds from start of day.",
+            "array": true,
+            "type": "number",
+            "required": true
+          },
+
+          "type": {
+            "displayName": "Type",
+            "description": "Whether the profile is stepped (0) or linear (1). Stepped is 'step first'. Stepped is the default.",
+            "type": "integer",
+            "enum": [ "Stepped", "Linear" ]
+          },
+
+          "inter": {
+            "displayName": "",
+            "description": "The interpolation time (in milliseconds) is the time period used to compute a new value for the profile, interpolating between two profile points.  If set to 0 then no interpolation is performed. Applies to control values.",
+            "type": "number"
+          }
+        }
+      },
+
       "controlProfile": {
         "displayName": {
           "en-US": "Lucid Analogue Output Control Profile"
@@ -1357,13 +1392,15 @@
           "parent": {
             "displayName": "Parent Point",
             "description": "Belong to analogue output or binary points only.",
-            "type": "integer"
+            "type": "integer",
+            "required": true
           },
 
           "parentType": {
             "displayName": "Parent Type",
             "description": "Parent type of the point.",
-            "type": "string"
+            "type": "string",
+            "required": true
           },
 
           "num": {
@@ -1371,7 +1408,8 @@
             "description": "Point number (1-based with allowable numbers defined in the min/max/totalObjects).",
             "type": "integer",
             "min": 1,
-            "max": 65535
+            "max": 65535,
+            "required": true
           },
 
           "name": {
@@ -1434,7 +1472,8 @@
           "parent": {
             "displayName": "Parent Point Index",
             "description": "Parent point index.",
-            "type": "integer"
+            "type": "integer",
+            "required": true
           },
 
           "parentType": {
@@ -1449,7 +1488,8 @@
               "bo",
               "c",
               "x"
-            ]
+            ],
+            "required": true
           },
 
           "num": {
@@ -1457,7 +1497,8 @@
             "description": " Store number (1-based with allowable numbers defined in the min/max/totalObjects).",
             "type": "integer",
             "min": 1,
-            "max": 65535
+            "max": 65535,
+            "required": true
           },
 
           "triggerPoint": {
@@ -1501,7 +1542,8 @@
           "logRate": {
             "displayName": "Log Rate",
             "description": "The rate to be used (in milliseconds) to log the point.",
-            "type": "integer"
+            "type": "integer",
+            "required": true
           },
 
           "logOffset": {
