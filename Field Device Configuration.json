@@ -115,8 +115,8 @@
       "type": "ai",
       "units": "litres",
       "canOverride": true,
-      "calcPeriod": 900000,
-      "calcOffset": 0,
+      "scanRate": 900000,
+      "scanOffset": 0,
       "calcCode": [
         10, 0, 1,
         120,
