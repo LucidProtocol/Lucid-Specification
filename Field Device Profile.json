@@ -449,7 +449,7 @@
 
           "type": {
             "displayName": "Point Type",
-            "description": "Type of the point. Must be a valid point type (ai, bi, ao, bo, c, mi, mo).",
+            "description": "Type of the point. Must be a valid point type (ai, bi, ao, bo, c, s).",
             "type": "string",
             "enum": [
               "ai",
@@ -457,8 +457,7 @@
               "ao",
               "bo",
               "c",
-              "mi",
-              "mo"
+              "s"
             ],
             "comment": "A device may not support all of these items, as indicated in the point capability address ranges.",
             "required": true
