@@ -918,6 +918,51 @@
         }
       },
 
+      "string": {
+        "displayName": {
+          "en-US": "Lucid String"
+        },
+        "parentTypes": [ "point" ],
+        "minObjects": 0,
+        "maxObjects": 50,
+        "totalObjects": 50,
+
+        "configFields": {
+
+          "parent": {
+            "displayName": "Parent Point",
+            "description": "String features belong to string parent points only.",
+            "type": "integer",
+            "required": true
+          },
+
+          "maxLen": {
+            "displayName": "Maximum Length",
+            "description": "Maximum string length the device can support. The max property here is customised for this Device Profile.",
+            "type": "integer",
+            "min": 1,
+            "max": 65535,
+            "required": true
+          },
+
+          "mime": {
+            "displayName": "Mime Type",
+            "description": "IANA official MIME type name. If the mime type is not 'text/*' then the string is base64 encoded. If unspecified then the type is text/plain.",
+            "type": "string"
+          },
+
+          "access": {
+            "displayName": "Access Type",
+            "description": "Read or Read/Write. Write access permits control operations. Default is read-only.",
+            "type": "string",
+            "enum": [
+              "r",
+              "rw"
+            ]
+          }
+        }
+      },
+
       "analogueLimit": {
         "displayName": {
           "en-US": "Lucid Analogue Point Limit"

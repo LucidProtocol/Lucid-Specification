@@ -267,7 +267,7 @@
                 "type": "number"
               }
             },
-            "vm": {
+            "vs": {
               "type": "array",
               "items": {
                 "type": "string"
