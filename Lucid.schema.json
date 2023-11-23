@@ -408,9 +408,11 @@
             },
             "v": {
               "type": "number"
+            },
+            "vs": {
+              "type": "string"
             }
-          },
-          "required": [ "v" ]
+          }
         }
       }
     },
@@ -438,9 +440,11 @@
             },
             "v": {
               "type": "number"
+            },
+            "vs": {
+              "type": "string"
             }
-          },
-          "required": [ "v" ]
+          }
         }
       }
     },
