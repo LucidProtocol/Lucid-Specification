@@ -1343,9 +1343,9 @@
             "type": "number"
           },
 
-          "state": {
-            "displayName": "State",
-            "description": "Add to Run Time or Count when the source point equals this value. e.g. this is a binary state or analogue value. Only applies to Run Time or Counter.",
+          "stateMask": {
+            "displayName": "State Mask",
+            "description": "Increment the Run Time or Count when the source point value matches this bit mask. Only applies to Run Time or Counter.",
             "type": "integer"
           },
 
