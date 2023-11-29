@@ -515,6 +515,13 @@
             "type": "integer"
           },
 
+          "whenConnected": {
+            "displayName": "When Connected",
+            "description": "When the device has successfully made contact with the broker, the value will be sent to the SA if this action is 1 or 3.",
+            "type": "number",
+            "comment": "Actions to be taken when a points status changes (enabled or disabled).  The status types are listed.  The action may be: 0=do nothing (default), 1=log event."
+          },
+
           "whenOnline": {
             "displayName": "When Online",
             "description": "ONLINE flag is set when the point is on-scan and active..",
