@@ -62,6 +62,9 @@
       },
       "req": {
         "type": "boolean"
+      },
+      "active": {
+        "type": "boolean"
       }
     },
     "required": [ "name", "ver" ],
