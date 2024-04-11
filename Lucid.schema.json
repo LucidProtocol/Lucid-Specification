@@ -520,13 +520,23 @@
       },
       "canCoreUp": {
         "type": "boolean",
-        "description": "Capability for file data transfers in either direction, denotes whether each block can be uploaded or downloaded by the SA. Note that there is no canConfigUp as this feature is mandatory for the device in the MS to be configured automatically from upload."
+        "description": "Capability for file data transfers, denotes whether a block can be uploaded into the SA."
       },
       "canCoreDown": {
-        "type": "boolean"
+        "type": "boolean",
+        "description": "Capability for file data transfers, denotes whether a block can be downloaded from the SA."
       },
       "canConfigDown": {
-        "type": "boolean"
+        "type": "boolean",
+        "description": "Capability for the device to receive full or partial configuration messages. Note that there is no canConfigUp as this feature is mandatory for the SA to be receive configuration."
+      },
+      "reportEventsDirectly": {
+        "type": "boolean",
+        "description": "If reportEventsDirectly is specified with true, then the Field Device may send data values where the Action type is 3, and the data values associated with that event can be sent before other data values."
+      },
+      "respondCurrentDataDirectly": {
+        "type": "boolean",
+        "description": "If respondCurrentDataDirectly is specified with true, then the Field Device will respond to Supervisory Application current data request messages with the latest current data before sending older data."
       },
       "supportCompression": {
         "type": "array",

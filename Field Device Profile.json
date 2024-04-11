@@ -4,8 +4,10 @@
   "canCoreUp": false,
   "canCoreDown": false,
   "canConfigDown": true,
+  "reportEventsDirectly": true,
+  "respondCurrentDataDirectly": true,
   "supportCompression": [ "GZIP" ],
-  "security": [0, 1, 2, 3],
+  "security": [ 0, 1, 2, 3 ],
   "body": {
     "capability": {
       "points": {
