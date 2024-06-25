@@ -214,20 +214,7 @@
             "displayName": "DNS",
             "description": "DNS names in a comma-separated string.",
             "type": "string"
-          },
-
-          "user": {
-            "displayName": "User",
-            "description": "User name for the network connection.",
-            "type": "string"
-          },
-
-          "pass": {
-            "displayName": "Password",
-            "description": "Password for the network connection.",
-            "type": "string"
           }
-
         }
       },
 
@@ -286,18 +273,6 @@
             "type": "string",
             "maxLength": 128,
             "required": true
-          },
-
-          "user": {
-            "displayName": "User",
-            "description": "User name.",
-            "type": "string"
-          },
-
-          "pass": {
-            "displayName": "Password",
-            "description": "Password.",
-            "type": "string"
           },
 
           "retries": {
