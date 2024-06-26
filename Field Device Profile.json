@@ -6,7 +6,7 @@
   "canConfigDown": true,
   "reportEventsDirectly": true,
   "respondCurrentDataDirectly": true,
-  "supportCompression": [ "GZIP" ],
+  "supportCompression": [ "gzip" ],
   "security": [ 0, 1, 2, 3 ],
   "body": {
     "capability": {
