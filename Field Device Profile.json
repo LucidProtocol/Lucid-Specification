@@ -124,7 +124,7 @@
           },
           "loc": {
             "displayName": "Location",
-            "description": "Site address.",
+            "description": "Location of the device, such as an address.",
             "type": "string",
             "maxLength": 100
           },
@@ -143,11 +143,6 @@
             "displayName": "Serial Number",
             "type": "string",
             "maxLength": 50
-          },
-          "location": {
-            "displayName": "Has a location",
-            "description": "Enable to enter WGS84 co-ordinates.",
-            "type": "boolean"
           },
           "latitude": {
             "comment": "There is a json schema type for this, so consider replacing.",
