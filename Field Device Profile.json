@@ -47,17 +47,11 @@
             "to": 2
           }
         ],
-        "mi": [
+        "s": [
           {
-            "comment": "MIME points. These can be input or output. Application examples include text strings, images or JSON content. The MIME type is a field in the Device Profile.",
+            "comment": "String points. These can be input or output. Application examples include text strings or mime encoded data in BASE64. The MIME type is an optional field in the string.",
             "from": 1,
             "to": 1
-          }
-        ],
-        "mo": [
-          {
-            "from": 1,
-            "to": 2
           }
         ]
       },
