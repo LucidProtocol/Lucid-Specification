@@ -203,7 +203,7 @@
           "properties": {
             "n": {
               "type": "string",
-              "pattern": "^[a-z]{2}:[0-9]+$"
+              "pattern": "^[a-z]{1,2}:[0-9]+$"
             },
             "v": {
               "type": "array",
