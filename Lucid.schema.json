@@ -26,7 +26,7 @@
       "description": "Lucid absolute Date/Time number - a number in milliseconds from 1/1/1970 - the Unix Epoch.",
       "oneOf": [
         {
-          "type": "number"
+          "type": "integer"
         }
       ]
     }
@@ -274,7 +274,7 @@
               }
             }
           },
-          "oneOf": [
+          "anyOf": [
             {
                 "required": [
                     "name"
@@ -618,7 +618,7 @@
     "type": "object",
     "properties": {
       "lucid": {
-        "type": "number",
+        "type": "integer",
         "description": "Lucid Version (only a Major version number)"
       },
       "pRef": {
