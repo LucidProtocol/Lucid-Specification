@@ -201,6 +201,109 @@
         {
           "type": "object",
           "properties": {
+            "ai": {
+              "type": "integer"
+            },
+            "bi": {
+              "type": "integer"
+            },
+            "ao": {
+              "type": "integer"
+            },
+            "bo": {
+              "type": "integer"
+            },
+            "c": {
+              "type": "integer"
+            },
+            "x": {
+              "type": "integer"
+            },
+            "s": {
+              "type": "integer"
+            },
+            "v": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "name": {
+              "type": "string"
+            },
+            "vm": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "q": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "t": {
+              "type": "object",
+              "properties": {
+                "s": {
+                  "$ref": "#/definitions/Lucidtime"
+                },
+                "i": {
+                  "type": "integer"
+                }
+              },
+              "required": [ "s", "i" ]
+            },
+            "ts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Lucidtime"
+              }
+            },
+            "r": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "a": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "oneOf": [
+            {
+                "required": [
+                    "name"
+                ]
+            },
+            {
+              "oneOf": [
+                { "required":
+                  [ "ai" ] },
+                { "required":
+                  [ "bi" ] },
+                { "required":
+                  [ "ao" ] },
+                { "required":
+                  [ "bo" ] },
+                { "required":
+                  [ "c" ] },
+                { "required":
+                  [ "x" ] },
+                { "required":
+                  [ "s" ] }
+              ]
+            }
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
             "n": {
               "type": "string",
               "pattern": "^[a-z]{1,2}:[0-9]+$"
@@ -263,6 +366,10 @@
           "properties": {
             "name": {
               "type": "string"
+            },
+            "n": {
+              "type": "string",
+              "pattern": "^[a-z]{1,2}:[0-9]+$"
             },
             "v": {
               "type": "array",
