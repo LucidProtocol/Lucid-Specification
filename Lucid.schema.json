@@ -430,7 +430,7 @@
   "messageData": {
     "title": "Data Message",
     "description": "schema for a Data message. Topic: [UUID]/UP/data",
-    "comment": "'p': { 'n': 'ai:1', etc...",
+    "comment": "'p': { 'ai':1, etc...",
 
     "type": "object",
     "properties": {
@@ -449,14 +449,10 @@
     "type": "object",
     "properties": {
       "data": {
-        "enum": [ "Buffer", "All" ]
+        "enum": [ "current", "history", "all" ]
       },
-      "n": {
-        "type": "array",
-        "items": {
-          "type": "string",
-          "pattern": "^[a-z]{1,2}:[0-9]+$"
-        }
+      "p": {
+        "$ref": "#/DataList"
       },
       "name": {
         "type": "array",
@@ -509,9 +505,26 @@
         "items": {
           "type": "object",
           "properties": {
-            "n": {
-              "type": "string",
-              "pattern": "^[a-z]{1,2}:[0-9]+$"
+            "ai": {
+              "type": "integer"
+            },
+            "bi": {
+              "type": "integer"
+            },
+            "ao": {
+              "type": "integer"
+            },
+            "bo": {
+              "type": "integer"
+            },
+            "c": {
+              "type": "integer"
+            },
+            "x": {
+              "type": "integer"
+            },
+            "s": {
+              "type": "integer"
             },
             "name": {
               "type": "string"
@@ -541,9 +554,26 @@
         "items": {
           "type": "object",
           "properties": {
-            "n": {
-              "type": "string",
-              "pattern": "^[a-z]{1,2}:[0-9]+$"
+            "ai": {
+              "type": "integer"
+            },
+            "bi": {
+              "type": "integer"
+            },
+            "ao": {
+              "type": "integer"
+            },
+            "bo": {
+              "type": "integer"
+            },
+            "c": {
+              "type": "integer"
+            },
+            "x": {
+              "type": "integer"
+            },
+            "s": {
+              "type": "integer"
             },
             "name": {
               "type": "string"
