@@ -246,14 +246,11 @@
             "t": {
               "type": "object",
               "properties": {
-                "s": {
-                  "$ref": "#/definitions/Lucidtime"
-                },
                 "i": {
                   "type": "integer"
                 }
               },
-              "required": [ "s", "i" ]
+              "required": [ "i" ]
             },
             "ts": {
               "type": "array",
@@ -299,128 +296,6 @@
               ]
             }
           ],
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "properties": {
-            "n": {
-              "type": "string",
-              "pattern": "^[a-z]{1,2}:[0-9]+$"
-            },
-            "v": {
-              "type": "array",
-              "items": {
-                "type": "number"
-              }
-            },
-            "vm": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "q": {
-              "type": "array",
-              "items": {
-                "type": "integer"
-              }
-            },
-            "t": {
-              "type": "object",
-              "properties": {
-                "s": {
-                  "$ref": "#/definitions/Lucidtime"
-                },
-                "i": {
-                  "type": "integer"
-                }
-              },
-              "required": [ "s", "i" ]
-            },
-            "ts": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Lucidtime"
-              }
-            },
-            "r": {
-              "type": "array",
-              "items": {
-                "type": "integer"
-              }
-            },
-            "a": {
-              "type": "array",
-              "items": {
-                "type": "integer"
-              }
-            }
-
-          },
-          "required": [ "n" ],
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "n": {
-              "type": "string",
-              "pattern": "^[a-z]{1,2}:[0-9]+$"
-            },
-            "v": {
-              "type": "array",
-              "items": {
-                "type": "number"
-              }
-            },
-            "vs": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "q": {
-              "type": "array",
-              "items": {
-                "type": "integer"
-              }
-            },
-            "t": {
-              "type": "object",
-              "properties": {
-                "s": {
-                  "$ref": "#/definitions/Lucidtime"
-                },
-                "i": {
-                  "type": "integer"
-                }
-              },
-              "required": [ "s", "i" ]
-            },
-            "ts": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Lucidtime"
-              }
-            },
-            "r": {
-              "type": "array",
-              "items": {
-                "type": "integer"
-              }
-            },
-            "a": {
-              "type": "array",
-              "items": {
-                "type": "integer"
-              }
-            }
-          },
-          "required": [ "name" ],
           "additionalProperties": false
         }
       ]
@@ -603,9 +478,26 @@
         "items": {
           "type": "object",
           "properties": {
-            "n": {
-              "type": "string",
-              "pattern": "^[a-z]{1,2}:[0-9]+$"
+            "ai": {
+              "type": "integer"
+            },
+            "bi": {
+              "type": "integer"
+            },
+            "ao": {
+              "type": "integer"
+            },
+            "bo": {
+              "type": "integer"
+            },
+            "c": {
+              "type": "integer"
+            },
+            "x": {
+              "type": "integer"
+            },
+            "s": {
+              "type": "integer"
             },
             "name": {
               "type": "string"
@@ -895,7 +787,7 @@
           },
           "order": {
             "description": "",
-            "type": "number"
+            "type": "integer"
           },
           "specificToDeviceProfile": {
             "description": "Use this to specify that this field is not part of the Lucid standard Device Profile. Field to be named s_<mnfr>_<name>.",
