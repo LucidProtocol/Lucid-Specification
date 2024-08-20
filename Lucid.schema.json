@@ -984,7 +984,7 @@
             "type": "string"
           },
           "order": {
-            "type": "number"
+            "type": "integer"
           },
           "specificToDeviceProfile": {
             "description": "Use this to specify that this field is not part of the Lucid standard Device Profile. Field to be named s_<mnfr>_<name>.",
