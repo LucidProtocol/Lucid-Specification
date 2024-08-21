@@ -80,7 +80,8 @@
       "scan": true,
       "canOverride": true,
       "logRate": 900000,
-      "logOffset": 0
+      "logOffset": 0,
+      "whenRestart": 2
     },
     {
       "deviceLink": 1,
