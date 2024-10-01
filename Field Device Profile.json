@@ -485,60 +485,66 @@
             "displayName": "When Online",
             "description": "ONLINE flag is set when the point is on-scan and active..",
             "type": "number",
-            "comment": "Actions to be taken when a points status changes (enabled or disabled).  The status types are listed.  The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA."
+            "comment": "Actions to be taken when a points status changes (enabled or disabled).  The status types are listed.  The action may be: 0=do nothing (default), 1=log event, 2=log event and call SA."
           },
 
           "whenRestart": {
             "displayName": "When Restarted",
-            "description": "RESTART flag is set when the point has been reconfigured or the field device or point have come ON-SCAN. This flag remains set until the first value has been recorded by the field device. The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
+            "description": "RESTART flag is set when the point has been reconfigured or the field device or point have come ON-SCAN. This flag remains set until the first value has been recorded by the field device. The action may be: 0=do nothing (default), 1=log event, 2=log event and call SA.",
             "type": "number"
           },
 
           "whenCommsLost": {
             "displayName": "When Communications Lost",
-            "description": "The commslost (or COMM_LOST) flag indicates that communications with the downstream device have been lost. The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
+            "description": "The commslost (or COMM_LOST) flag indicates that communications with the downstream device have been lost. The action may be: 0=do nothing (default), 1=log event, 2=log event and call SA.",
             "type": "number"
           },
 
           "whenRemForce": {
             "displayName": "When Remotely Forced",
-            "description": "The remforce (REMOTE_FORCED) flag indicates that the value of the point has been forced to a value by a downstream device. The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
+            "description": "The remforce (REMOTE_FORCED) flag indicates that the value of the point has been forced to a value by a downstream device. The action may be: 0=do nothing (default), 1=log event, 2=log event and call SA.",
             "type": "number"
           },
 
           "whenLocForce": {
             "displayName": "When Locally Forced",
-            "description": "The locforced (LOCAL_FORCED) flag indicates that the value of the point has been forced to a value by the device (test state, for example) or by human interaction. The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
+            "description": "The locforced (LOCAL_FORCED) flag indicates that the value of the point has been forced to a value by the device (test state, for example) or by human interaction. The action may be: 0=do nothing (default), 1=log event, 2=log event and call SA.",
             "type": "number"
           },
 
           "whenChatter": {
             "displayName": "When Chatter",
-            "description": "The chatter (CHATTER_FILTER) flag indicates that a binary or double-bit binary point is changing value often enough to trigger a chatter filter. The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
+            "description": "The chatter (CHATTER_FILTER) flag indicates that a binary or double-bit binary point is changing value often enough to trigger a chatter filter. The action may be: 0=do nothing (default), 1=log event, 2=log event and call SA.",
             "type": "number"
           },
 
           "whenOverrange": {
             "displayName": "When Overrange",
-            "description": "The overrange (OVER_RANGE) flag indicates that the point’s true value exceeds the defined range that the point supports (analogue inputs only). The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
+            "description": "The overrange (OVER_RANGE) flag indicates that the point’s true value exceeds the defined range that the point supports (analogue inputs only). The action may be: 0=do nothing (default), 1=log event, 2=log event and call SA.",
             "type": "number"
           },
 
           "whenDiscontinuity": {
             "displayName": "When Discontinuity",
-            "description": "The discontinuity flag indicates that the reported value cannot be compared against previous values for calculating count difference (e.g. rate of change calculation). The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
+            "description": "The discontinuity flag indicates that the reported value cannot be compared against previous values for calculating count difference (e.g. rate of change calculation). The action may be: 0=do nothing (default), 1=log event, 2=log event and call SA.",
             "type": "number"
           },
 
           "whenRefError": {
             "displayName": "When Ref Error",
-            "description": "The Reference Error flag indicates that the measurement process has determined that the object’s data value may not have the expected level of accuracy. For example, the reference signal used in the analogue-to-digital conversion process is out of limits, or a calculated value has been contaminated with noise (analogue inputs only). The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
+            "description": "The Reference Error flag indicates that the measurement process has determined that the object’s data value may not have the expected level of accuracy. For example, the reference signal used in the analogue-to-digital conversion process is out of limits, or a calculated value has been contaminated with noise (analogue inputs only). The action may be: 0=do nothing (default), 1=log event, 2=log event and call SA.",
+            "type": "number"
+          },
+
+          "whenUnableToRead": {
+            "displayName": "When Unable to Read",
+            "description": "The Unable to Read flag indicates that it has not been possible to read the value of an analogue input or output. The action may be: 0=do nothing (default), 1=log event, 2=log event and call SA.",
             "type": "number"
           },
 
           "whenChange": {
             "displayName": "When Changed",
-            "description": "If the point has changed value (in the case of an analogue or counter, if changed outside significant change deadband. The action may be: 0=do nothing (default), 1=log event, 3=log event and call SA.",
+            "description": "If the point has changed value (in the case of an analogue or counter, if changed outside significant change deadband. The action may be: 0=do nothing (default), 1=log event, 2=log event and call SA.",
             "type": "number"
           },
 
