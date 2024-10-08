@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Field Device Configuration.json = Field Device Configuration.json
 		Field Device Profile.json = Field Device Profile.json
 		README.md = README.md
-		my.schema.json = my.schema.json
+		lucid.schema.json = lucid.schema.json
 	EndProjectSection
 EndProject
 Global
