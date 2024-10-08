@@ -1,14 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{825F0E70-7FB0-46EA-9D95-1CA0606DFA52}"
 	ProjectSection(SolutionItems) = preProject
 		Field Device Configuration.json = Field Device Configuration.json
 		Field Device Profile.json = Field Device Profile.json
-		Lucid.schema.json = Lucid.schema.json
 		README.md = README.md
+		my.schema.json = my.schema.json
 	EndProjectSection
 EndProject
 Global
