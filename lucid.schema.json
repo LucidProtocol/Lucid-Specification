@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-06/schema",
-  "$id": "Lucid.schema.json",
+  "$id": "https://lucidprotocol.org/3/lucid.schema.json",
   "name": "Lucid Configuration and Operation Schema",
   "description": "Can be used to verify messages at: https://www.jsonschemavalidator.net/",
   "$defs": {
