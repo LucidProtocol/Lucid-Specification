@@ -827,7 +827,7 @@
 
           "change": {
             "displayName": "Significant Change Value",
-            "description": "This configuration record defines parameters that are used by a Field Device to take an action when an analogue point changes by a significant amount.",
+            "description": "The value difference (a positive value) used to determine when the point has changed by a significant amount.",
             "type": "number"
           }
         }
@@ -883,7 +883,7 @@
 
           "change": {
             "displayName": "Significant Change Value",
-            "description": "This configuration record defines parameters that are used by a Field Device to take an action when a counter point changes by a significant amount.",
+            "description": "The value difference (a positive value) used to determine when the point has changed by a significant amount.",
             "type": "number"
           }
         }

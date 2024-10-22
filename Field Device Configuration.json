@@ -42,9 +42,10 @@
   "connectionSchedule": [
     {
       "num": 1,
-      "mode": 2,
-      "start": 200000,
-      "repeat": 120000
+      "start": 7200000,
+      "repeat": 3600000,
+      "count": 12,
+      "startBoundary": 0
     }
   ],
 
@@ -61,7 +62,7 @@
 
   "point": [
     {
-      "deviceLink": 1,
+      "parent": 1,
       "num": 1,
       "type": "ai",
       "name": "pump 1.Flow",
@@ -72,7 +73,7 @@
       "logOffset": 0
     },
     {
-      "deviceLink": 1,
+      "parent": 1,
       "num": 1,
       "type": "ao",
       "name": "pump 1.Demand",
@@ -84,7 +85,7 @@
       "whenRestart": 2
     },
     {
-      "deviceLink": 1,
+      "parent": 1,
       "num": 1,
       "type": "bi",
       "name": "pump 1.Status",
@@ -95,7 +96,7 @@
       "logOffset": 0
     },
     {
-      "deviceLink": 1,
+      "parent": 1,
       "num": 1,
       "type": "c",
       "name": "pump 1.Starts",
@@ -106,7 +107,7 @@
       "logOffset": 0
     },
     {
-      "deviceLink": 2,
+      "parent": 2,
       "num": 1,
       "name": "pump 1.Flow Filtered",
       "className": "Water.Pumps.ACME 245M",
@@ -124,7 +125,7 @@
       ]
     },
     {
-      "deviceLink": 2,
+      "parent": 2,
       "num": 2,
       "name": "pump 1.Status point quality",
       "className": "Water.Pumps.ACME 245M",
