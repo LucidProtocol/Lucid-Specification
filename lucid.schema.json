@@ -497,15 +497,19 @@
   "messageData": {
     "title": "Data Message",
     "description": "schema for a Data message. Topic: [UUID]/UP/data",
-    "comment": "'p': { 'ai':1, etc...",
+    "comment": "'cVer': 123, 'p': { 'ai':1, etc...",
     "type": "object",
     "properties": {
       "p": {
         "$ref": "#/$defs/DataList"
+      },
+      "cVer": {
+        "type": "integer"
       }
     },
     "required": [
-      "p"
+      "p",
+      "cVer"
     ],
     "additionalProperties": false
   },
