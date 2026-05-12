@@ -48,13 +48,13 @@ To edit the Word document, please follow the procedure below:
   * Publish "document only" is selected, so that changes are not shown in the PDF
 * Ensure that the document and PDF are closed (so no temporary files will be submitted)
 * Modify any code within the JSON files
-* Return to the normal github process above
+* Return to the normal GitHub process above
 
 ## Notes for project maintainers
 
-Project maintainers shoudl be aware of the following:
+Project maintainers should be aware of the following:
 
-* Tables sometimes get centered. We have not found an appropriate solution to that yet
+* Tables sometimes get centred. We have not found an appropriate solution to that yet
 * Someone reviewing should click on the item, click on 3 dots and view file, download, then open the downloaded file as a reference read only copy
 * The naming of branches and pull requests should ensure that they close automatically
 * Check that pull request is closed on completion
