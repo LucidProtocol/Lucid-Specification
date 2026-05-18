@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-06/schema",
+  "$schema": "http://json-schema.org/draft-06/schema#",
   "$id": "https://lucidprotocol.org/3/lucid.schema.json",
   "name": "Lucid Configuration and Operation Schema",
   "description": "Can be used to verify messages at: https://www.jsonschemavalidator.net/",
@@ -23,6 +23,45 @@
     "LucidTime": {
       "description": "Lucid absolute Date/Time number - a number in milliseconds from 1/1/1970 - the Unix Epoch.",
       "type": "integer"
+    },
+    "q": {
+       "type": "array",
+       "items": {
+         "type": "integer"
+       }
+    },
+    "t": {
+       "type": "object",
+       "properties": {
+         "s": {
+           "$ref": "#/$defs/LucidTime"
+         },
+         "i": {
+           "type": "integer"
+          }
+        },
+        "required": [
+          "s",
+          "i"
+       ]
+    },
+    "ts": {
+      "type": "array",
+      "items": {
+	"$ref": "#/$defs/LucidTime"
+      }
+    },
+    "r": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "a": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
     },
     "PointTypeList": {
       "type": "object",
@@ -60,50 +99,6 @@
       },
       "additionalProperties": false
     },
-    "DataListCommon": {
-      "type": "object",
-      "properties": {
-        "q": {
-          "type": "array",
-          "items": {
-            "type": "integer"
-          }
-        },
-        "t": {
-          "type": "object",
-          "properties": {
-            "s": {
-              "$ref": "#/$defs/LucidTime"
-            },
-            "i": {
-              "type": "integer"
-            }
-          },
-          "required": [
-            "s",
-            "i"
-          ]
-        },
-        "ts": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/LucidTime"
-          }
-        },
-        "r": {
-          "type": "array",
-          "items": {
-            "type": "integer"
-          }
-        },
-        "a": {
-          "type": "array",
-          "items": {
-            "type": "integer"
-          }
-        }
-      }
-    },
     "DataList": {
       "title": "Point Data List",
       "description": "Used in messageData.",
@@ -112,9 +107,6 @@
         "anyOf": [
           {
             "allOf": [
-              {
-                "$ref": "#/$defs/DataListCommon"
-              },
               {
                 "type": "object",
                 "properties": {
@@ -126,7 +118,22 @@
                     "items": {
                       "type": "number"
                     }
-                  }
+                  },
+                  "q": {
+                    "$ref": "#/$defs/q"
+                    },
+                  "t": {
+                    "$ref": "#/$defs/t"
+                  },
+                  "ts": {
+                    "$ref": "#/$defs/ts"
+                  },
+                  "r": {
+                    "$ref": "#/$defs/r"
+                  },
+                  "a": {
+                    "$ref": "#/$defs/a"
+                  },
                 },
                 "required": [
                   "ai"
@@ -138,9 +145,6 @@
           {
             "allOf": [
               {
-                "$ref": "#/$defs/DataListCommon"
-              },
-              {
                 "type": "object",
                 "properties": {
                   "ao": {
@@ -151,8 +155,23 @@
                     "items": {
                       "type": "number"
                     }
-                  }
-                },
+                  },
+                  "q": {
+                    "$ref": "#/$defs/q"
+                    },
+                  "t": {
+                    "$ref": "#/$defs/t"
+                  },
+                  "ts": {
+                    "$ref": "#/$defs/ts"
+                  },
+                  "r": {
+                    "$ref": "#/$defs/r"
+                  },
+                  "a": {
+                    "$ref": "#/$defs/a"
+                  },
+               },
                 "required": [
                   "ao"
                 ],
@@ -162,9 +181,6 @@
           },
           {
             "allOf": [
-              {
-                "$ref": "#/$defs/DataListCommon"
-              },
               {
                 "type": "object",
                 "properties": {
@@ -176,7 +192,22 @@
                     "items": {
                       "type": "number"
                     }
-                  }
+                  },
+                  "q": {
+                    "$ref": "#/$defs/q"
+                    },
+                  "t": {
+                    "$ref": "#/$defs/t"
+                  },
+                  "ts": {
+                    "$ref": "#/$defs/ts"
+                  },
+                  "r": {
+                    "$ref": "#/$defs/r"
+                  },
+                  "a": {
+                    "$ref": "#/$defs/a"
+                  },
                 },
                 "required": [
                   "bi"
@@ -188,9 +219,6 @@
           {
             "allOf": [
               {
-                "$ref": "#/$defs/DataListCommon"
-              },
-              {
                 "type": "object",
                 "properties": {
                   "bo": {
@@ -201,7 +229,22 @@
                     "items": {
                       "type": "number"
                     }
-                  }
+                  },
+                  "q": {
+                    "$ref": "#/$defs/q"
+                    },
+                  "t": {
+                    "$ref": "#/$defs/t"
+                  },
+                  "ts": {
+                    "$ref": "#/$defs/ts"
+                  },
+                  "r": {
+                    "$ref": "#/$defs/r"
+                  },
+                  "a": {
+                    "$ref": "#/$defs/a"
+                  },
                 },
                 "required": [
                   "bo"
@@ -213,9 +256,6 @@
           {
             "allOf": [
               {
-                "$ref": "#/$defs/DataListCommon"
-              },
-              {
                 "type": "object",
                 "properties": {
                   "s": {
@@ -226,7 +266,22 @@
                     "items": {
                       "type": "string"
                     }
-                  }
+                  },
+                  "q": {
+                    "$ref": "#/$defs/q"
+                    },
+                  "t": {
+                    "$ref": "#/$defs/t"
+                  },
+                  "ts": {
+                    "$ref": "#/$defs/ts"
+                  },
+                  "r": {
+                    "$ref": "#/$defs/r"
+                  },
+                  "a": {
+                    "$ref": "#/$defs/a"
+                  },
                 },
                 "required": [
                   "s"
@@ -238,9 +293,6 @@
           {
             "allOf": [
               {
-                "$ref": "#/$defs/DataListCommon"
-              },
-              {
                 "type": "object",
                 "properties": {
                   "c": {
@@ -251,7 +303,22 @@
                     "items": {
                       "type": "number"
                     }
-                  }
+                  },
+                  "q": {
+                    "$ref": "#/$defs/q"
+                    },
+                  "t": {
+                    "$ref": "#/$defs/t"
+                  },
+                  "ts": {
+                    "$ref": "#/$defs/ts"
+                  },
+                  "r": {
+                    "$ref": "#/$defs/r"
+                  },
+                  "a": {
+                    "$ref": "#/$defs/a"
+                  },
                 },
                 "required": [
                   "c"
@@ -262,9 +329,6 @@
           },
           {
             "allOf": [
-              {
-                "$ref": "#/$defs/DataListCommon"
-              },
               {
                 "type": "object",
                 "properties": {
@@ -282,7 +346,22 @@
                     "items": {
                       "type": "string"
                     }
-                  }
+                  },
+                  "q": {
+                    "$ref": "#/$defs/q"
+                    },
+                  "t": {
+                    "$ref": "#/$defs/t"
+                  },
+                  "ts": {
+                    "$ref": "#/$defs/ts"
+                  },
+                  "r": {
+                    "$ref": "#/$defs/r"
+                  },
+                  "a": {
+                    "$ref": "#/$defs/a"
+                  },
                 },
                 "required": [
                   "x"
@@ -293,9 +372,6 @@
           },
           {
             "allOf": [
-              {
-                "$ref": "#/$defs/DataListCommon"
-              },
               {
                 "type": "object",
                 "properties": {
@@ -313,7 +389,22 @@
                     "items": {
                       "type": "string"
                     }
-                  }
+                  },
+                  "q": {
+                    "$ref": "#/$defs/q"
+                    },
+                  "t": {
+                    "$ref": "#/$defs/t"
+                  },
+                  "ts": {
+                    "$ref": "#/$defs/ts"
+                  },
+                  "r": {
+                    "$ref": "#/$defs/r"
+                  },
+                  "a": {
+                    "$ref": "#/$defs/a"
+                  },
                 },
                 "required": [
                   "name"
