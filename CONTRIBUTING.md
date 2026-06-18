@@ -23,7 +23,7 @@ The following is the general procedure for making changes to the protocol specif
 * Once invited by the project maintainers you may commence preparing the Pull Request (PR) 
 * Fork the repo to your own copy
 * Clone your repository locally
-* Create a new branch whose name starts with "Fix #nnn" where nnn is the fix number.
+* Create a new branch whose name starts with "Fix-#nnn" where nnn is the fix number.
 * Switch to the branch
 * Make the changes described in the Issue
 * Commit the change locally, using a comment starting with "Fix #nnn"
@@ -43,7 +43,7 @@ To edit the Word document, please follow the procedure below:
 * Check that the format does not change whilst making textual changes
 * Look for red lines in the document above and below the change you have made
 * Save the document
-* Export the document as a PDF, in Options for the PDF Export ensure that:
+* Save the document as a PDF, in Options for the PDF Save ensure that:
   * Create Bookmarks using Headings is selected
   * Publish "document only" is selected, so that changes are not shown in the PDF
 * Ensure that the document and PDF are closed (so no temporary files will be submitted)
