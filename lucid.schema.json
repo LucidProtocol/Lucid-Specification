@@ -133,7 +133,7 @@
                   },
                   "a": {
                     "$ref": "#/$defs/a"
-                  },
+                  }
                 },
                 "required": [
                   "ai"
@@ -170,7 +170,7 @@
                   },
                   "a": {
                     "$ref": "#/$defs/a"
-                  },
+                  }
                },
                 "required": [
                   "ao"
@@ -207,7 +207,7 @@
                   },
                   "a": {
                     "$ref": "#/$defs/a"
-                  },
+                  }
                 },
                 "required": [
                   "bi"
@@ -244,7 +244,7 @@
                   },
                   "a": {
                     "$ref": "#/$defs/a"
-                  },
+                  }
                 },
                 "required": [
                   "bo"
@@ -281,7 +281,7 @@
                   },
                   "a": {
                     "$ref": "#/$defs/a"
-                  },
+                  }
                 },
                 "required": [
                   "s"
@@ -318,7 +318,7 @@
                   },
                   "a": {
                     "$ref": "#/$defs/a"
-                  },
+                  }
                 },
                 "required": [
                   "c"
@@ -361,7 +361,7 @@
                   },
                   "a": {
                     "$ref": "#/$defs/a"
-                  },
+                  }
                 },
                 "required": [
                   "x"
@@ -404,7 +404,7 @@
                   },
                   "a": {
                     "$ref": "#/$defs/a"
-                  },
+                  }
                 },
                 "required": [
                   "name"
@@ -693,10 +693,10 @@
         }
       },
       "start": {
-        "#ref": "#/$defs/LucidTime"
+        "$ref": "#/$defs/LucidTime"
       },
       "end": {
-        "#ref": "#/$defs/LucidTime"
+        "$ref": "#/$defs/LucidTime"
       }
     },
     "required": [
@@ -710,10 +710,10 @@
     "type": "object",
     "properties": {
       "sa": {
-        "#ref": "#/$defs/LucidTime"
+        "$ref": "#/$defs/LucidTime"
       },
       "fd": {
-        "#ref": "#/$defs/LucidTime"
+        "$ref": "#/$defs/LucidTime"
       }
     },
     "required": [
