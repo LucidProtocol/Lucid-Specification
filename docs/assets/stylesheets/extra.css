@@ -1,0 +1,20 @@
+/* The source .docx draws a full grid (lines around every cell) for every
+   table. Material's default table style only draws an outer border plus
+   a line above each body row -- add the missing vertical/header-row
+   lines rather than restyling the whole table, so it keeps using
+   Material's own theme-aware border color (light/dark mode both covered
+   for free). */
+.md-typeset table:not([class]) td,
+.md-typeset table:not([class]) th {
+  border: 0.05rem solid var(--md-typeset-table-color);
+}
+
+/* Styles the caption paragraphs scripts/mkdocs_table_captions.py rewrites
+   Pandoc's `: Caption text` table-caption lines into -- see that hook for
+   why the caption needs rewriting at all. Deliberately unnumbered (no
+   "Table N:" prefix): nothing else on the website is numbered either. */
+.md-typeset p.table-caption {
+  text-align: center;
+  font-style: italic;
+  color: var(--md-default-fg-color--light);
+}
