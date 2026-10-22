@@ -2,6 +2,8 @@
 
 This document provides a comprehensive guide to the Lucid Protocol (Lucid), a standard that permits electronic devices deployed at user sites to communicate with server systems within the user's offices. The telemetry data sent using Lucid permits operational staff working for the user to visualize and control their system.
 
+See [this missing page](no-such-page.md).
+
 Lucid provides a rich set of functions, previously implemented in telemetry and remote SCADA systems, using manufacturer-specific protocols. Additionally, it allows for interoperability between equipment from different manufacturers. By implementing a common standard, Lucid Protocol users can purchase and operate data sources (Field Devices) and server software (Supervisory Applications) from multiple vendors and be assured that they are compatible. This encourages competition between vendors and reduces the costs of procurement, training, operations, and maintenance.
 
 This document contains the technical detail of the protocol. Appendices contain protocol schema and samples.
