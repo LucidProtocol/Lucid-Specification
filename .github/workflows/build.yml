@@ -1,0 +1,170 @@
+# Builds the Lucid Protocol specification's PDF and website from this
+# repo's docs/, using the build tooling in LucidProtocol/Lucid-Specification-Build
+# (always its main branch).
+#
+# - Pull requests: build both, as a check. A broken nav/link fails it
+#   (mkdocs --strict). The PDF is attached to the run for reviewers.
+# - Pushes to a branch below: build, then deploy the site (with the PDF
+#   and its "Download PDF" link) to GitHub Pages.
+# - Tags R1, R2, ... (R[0-9]*): build, then create a draft GitHub Release
+#   with the PDF attached. A tag with a hyphen (e.g. R0-test) becomes a
+#   pre-release. Set the Release's title/notes and publish it by hand.
+# - Manual runs (Actions tab -> "Build spec" -> Run workflow): build only.
+
+name: Build spec
+
+on:
+  push:
+    branches:
+      - master
+      - spec-build # STEP 16: remove this line
+    tags:
+      - "R[0-9]*"
+  pull_request:
+    branches:
+      - master
+      - spec-build # STEP 16: remove this line
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A newer push to the same PR replaces its in-progress check; branch and
+# tag builds always run to completion.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  # Same version as the local builds. Ubuntu's own pandoc package is too
+  # old: build_pdf.py uses --syntax-highlighting (Pandoc 3.8+).
+  PANDOC_VERSION: "3.12.1"
+  PYTHON_VERSION: "3.14"
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out the build tooling
+        uses: actions/checkout@v7
+        with:
+          repository: LucidProtocol/Lucid-Specification-Build
+          ref: main
+          path: build
+
+      # Into the folder fetch_spec.py manages, so the next step can record
+      # exactly what's being built (spec-version.json) the same way a local
+      # build does. Full history so tags are there for the footer.
+      - name: Check out this spec commit
+        uses: actions/checkout@v7
+        with:
+          path: build/lucid-specification
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: build/requirements.txt
+
+      - name: Install Python dependencies
+        working-directory: build
+        run: pip install -r requirements.txt
+
+      - name: Install Pandoc and TeX Live
+        run: |
+          curl -fsSL -o "$RUNNER_TEMP/pandoc.deb" \
+            "https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb"
+          sudo apt-get update
+          # Same LaTeX packages as the README's Linux instructions. TeX
+          # Live, unlike MiKTeX, can't install a missing package mid-build.
+          sudo apt-get install -y "$RUNNER_TEMP/pandoc.deb" \
+            texlive-xetex texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended lmodern
+          pandoc --version | head -1
+          xelatex --version | head -1
+
+      # build_pdf.py uses headless Chrome (preinstalled on GitHub's Ubuntu
+      # runners) to turn the SVG diagrams into PNGs. Ubuntu 24.04 blocks the
+      # unprivileged user namespaces Chrome's sandbox needs; this lifts that
+      # for this throwaway runner only.
+      - name: Let Chrome's sandbox run
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
+      - name: Record the spec commit
+        working-directory: build
+        run: python scripts/fetch_spec.py --ref "$GITHUB_SHA"
+
+      - name: Build the PDF
+        working-directory: build
+        run: python scripts/build_pdf.py
+
+      # After the PDF, so the site includes it and its nav link.
+      - name: Build the website
+        working-directory: build
+        run: python -m mkdocs build --strict
+
+      - name: Attach the PDF to this run
+        uses: actions/upload-artifact@v7
+        with:
+          name: lucid-protocol-specification
+          path: |
+            build/dist/lucid-protocol-specification.pdf
+            build/dist/build-info.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Prepare the site for GitHub Pages
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/')
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: build/site
+
+  deploy-pages:
+    needs: build
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/')
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    # Deploys run one at a time, oldest first, so the newest push always
+    # ends up live.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v5
+
+  draft-release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/R')
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Fetch the PDF
+        uses: actions/download-artifact@v8
+        with:
+          name: lucid-protocol-specification
+
+      - name: Create a draft Release with the PDF
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          pdf="lucid-protocol-specification-${TAG}.pdf"
+          mv lucid-protocol-specification.pdf "$pdf"
+          prerelease=()
+          if [[ "$TAG" == *-* ]]; then prerelease=(--prerelease); fi
+          gh release create "$TAG" "$pdf" \
+            --repo "$GITHUB_REPOSITORY" \
+            --draft --verify-tag "${prerelease[@]}" \
+            --title "$TAG" \
+            --notes "Lucid Protocol specification, built from tag ${TAG}. Edit the title and these notes, then publish."
