@@ -17,6 +17,7 @@ This repository contains the following files:
 - **docs**, a folder containing the Markdown which makes up the specification.
 - **.gitignore**, a gitignore file for this project.
 - **CONTRIBUTING.md**, contribution guidelines for the repository.
+- **CODE_OF_CONDUCT.md**, the code of conduct for everyone taking part in the project.
 - **Field Device Configuration.json**, an example configuration file for a Lucid Field Device.
 - **Field Device Profile.json**, an example of a Lucid Field Device Profile.
 - **Lucid.sln**, a Microsoft Visual Studio solutions file to permit easy viewing of the json files and this README file.

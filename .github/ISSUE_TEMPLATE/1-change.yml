@@ -1,0 +1,36 @@
+name: Propose a change
+description: Suggest a change or addition to the specification, the JSON Schema or the example files.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a change. The maintainers will discuss it here and label it
+        "Change Agreed" when it should go ahead. Please don't open a pull request before then.
+        See [CONTRIBUTING.md](https://github.com/LucidProtocol/Lucid-Specification/blob/master/CONTRIBUTING.md) for the full process.
+  - type: textarea
+    id: change
+    attributes:
+      label: What should change?
+      description: Describe the change you're proposing.
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Why is it needed?
+      description: The problem it solves, or what it makes possible.
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: Where does it apply?
+      description: A section number, a link to the page on the website, or a file name.
+      placeholder: e.g. 4.2, or lucid.schema.json
+  - type: checkboxes
+    id: searched
+    attributes:
+      label: Existing issues
+      options:
+        - label: I've searched the existing issues and this hasn't been raised before.
+          required: true
