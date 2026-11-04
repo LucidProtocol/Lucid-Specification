@@ -20,6 +20,7 @@ This repository contains the following files:
 - **CODE_OF_CONDUCT.md**, the code of conduct for everyone taking part in the project.
 - **Field Device Configuration.json**, an example configuration file for a Lucid Field Device.
 - **Field Device Profile.json**, an example of a Lucid Field Device Profile.
+- **LICENSE.md**, the licence terms for the specification and the other material in this repository.
 - **Lucid.sln**, a Microsoft Visual Studio solutions file to permit easy viewing of the json files and this README file.
 - **README.md**, this file.
 - **lucid.schema.json**, a JSON Schema file useful in checking high level message compliance.

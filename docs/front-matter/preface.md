@@ -15,6 +15,8 @@ Inclusion of the full text of the Copyright content (see below) must be provided
 
 No right to create modifications or derivatives of WITS Protocol Standards Association documents is granted pursuant to this license, except anyone may prepare and distribute derivative works and portions of this document in software that implements the specification, in supporting materials accompanying such software, and in documentation of such software, provided that all such works include the notice below. However, the publication of derivative works of this document for use as a technical specification is expressly prohibited.
 
+As an exception to the above, anyone may fork the repository containing this document and make temporary modifications within that fork, for the purpose of proposing contributions back to the Lucid Protocol project. This does not permit the independent publication of derivative specifications, which remains prohibited.
+
 # Copyright {#copyright .Heading-preface}
 
 Copyright © 2019-2026 WITS Protocol Standards Association. This software or document includes material copied from or derived from the Lucid Specification.
