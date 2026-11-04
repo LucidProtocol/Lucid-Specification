@@ -1,42 +1,80 @@
 # How to contribute to the Lucid Protocol
 
-## General guidelines
+Thank you for helping to improve the Lucid Protocol specification. This
+guide explains how changes are proposed, reviewed and accepted.
 
-This repository uses a fork and pull request workflow.
+## Who can contribute
 
-If you are new to git or github you can find more general information about the procedures at the following links. We suggest you read and familiarise yourself with these prior to following the specific instructions in the next section.
+- **Anyone with a GitHub account** can raise issues, comment, and propose
+  changes to this repository through a fork and pull request.
+- **Members of the WITS Protocol Standards Association**, which manages
+  the Lucid Protocol, are also members of the LucidProtocol GitHub
+  organisation. Membership gives read access to all of the organisation's
+  repositories, including private ones. Members contribute to every
+  repository in the same way: through forks and pull requests.
+- **Project maintainers** review pull requests and merge them. Only
+  maintainers can merge changes.
 
-* [GitHub Docs - Contributing to a project](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project)
-* [GitHub Docs - Collaborative development models](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/getting-started/about-collaborative-development-models)
-* [GitHub Docs - About forks](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks)
-* [Digital Ocean - Contributing to open source projects](https://www.digitalocean.com/resources/articles/how-to-contribute-to-open-source)
-* [Atlassian - Forking Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow)
+## Before you start
 
-## Specific procedure
+- Read the specification online: https://lucidprotocol.github.io/Lucid-Specification/
+- Please follow our [Code of Conduct](CODE_OF_CONDUCT.md).
+- New to git or GitHub? These guides explain the fork and pull request
+  workflow used here:
+  - [GitHub Docs - Contributing to a project](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project)
+  - [GitHub Docs - About forks](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks)
+  - [Atlassian - Forking Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow)
 
-The following is the general procedure for making changes to the protocol specification and json supporting material.
+## How to propose a change
 
-* Raise an issue in the project
-* Wait for the issue to be labelled as "Change Agreed" by the project maintainers
-* Once invited by the project maintainers you may commence preparing the Pull Request (PR) 
-* Fork the repo to your own copy
-* Clone your repository locally
-* Create a new branch whose name starts with "Fix-#nnn" where nnn is the fix number.
-* Switch to the branch
-* Make the changes described in the Issue
-* Commit the change locally, using a comment starting with "Fix #nnn"
-* Push the fix branch to your forked copy of the repository
-* Create a pull request in the main repo based on your changed fork
-* The pull request name should start with "Fix #nnn"
-* Support the pull request through the process of review and acceptance
+1. **Raise an issue** describing the change and why it is needed. Please
+   search the existing issues first.
+2. **Wait for agreement.** The maintainers discuss the issue and label it
+   "Change Agreed" when it should go ahead. Please don't start a pull
+   request before then.
+3. **Fork** this repository to your own GitHub account, and clone your fork
+   to your computer.
+4. **Create a branch** in your fork whose name starts with `Fix-nnn`, where
+   nnn is the issue number.
+5. **Make the changes** described in the issue. The specification is the
+   Markdown under `docs/`; the JSON examples and JSON Schema are at the top
+   level of the repository.
+6. **Commit** with a message starting `Fix #nnn`.
+7. **Push** the branch to your fork.
+8. **Open a pull request** from your branch to this repository's `master`
+   branch. Start the title with `Fix #nnn`, and write `Fixes #nnn` in the
+   description so the issue closes automatically when the change is merged.
+9. **Check the build.** Every pull request automatically builds the website
+   and the PDF. The build must pass before the pull request can be merged;
+   it fails, for example, if a link is broken. To see how your change looks,
+   open the build from the pull request's **Checks** tab: the PDF is under
+   **Artifacts** on the run's summary page. For some contributors, a
+   maintainer has to approve the build before it runs.
+10. **Respond to review.** A maintainer will review your pull request and
+    may ask for changes. Push further commits to the same branch in your
+    fork, and the pull request updates itself.
+11. **Merge.** When the change is ready, a maintainer merges it. The website
+    updates automatically a few minutes later. The change appears in a
+    numbered Release, with its PDF, when the maintainers next publish one.
 
+## Keeping your fork up to date
+
+Before starting a new change, click **Sync fork** on your fork's GitHub
+page, or pull from this repository's `master` branch, so you are working
+from the latest specification.
+
+## Changes to the build setup
+
+Changes under `.github/` (the build workflow and the issue and pull request
+templates) need approval from a maintainer before they can be merged. The
+tooling that turns the Markdown into the website and PDF lives in a
+separate repository,
+[Lucid-Specification-Build](https://github.com/LucidProtocol/Lucid-Specification-Build).
 
 ## Notes for project maintainers
 
-Project maintainers should be aware of the following:
-
-* The naming of branches and pull requests should ensure that they close automatically
-* Check that pull request is closed on completion
-* Delete the branch after the merge
-
- 
+Maintainers have write access, so they can create branches directly in
+this repository instead of using a fork. Everything else is the same:
+changes still go through a pull request, the build must pass, and changes
+under `.github/` need another maintainer's approval. After merging, check
+that the issue has closed and delete the branch.

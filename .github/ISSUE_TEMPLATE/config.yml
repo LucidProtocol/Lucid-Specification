@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Read the specification
+    url: https://lucidprotocol.github.io/Lucid-Specification/
+    about: The current specification, with a PDF download.
+  - name: Lucid Protocol website
+    url: https://www.lucidprotocol.org
+    about: General information about the Lucid Protocol and the WITS Protocol Standards Association.
