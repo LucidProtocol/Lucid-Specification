@@ -71,6 +71,14 @@ tooling that turns the Markdown into the website and PDF lives in a
 separate repository,
 [Lucid-Specification-Build](https://github.com/LucidProtocol/Lucid-Specification-Build).
 
+## Licence
+
+The specification and the other material in this repository are provided
+under the terms in [LICENSE.md](LICENSE.md). By contributing, you agree
+that your contribution may be included in this repository, and hence
+within the specification depending upon the files changed, under those
+terms.
+
 ## Notes for project maintainers
 
 Maintainers have write access, so they can create branches directly in
