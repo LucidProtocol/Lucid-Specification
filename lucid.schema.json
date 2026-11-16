@@ -415,6 +415,293 @@
           }
         ]
       }
+    },
+    "configDevice": {
+      "title": "Device",
+      "description": "Configuration object: device (Table 1). Optional at message level; if present, entries must follow this shape.",
+      "type": "object",
+      "properties": {
+        "nid": { "type": "string", "title": "Node Id", "description": "User set name of the device in its application, unique for this user's set of devices. Commonly a numeric code and used to facilitate device change." },
+        "name": { "type": "string", "title": "Name", "description": "The name of the device" },
+        "loc": { "type": "string", "title": "Location", "description": "Location of the device, such as an address" },
+        "ownr": { "type": "string", "title": "Owner", "description": "The owner organisation of the device" },
+        "asst": { "type": "string", "title": "Asset", "description": "The asset code of the device" },
+        "serl": { "type": "string", "title": "Serial", "description": "The manufacturer's serial number of the device" },
+        "latitude": { "type": "number", "title": "Latitude", "description": "WGS84 latitude. (If Location is True and this is absent then the latitude is zero)." },
+        "longitude": { "type": "number", "title": "Longitude", "description": "WGS84 longitude. (If Location is True and this is absent then the longitude is zero)." },
+        "scan": { "type": "boolean", "title": "On Scan", "description": "True to set the device active and able to return data" }
+      },
+      "required": ["nid", "name", "scan"],
+      "additionalProperties": true
+    },
+    "configChannel": {
+      "title": "Channel",
+      "description": "Configuration object: channel (Table 2).",
+      "type": "object",
+      "properties": {
+        "num": { "type": "integer", "title": "Channel Number", "description": "Storage Index" },
+        "name": { "type": "string", "title": "Channel Name", "description": "The name of this channel" },
+        "conn": { "type": "string", "title": "Connection String", "description": "Optional text required by the device for this channel number. May contain device or hardware specific settings." },
+        "dns": { "type": "string", "title": "DNS Information", "description": "DNS names in a comma-separated string" }
+      },
+      "required": ["num", "name"],
+      "additionalProperties": true
+    },
+    "configConnection": {
+      "title": "Connection",
+      "description": "Configuration object: connection (Table 3).",
+      "type": "object",
+      "properties": {
+        "num": { "type": "integer", "title": "Connection Number", "description": "Storage Index. The number of the connection in the FD." },
+        "name": { "type": "string", "title": "Connection Name", "description": "The name of this connection" },
+        "channel": { "type": "integer", "title": "Channel Number", "description": "The channel to use" },
+        "prot": { "type": "integer", "enum": [0, 1], "title": "Network Protocol", "description": "Protocol for network connection. 0 - IPv4 (TCP), 1 - IPv6 (TCP)." },
+        "net": { "type": "string", "title": "Network Information", "description": "IP address and port number to connect to the Broker." },
+        "retries": { "type": "integer", "title": "Retries", "description": "Number of retries." },
+        "backoff": { "type": "integer", "title": "Backoff", "description": "Retry interval in milliseconds." }
+      },
+      "required": ["num", "name", "channel", "prot", "net"],
+      "additionalProperties": true
+    },
+    "configConnectionSchedule": {
+      "title": "Connection Schedule",
+      "description": "Configuration object: connectionSchedule (Table 4). NOTE: this replaces the 'conn'/'mode' fields previously assumed by the Python test harness -- neither appears in the spec table; the real optional fields are start, repeat, count and startBoundary.",
+      "type": "object",
+      "properties": {
+        "num": { "type": "integer", "title": "Connection Schedule Number", "description": "Storage Index" },
+        "start": { "type": "integer", "title": "Start Time", "description": "The start time for the scheduled connection, as an offset in milliseconds from the start of the specified boundary." },
+        "repeat": { "type": "integer", "title": "Repeat Interval", "description": "The number of milliseconds between the start of each connection attempt." },
+        "count": { "type": "integer", "title": "Repeat Count", "description": "The number of repeats made after the initial connection, during the startBoundary interval." },
+        "startBoundary": { "type": "integer", "enum": [0, 1, 2], "title": "Start Time Boundary", "description": "0 = Day (default), 1 = Week, 2 = Month." }
+      },
+      "required": ["num"],
+      "additionalProperties": true
+    },
+    "configDeviceLink": {
+      "title": "Device Link",
+      "description": "Configuration object: deviceLink (Table 7).",
+      "type": "object",
+      "properties": {
+        "num": { "type": "integer", "title": "Device Link Number", "description": "Storage Index" },
+        "name": { "type": "string", "title": "Name", "description": "Name of this Device Link" },
+        "conn": { "type": "string", "title": "Device Link Connection String", "description": "Optional device-specific string. May contain device or hardware specific settings." }
+      },
+      "required": ["num", "name"],
+      "additionalProperties": true
+    },
+    "configPoint": {
+      "title": "Point",
+      "description": "Configuration object: point (Table 8, plus calcCode/calcOnChange from Table 20). NOTE: all whenXXXX fields are action codes (Integer, 0/1/2) per the spec table, not Boolean as the Python test harness assumed. whenUnableToRead was missing entirely from the Python harness. whenOverrange was misspelled 'whenOvarrange' in the harness. calcCode is an array of numbers (compiled expression), not a single float.",
+      "type": "object",
+      "properties": {
+        "parent": { "type": "integer", "title": "Device Link", "description": "A reference to the Device Link for this point." },
+        "num": { "type": "integer", "title": "Point Number", "description": "A unique index of the point within this point type." },
+        "type": { "type": "string", "enum": ["ai", "ao", "bi", "bo", "c", "s", "x"], "title": "Type", "description": "The point type code." },
+        "name": { "type": "string", "title": "Name", "description": "The name is optional and is a string which can be used by the device to report data values or to display locally. The name string may contain a hierarchy of fields with a separator which can imply a structure." },
+        "className": { "type": "string", "title": "Point Class", "description": "The class is optional and is a string which can be used by the SA to denote equipment or asset ontology." },
+        "scan": { "type": "boolean", "title": "Scan Flag", "description": "On-scan is set to True if the point is active (or needs to be made active)." },
+        "canOverride": { "type": "boolean", "title": "Can Override", "description": "Whether local override is permitted." },
+        "scanRate": { "type": "integer", "title": "Scan Rate", "description": "Base periodic read rate of the source data/hardware, in milliseconds. Also used if present to specify the calculation rate for Calculation points. If not specified the device may use its own rate, but is the faster of the logRate or any attached incidentLog rates." },
+        "scanOffset": { "type": "integer", "title": "Scan Offset", "description": "Offset time from the start of the week that the scanning is synchronised from (Monday, 00:00:00), measured in milliseconds. If 0, then log is offset from the last midnight. Also used if present to specify the calculation offset for Calculation points." },
+        "logRate": { "type": "integer", "title": "Log Rate", "description": "Base periodic logging rate (absent or 0=no logging), in milliseconds." },
+        "logOffset": { "type": "integer", "title": "Log Offset", "description": "Offset time from the start of the week that the log is synchronised from (Monday, 00:00:00), measured in milliseconds. If 0, then log is offset from the last midnight." },
+        "whenConnected": { "type": "integer", "enum": [0, 1, 2], "title": "When Connected", "description": "When the device has successfully contacted the Broker, the value is sent to the SA if this action is 1. (If action 2 is selected then it will not contact the SA and will behave as for action 1)." },
+        "whenOnline": { "type": "integer", "enum": [0, 1, 2], "title": "When Online", "description": "The action to be taken when this flag changes (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA)." },
+        "whenRestart": { "type": "integer", "enum": [0, 1, 2], "title": "When Restarted", "description": "The action to be taken when this flag changes (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA)." },
+        "whenCommsLost": { "type": "integer", "enum": [0, 1, 2], "title": "When Communications Lost", "description": "The action to be taken when this flag changes (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA)." },
+        "whenRemForce": { "type": "integer", "enum": [0, 1, 2], "title": "When Remotely Forced", "description": "The action to be taken when this flag changes (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA)." },
+        "whenLocForce": { "type": "integer", "enum": [0, 1, 2], "title": "When Locally Forced", "description": "The action to be taken when this flag changes (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA)." },
+        "whenChatter": { "type": "integer", "enum": [0, 1, 2], "title": "When Chatter", "description": "The action to be taken when this flag changes (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA)." },
+        "whenOverrange": { "type": "integer", "enum": [0, 1, 2], "title": "When Overrange", "description": "The action to be taken when this flag changes (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA)." },
+        "whenDiscontinuity": { "type": "integer", "enum": [0, 1, 2], "title": "When Discontinuity", "description": "The action to be taken when this flag changes (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA)." },
+        "whenRefError": { "type": "integer", "enum": [0, 1, 2], "title": "When Reference Error", "description": "The action to be taken when this flag changes (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA)." },
+        "whenUnableToRead": { "type": "integer", "enum": [0, 1, 2], "title": "When Unable To Read", "description": "The action to be taken when this flag changes (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA)." },
+        "whenChange": { "type": "integer", "enum": [0, 1, 2], "title": "When Changed", "description": "If the point has changed value: 0=do nothing (default), 1=log event, 2=log event and trigger a connection to the SA. Behaviour varies slightly with type: analogue and counter values change by a significant change deadband, strings can include any change, and digital points have their own change requirement per state." },
+        "calcCode": { "type": "array", "items": { "type": "number" }, "title": "Calc Code Data", "description": "Specify this only for a calculated point (the deviceLink is \"Calc\"). The code is compiled from an expression by the configuring application." },
+        "calcOnChange": { "type": "boolean", "title": "Calculate On Change", "description": "Causes calculation when any input values or their qualities change." }
+      },
+      "required": ["parent", "num", "type", "scan"],
+      "additionalProperties": true
+    },
+    "configBinary": {
+      "title": "Binary Point",
+      "description": "Configuration object: binary (Table 11).",
+      "type": "object",
+      "properties": {
+        "parent": { "type": "integer", "title": "Parent Point", "description": "Binary features belong to binary parent points only." },
+        "parentType": { "type": "string", "enum": ["bi", "bo"], "title": "Parent Point Type", "description": "\"bi\" or \"bo\"." },
+        "bits": { "type": "integer", "enum": [1, 2, 3], "title": "Bit Count", "description": "Bit count, defaults to 1. Values are 1, 2, 3 only." },
+        "state0Action": { "type": "integer", "enum": [0, 1, 2], "title": "State 0 Action", "description": "0=do nothing, 1=log data, 2=log data and connect to SA." }, "state0Pers": { "type": "integer", "title": "State 0 Persistence", "description": "Persistence - number of milliseconds the point must remain in this state before the action is taken. (Optional)." }, "state0Name": { "type": "string", "title": "State 0 Name", "description": "Name of state, may be used locally. (Optional)." },
+        "state1Action": { "type": "integer", "enum": [0, 1, 2], "title": "State 1 Action", "description": "0=do nothing, 1=log data, 2=log data and connect to SA." }, "state1Pers": { "type": "integer", "title": "State 1 Persistence", "description": "Persistence - number of milliseconds the point must remain in this state before the action is taken. (Optional)." }, "state1Name": { "type": "string", "title": "State 1 Name", "description": "Name of state, may be used locally. (Optional)." },
+        "state2Action": { "type": "integer", "enum": [0, 1, 2], "title": "State 2 Action", "description": "0=do nothing, 1=log data, 2=log data and connect to SA." }, "state2Pers": { "type": "integer", "title": "State 2 Persistence", "description": "Persistence - number of milliseconds the point must remain in this state before the action is taken. (Optional)." }, "state2Name": { "type": "string", "title": "State 2 Name", "description": "Name of state, may be used locally. (Optional)." },
+        "state3Action": { "type": "integer", "enum": [0, 1, 2], "title": "State 3 Action", "description": "0=do nothing, 1=log data, 2=log data and connect to SA." }, "state3Pers": { "type": "integer", "title": "State 3 Persistence", "description": "Persistence - number of milliseconds the point must remain in this state before the action is taken. (Optional)." }, "state3Name": { "type": "string", "title": "State 3 Name", "description": "Name of state, may be used locally. (Optional)." },
+        "state4Action": { "type": "integer", "enum": [0, 1, 2], "title": "State 4 Action", "description": "0=do nothing, 1=log data, 2=log data and connect to SA." }, "state4Pers": { "type": "integer", "title": "State 4 Persistence", "description": "Persistence - number of milliseconds the point must remain in this state before the action is taken. (Optional)." }, "state4Name": { "type": "string", "title": "State 4 Name", "description": "Name of state, may be used locally. (Optional)." },
+        "state5Action": { "type": "integer", "enum": [0, 1, 2], "title": "State 5 Action", "description": "0=do nothing, 1=log data, 2=log data and connect to SA." }, "state5Pers": { "type": "integer", "title": "State 5 Persistence", "description": "Persistence - number of milliseconds the point must remain in this state before the action is taken. (Optional)." }, "state5Name": { "type": "string", "title": "State 5 Name", "description": "Name of state, may be used locally. (Optional)." },
+        "state6Action": { "type": "integer", "enum": [0, 1, 2], "title": "State 6 Action", "description": "0=do nothing, 1=log data, 2=log data and connect to SA." }, "state6Pers": { "type": "integer", "title": "State 6 Persistence", "description": "Persistence - number of milliseconds the point must remain in this state before the action is taken. (Optional)." }, "state6Name": { "type": "string", "title": "State 6 Name", "description": "Name of state, may be used locally. (Optional)." },
+        "state7Action": { "type": "integer", "enum": [0, 1, 2], "title": "State 7 Action", "description": "0=do nothing, 1=log data, 2=log data and connect to SA." }, "state7Pers": { "type": "integer", "title": "State 7 Persistence", "description": "Persistence - number of milliseconds the point must remain in this state before the action is taken. (Optional)." }, "state7Name": { "type": "string", "title": "State 7 Name", "description": "Name of state, may be used locally. (Optional)." },
+        "controlPulseTime": { "type": "integer", "title": "Control Pulse Time", "description": "Control Pulse time (milliseconds), applies only to 1 bit binary output points." },
+        "controlPulsePolarity": { "type": "boolean", "title": "Control Pulse Polarity", "description": "Applies only to 1 bit binary output points. If True, then the pulse is from 1 to 0 and back to 1. If False, then the pulse is from 0 to 1 and back to 0." }
+      },
+      "required": ["parent", "parentType"],
+      "additionalProperties": true
+    },
+    "configAnalogue": {
+      "title": "Analogue Point",
+      "description": "Configuration object: analogue (Table 12).",
+      "type": "object",
+      "properties": {
+        "parent": { "type": "integer", "title": "Parent Point", "description": "Analogue features belong to analogue parent points only." },
+        "parentType": { "type": "string", "enum": ["ai", "ao"], "title": "Parent Point Type", "description": "\"ai\" or \"ao\"." },
+        "rawsc1": { "type": "integer", "title": "Raw Scale 1", "description": "Raw Scale 1 is the first raw value of the point (e.g. lower or zero value for the instrument)." },
+        "rawsc2": { "type": "integer", "title": "Raw Scale 2", "description": "Raw Scale 2 is the second raw value for the scaling (e.g. higher or full scale value of the instrument)." },
+        "engsc1": { "type": "number", "title": "Eng Scale 1", "description": "Engineering Scale 1; the first engineering value that corresponds to the first raw value (e.g. smallest scaled output that can be reported)." },
+        "engsc2": { "type": "number", "title": "Eng Scale 2", "description": "Engineering Scale 2; the second engineering value that corresponds to the second raw value (e.g. the highest scaled value that can be recorded)." },
+        "min": { "type": "number", "title": "Minimum", "description": "The measurement range's minimum value, in engineering units. If a value is below the minimum, then it is under-range and the OVER_RANGE flag must be set. Under-range values should not be used when determining significant data (dead-band) changes." },
+        "max": { "type": "number", "title": "Maximum", "description": "The measurement range's maximum value, in engineering units. If a value is above the maximum, then it is over-range and the OVER_RANGE flag must be set. Over-range values should not be used when determining significant data (dead-band) changes." },
+        "units": { "type": "string", "title": "Units", "description": "A free format ASCII string that can be used when displaying the point value through local access displays etc. The FD should not interpret any meaning from this string and may choose to ignore it completely." },
+        "change": { "type": "number", "title": "Significant Change Value", "description": "The value difference (a positive value) used to determine when the point has changed by a significant amount." }
+      },
+      "required": ["parent", "parentType"],
+      "additionalProperties": true
+    },
+    "configCounter": {
+      "title": "Counter Point",
+      "description": "Configuration object: counter (Table 13). NOTE: the spec table has no 'parentType' field for counter, unlike its siblings binary/analogue -- only 'parent' is defined. This looks like it may be an omission in the spec itself (worth raising when proposing this upstream) since every other point-feature object pairs 'parent' with 'parentType'. The Python test harness had assumed a parentType field existed here; this draft follows the table as written.",
+      "type": "object",
+      "properties": {
+        "parent": { "type": "integer", "title": "Parent Point", "description": "Counter features belong to counter parent points only." },
+        "resetPeriod": { "type": "integer", "title": "Reset Period", "description": "If zero or absent, then is not reset. Interval between resets of this point's value calculation, in milliseconds." },
+        "resetOffset": { "type": "integer", "title": "Reset Offset", "description": "Offset from start of week (Monday) in milliseconds." },
+        "reportPeriod": { "type": "integer", "title": "Report Period", "description": "Interval between reports of this point's value. In milliseconds, starting at reset with last accumulated value." },
+        "scale": { "type": "number", "title": "Scale Value", "description": "Multiplies the number of counts to evaluate the value of this counter, i.e. this is the scaled value of one count." },
+        "units": { "type": "string", "title": "Units", "description": "A free format ASCII string that can be used when displaying the point value through local access displays etc. The FD should not interpret any meaning from this string and may choose to ignore it completely." },
+        "change": { "type": "number", "title": "Significant Change Value", "description": "The value difference (a positive value) used to determine when the point has changed by a significant amount." }
+      },
+      "required": ["parent"],
+      "additionalProperties": true
+    },
+    "configAnalogueLimit": {
+      "title": "Analogue Limit",
+      "description": "Configuration object: analogueLimit (Table 14). NOTE: 'num' (Point Limit Index) is marked mandatory in the spec table but was missing entirely from the Python test harness's required-field list.",
+      "type": "object",
+      "properties": {
+        "parent": { "type": "integer", "title": "Parent", "description": "Analogue point number." },
+        "parentType": { "type": "string", "enum": ["ai", "ao", "x"], "title": "Parent Point Type", "description": "Type of point the limit refers to: \"ai\", \"ao\", \"x\"." },
+        "num": { "type": "integer", "title": "Point Limit Index", "description": "Point Limit Index (PLI) for limit." },
+        "name": { "type": "string", "title": "Name", "description": "A human readable name for the limit." },
+        "action": { "type": "integer", "enum": [0, 1, 2], "title": "Action", "description": "Action to be taken on entering this state (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA)." },
+        "dirctn": { "type": "integer", "enum": [0, 1], "title": "Direction", "description": "The direction for entering the state (0=positive going (low-normal-high), 1=negative going (high-normal-low))." },
+        "value": { "type": "number", "title": "Limit Value", "description": "The value of this limit, in engineering units." },
+        "hyst": { "type": "number", "title": "Hysteresis", "description": "Limit hysteresis, default 0." },
+        "enter": { "type": "integer", "title": "Enter Persistence", "description": "Limit entry persistence in milliseconds." },
+        "leave": { "type": "integer", "title": "Leave Persistence", "description": "Limit leave persistence in milliseconds." },
+        "mon": { "type": "integer", "title": "Monday Profile", "description": "Limit Profile number for Monday." }, "tue": { "type": "integer", "title": "Tuesday Profile", "description": "Limit Profile number for Tuesday." }, "wed": { "type": "integer", "title": "Wednesday Profile", "description": "Limit Profile number for Wednesday." },
+        "thu": { "type": "integer", "title": "Thursday Profile", "description": "Limit Profile number for Thursday." }, "fri": { "type": "integer", "title": "Friday Profile", "description": "Limit Profile number for Friday." }, "sat": { "type": "integer", "title": "Saturday Profile", "description": "Limit Profile number for Saturday." }, "sun": { "type": "integer", "title": "Sunday Profile", "description": "Limit Profile number for Sunday." }
+      },
+      "required": ["parent", "parentType", "num", "action", "dirctn", "value"],
+      "additionalProperties": true
+    },
+    "configCounterLimit": {
+      "title": "Counter Limit",
+      "description": "Configuration object: counterLimit (Table 15). NOTE: like 'counter', the spec table has no 'parentType' field here. 'value' is typed Number in the spec table, not Integer as the Python test harness assumed.",
+      "type": "object",
+      "properties": {
+        "parent": { "type": "integer", "title": "Parent Point", "description": "Counter point number." },
+        "num": { "type": "integer", "title": "Point Limit Index", "description": "Point Limit Index (PLI) for limit." },
+        "name": { "type": "string", "title": "Limit Name", "description": "A human readable name for the limit." },
+        "action": { "type": "integer", "enum": [0, 1, 2], "title": "Action", "description": "Action to be taken on entering this state." },
+        "value": { "type": "number", "title": "Limit Value", "description": "The value of this limit." },
+        "mon": { "type": "integer", "title": "Monday Profile", "description": "Profile number for Monday." }, "tue": { "type": "integer", "title": "Tuesday Profile", "description": "Profile number for Tuesday." }, "wed": { "type": "integer", "title": "Wednesday Profile", "description": "Profile number for Wednesday." },
+        "thu": { "type": "integer", "title": "Thursday Profile", "description": "Profile number for Thursday." }, "fri": { "type": "integer", "title": "Friday Profile", "description": "Profile number for Friday." }, "sat": { "type": "integer", "title": "Saturday Profile", "description": "Profile number for Saturday." }, "sun": { "type": "integer", "title": "Sunday Profile", "description": "Profile number for Sunday." }
+      },
+      "required": ["parent", "num", "action", "value"],
+      "additionalProperties": true
+    },
+    "configNoChange": {
+      "title": "No Change",
+      "description": "Configuration object: noChange (Table 16).",
+      "type": "object",
+      "properties": {
+        "parent": { "type": "integer", "title": "Parent Point", "description": "Analogue point number." },
+        "parentType": { "type": "string", "enum": ["ai", "ao", "x", "c"], "title": "Parent Point Type", "description": "Type of point the limit refers to: \"ai\", \"ao\", \"x\", \"c\"." },
+        "num": { "type": "integer", "title": "Point Limit Index", "description": "Point Limit Index (PLI) for limit." },
+        "name": { "type": "string", "title": "Name", "description": "A human readable name for the limit." },
+        "deadband": { "type": "number", "title": "No Change Deadband", "description": "The size of the deadband within which the point value must remain to cause the no change event. Default 0." },
+        "period": { "type": "integer", "title": "No Change Period", "description": "The time in milliseconds that must elapse with the value remaining within the deadband to cause the no change event (0=disable no change detection)." },
+        "action": { "type": "integer", "enum": [0, 1, 2], "title": "No Change Action", "description": "Action to be taken on no change (0=do nothing, 1=log event with reason, 2=log event and trigger a connection to the SA)." }
+      },
+      "required": ["parent", "parentType", "num", "period", "action"],
+      "additionalProperties": true
+    },
+    "configExtPoint": {
+      "title": "Extended Point",
+      "description": "Configuration object: extPoint (Table 17). NOTE: the Python test harness typed 'resetOffset' as a string (should be integer, matching the equivalent field on 'counter') and named the report-period field 'resetReport' (the spec's actual JSON name is 'reportPeriod').",
+      "type": "object",
+      "properties": {
+        "parent": { "type": "integer", "title": "Parent Point", "description": "Parent point number." },
+        "parentType": { "type": "string", "enum": ["ai", "bi", "ao", "bo", "x", "c"], "title": "Parent Point Type", "description": "Type of parent point the extension refers to: \"ai\", \"bi\", \"ao\", \"bo\", \"x\", \"c\"." },
+        "num": { "type": "integer", "title": "Extension Point Index", "description": "Extension point number (allowable numbers defined in the min/max/totalObjects)." },
+        "name": { "type": "string", "title": "Name", "description": "A human readable name for the point." },
+        "className": { "type": "string", "title": "Class Name", "description": "The class is optional and is a string which can be used by the SA to denote equipment or asset ontology." },
+        "type": { "type": "string", "enum": ["RoC", "Min", "Max", "Mean", "StdDev", "Integral", "Run Time", "Count"], "title": "Extension Point Type", "description": "Rate of Change, Min, Max, Mean, StdDev, Integral, Run Time or Count. Run times count in 1 second units, scaled by the scaleFactorType of the extension; Counters count 1 per value change to 'state' value, also scaled." },
+        "resetPeriod": { "type": "integer", "title": "Reset Period", "description": "Interval between resets of this extension's value calculation, in milliseconds. If zero or absent, then is not reset." },
+        "resetOffset": { "type": "integer", "title": "Reset Offset", "description": "Offset from start of week (Monday) in milliseconds." },
+        "reportPeriod": { "type": "integer", "title": "Report Period", "description": "Interval between reports of this extension's value. In milliseconds, starting at reset with last accumulated value." },
+        "scale": { "type": "number", "title": "Scale Value", "description": "Multiplies raw value to get value of extension." },
+        "stateMask": { "type": "integer", "title": "State Mask", "description": "Increment the Run Time or Count when the source point state matches a state set in this bit mask. Only applies to Run Time or Count. Bit 0 is state 0, bit 1 state 1 and so on. A state mask of 0 will result in no Run Time or Count updates." },
+        "units": { "type": "string", "title": "Units", "description": "A free format ASCII string that can be used when displaying the point value through local access displays etc. The FD should not interpret any meaning from this string and may choose to ignore it completely." }
+      },
+      "required": ["parent", "parentType", "num", "type"],
+      "additionalProperties": true
+    },
+    "configLimitProfile": {
+      "title": "Limit Profile",
+      "description": "Configuration object: limitProfile (Table 18).",
+      "type": "object",
+      "properties": {
+        "num": { "type": "integer", "title": "Limit Profile Index", "description": "An index for this limit." },
+        "values": { "type": "array", "items": { "type": "number" }, "title": "Values", "description": "Values array - first value applies at first time." },
+        "times": { "type": "array", "items": { "type": "integer" }, "title": "Times", "description": "Times array - in milliseconds from start of day." },
+        "type": { "type": "integer", "enum": [0, 1], "title": "Type", "description": "Whether the profile is stepped (0) or linear (1). Stepped is 'step first' and is the default." },
+        "inter": { "type": "integer", "title": "Interpolate", "description": "The interpolation time (in milliseconds) used to compute a new value for the profile, interpolating between two profile points. If set to 0 then no interpolation is performed. Applies to control values." }
+      },
+      "required": ["num", "values", "times"],
+      "additionalProperties": true
+    },
+    "configControlProfile": {
+      "title": "Control Profile",
+      "description": "Configuration object: controlProfile (Table 19).",
+      "type": "object",
+      "properties": {
+        "parent": { "type": "integer", "title": "Parent Point", "description": "Analogue or binary output point number." },
+        "parentType": { "type": "string", "enum": ["ao", "bo"], "title": "Parent Type", "description": "\"ao\" or \"bo\"." },
+        "num": { "type": "integer", "title": "Control Profile Index", "description": "Control Profile Index for this profile." },
+        "name": { "type": "string", "title": "Limit Name", "description": "A human readable name for the limit." },
+        "mon": { "type": "integer", "title": "Monday Profile", "description": "Profile number for Monday." }, "tue": { "type": "integer", "title": "Tuesday Profile", "description": "Profile number for Tuesday." }, "wed": { "type": "integer", "title": "Wednesday Profile", "description": "Profile number for Wednesday." },
+        "thu": { "type": "integer", "title": "Thursday Profile", "description": "Profile number for Thursday." }, "fri": { "type": "integer", "title": "Friday Profile", "description": "Profile number for Friday." }, "sat": { "type": "integer", "title": "Saturday Profile", "description": "Profile number for Saturday." }, "sun": { "type": "integer", "title": "Sunday Profile", "description": "Profile number for Sunday." }
+      },
+      "required": ["parent", "parentType", "num"],
+      "additionalProperties": true
+    },
+    "configIncidentLog": {
+      "title": "Incident Log",
+      "description": "Configuration object: incidentLog (Table 21). NOTE: 'logRate' is marked mandatory in the spec table but was listed as optional in the Python test harness.",
+      "type": "object",
+      "properties": {
+        "parent": { "type": "integer", "title": "Parent Point", "description": "Parent point number." },
+        "parentType": { "type": "string", "enum": ["ai", "bi", "ao", "bo", "c", "x"], "title": "Parent Type", "description": "Type of the source point: \"ai\", \"bi\", \"ao\", \"bo\", \"c\" or \"x\"." },
+        "num": { "type": "integer", "title": "Store Number", "description": "Index number for this profile." },
+        "triggerPoint": { "type": "string", "title": "Trigger Point", "description": "Number of the point causing this log to be delivered." },
+        "triggerType": { "type": "string", "enum": ["ai", "bi", "ao", "bo", "c"], "title": "Trigger Type", "description": "Type of the trigger point: \"ai\", \"bi\", \"ao\", \"bo\", \"c\"." },
+        "triggerMask": { "type": "integer", "title": "Trigger Mask", "description": "Trigger occurs when point is in a state matching this bit mask. Binary inputs match by value. Analogues and counters match by alarm limit number, where the limit numbers correspond to bit numbers." },
+        "triggerStart": { "type": "integer", "title": "Trigger Start", "description": "The time (relative to the start of the incident) when logging is to begin, in milliseconds. Negative values mean the log starts before the trigger time." },
+        "triggerLength": { "type": "integer", "title": "Trigger Length", "description": "The length of time (in milliseconds) to continue logging the point after the incident." },
+        "action": { "type": "integer", "enum": [0, 1, 2], "title": "Action", "description": "Action to be taken on entering this state (0=do nothing [not relevant in this object type], 1=log event with reason, 2=log event and trigger a connection to the SA)." },
+        "logRate": { "type": "integer", "title": "Log Rate", "description": "The rate to be used (in milliseconds) to log the point." },
+        "logOffset": { "type": "integer", "title": "Log Offset", "description": "Offset time from the start of the week that the log is synchronised from (Monday, 00:00:00). Measured in seconds. If 0, then log is offset from the last midnight. (Default 0)." }
+      },
+      "required": ["parent", "parentType", "num", "logRate"],
+      "additionalProperties": true
     }
   },
   "messageLWT": {
@@ -792,7 +1079,7 @@
   },
   "messageConfiguration": {
     "title": "Configuration",
-    "description": "Schema for a Configuration message. a generic schema to validate configuration, with no complete check of object property names, because that is a function of the Device Profile. [UUID]/DOWN/Configuration. Or /UP/. Validation requires a device array, even if empty, to distinguish from status message",
+    "description": "Schema for a Configuration message. Standard object arrays (device, channel, connection, etc., per Sections 2.1-2.8 of the Lucid Protocol Specification) are optional at the message level -- a device profile need not send them all -- but if present, each entry must match its object type's shape as defined in the spec's Tables 1-4, 7, 8, 11-19, 21. Object-specific fields not covered by the standard shapes (e.g. specificToDeviceProfile fields per the Device Profile) are still permitted via additionalProperties. [UUID]/DOWN/Configuration. Or /UP/. Validation requires a device array, even if empty, to distinguish from status message",
     "type": "object",
     "properties": {
       "cVer": {
@@ -804,7 +1091,97 @@
       "device": {
         "type": "array",
         "items": {
-          "type": "object"
+          "$ref": "#/$defs/configDevice"
+        }
+      },
+      "channel": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/configChannel"
+        }
+      },
+      "connection": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/configConnection"
+        }
+      },
+      "connectionSchedule": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/configConnectionSchedule"
+        }
+      },
+      "deviceLink": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/configDeviceLink"
+        }
+      },
+      "point": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/configPoint"
+        }
+      },
+      "binary": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/configBinary"
+        }
+      },
+      "analogue": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/configAnalogue"
+        }
+      },
+      "analogueLimit": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/configAnalogueLimit"
+        }
+      },
+      "counter": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/configCounter"
+        }
+      },
+      "counterLimit": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/configCounterLimit"
+        }
+      },
+      "noChange": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/configNoChange"
+        }
+      },
+      "extPoint": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/configExtPoint"
+        }
+      },
+      "limitProfile": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/configLimitProfile"
+        }
+      },
+      "controlProfile": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/configControlProfile"
+        }
+      },
+      "incidentLog": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/configIncidentLog"
         }
       }
     },
